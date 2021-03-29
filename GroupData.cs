@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    class GroupData
+    public class GroupData
     {
         private string name;
         //создаем с дефолтным пустым значением. Следовательно, конструктор создавать не надо, туда
@@ -17,6 +17,7 @@ namespace WebAddressbookTests
         //конструктор. Принимает на вход только параметр name
         public GroupData(string name)
         {
+            //в поле присваиваем значение, которое передано как параметр
             this.name = name;
         }
         
@@ -38,7 +39,7 @@ namespace WebAddressbookTests
             {
                 return name;
             }
-            //set - устанавливает (или восстанавливает, хз)
+            //set - устанавливает
             set
             {
                 name = value;
