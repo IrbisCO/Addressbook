@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Класс для описания полей при создании групп
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

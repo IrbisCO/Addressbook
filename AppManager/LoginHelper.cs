@@ -15,7 +15,7 @@ namespace WebAddressbookTests
 
         //чтобы было видно driver. надо создать конструктор, в качестве параметра передается driver
         //так как есть БАЗОВЫЙ класс, то обращаемся к ЕГО конструктору и передается в качесве параметра ссылка на driver
-        public LoginHelper (IWebDriver driver) : base(driver)
+        public LoginHelper (ApplicationManager manager) : base(manager)
         {
         }
 

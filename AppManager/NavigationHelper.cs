@@ -18,7 +18,7 @@ namespace WebAddressbookTests
         //чтобы было видно driver. надо создать конструктор, в качестве параметра передается driver, только назвать его соотвественно
         //и теперь, в отличии от LoginHelper, тут передается два параметра
         //так как есть БАЗОВЫЙ класс, то обращаемся к ЕГО конструктору и передается в качесве параметра ссылка на driver
-        public NavigationHelper(IWebDriver driver, string baseURL) : base(driver)
+        public NavigationHelper(ApplicationManager manager, string baseURL) : base(manager)
         {
             //в поле присваиваем значение, которое передано как параметр
             this.baseURL = baseURL;
