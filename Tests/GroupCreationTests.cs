@@ -1,5 +1,9 @@
 ﻿//7 видео 1 урока 13 минута
 
+using System;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using NUnit.Framework;
 
 namespace WebAddressbookTests

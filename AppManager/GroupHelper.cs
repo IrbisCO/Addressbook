@@ -15,7 +15,11 @@ namespace WebAddressbookTests
         {
         }
 
-        //этот метод описыват основные и одинаковые действия при создании групп. Его перенес из тестов GroupCreationTests
+        /// <summary>
+        /// этот метод описыват основные и одинаковые действия при создании групп. Его перенес из тестов GroupCreationTests
+        /// </summary>
+        /// <param name="group">Данные, которыми заполняются строки при создании группы</param>
+        /// <returns></returns>
         public GroupHelper Create (GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
@@ -26,27 +30,55 @@ namespace WebAddressbookTests
             return this;
         }
 
-        ////этот метод описыват основные и одинаковые действия при удалении групп. Его перенес из тестов GroupRemovalTests
+        /// <summary>
+        /// этот метод описыват основные и одинаковые действия при модификации групп
+        /// </summary>
+        /// <param name="p">Номер группы, который надо модифицировать</param>
+        /// <param name="newData">новые данные, которые указываются вместо старых</param>
+        /// <returns></returns>
+        public GroupHelper Modify(int p, GroupData newData)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(p);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+        /// <summary>
+        /// этот метод описыват основные и одинаковые действия при удалении групп. Его перенес из тестов GroupRemovalTests
+        /// </summary>
+        /// <param name="p">Номер группы, который надо удалить</param>
+        /// <returns></returns>
         internal GroupHelper Remove(int p)
         {
             manager.Navigator.GoToGroupsPage();            
-            SelectGroup(1);
+            SelectGroup(p);
             RemoveGroup();
             ReturnToGroupsPage();
             return this;
         }
 
-        //клик по "new group"
-        //Когда вызывается метод в результате возвращается ссылка на него самого
-        //поэтому после public идет не void, а сам GroupHelper
-        //ну и retutn this в конце
+        /// <summary>
+        /// клик по "new group"
+        /// Когда вызывается метод в результате возвращается ссылка на него самого
+        /// поэтому после public идет не void, а сам GroupHelper
+        /// ну и retutn this в конце
+        /// </summary>
+        /// <returns>Возвращает сам себя</returns>
         public GroupHelper InitGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
             return this;
         }
 
-        //заполняем форму групп
+        /// <summary>
+        /// Заполняем форму группы
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
         public GroupHelper FillGroupForm(GroupData group)
         {
             driver.FindElement(By.Name("group_name")).Click();
@@ -59,31 +91,62 @@ namespace WebAddressbookTests
             return this;
         }
 
-        //подтверждаем создание группы
+        /// <summary>
+        /// подтверждаем создание группы
+        /// </summary>
+        /// <returns></returns>
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
             return this;
         }
 
-        //возврат на страницу с группами
+        /// <summary>
+        /// Возврат на страницу с группами
+        /// </summary>
+        /// <returns></returns>
         public GroupHelper ReturnToGroupsPage()
         {
             driver.FindElement(By.LinkText("group page")).Click();
             return this;
         }
 
-        //выбор группы (на стрнице групп). Добавили int index и указали в тесте какой именно номер надо брать
+        /// <summary>
+        /// Выбор группы для удаления\модификации (на странице групп). 
+        /// </summary>
+        /// <param name="index">Добавили int index и указали в тесте какой именно номер надо брать</param>
+        /// <returns></returns>
         public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
         }
 
-        //удаление группы
+        /// <summary>
+        /// Удаление группы
+        /// </summary>
+        /// <returns></returns>
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.Name("delete")).Click();
+            return this;
+        }
+
+        /// <summary>
+        /// Подтверждение модификации группы
+        /// </summary>
+        public GroupHelper SubmitGroupModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        /// <summary>
+        /// Клик по кнопке Edit для модификации группы
+        /// </summary>
+        public GroupHelper InitGroupModification()
+        {
+            driver.FindElement(By.Name("edit")).Click();
             return this;
         }
     }
