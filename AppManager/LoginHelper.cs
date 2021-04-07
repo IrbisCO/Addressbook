@@ -19,16 +19,16 @@ namespace WebAddressbookTests
         {
         }
 
-        //метод принимает один параметр типа AccountData, назвать можно как угодно (хоть AccountData irbiska)
+        /// <summary>
+        /// метод принимает один параметр типа AccountData
+        /// </summary>
+        /// <param name="account"></param>
         public void Login(AccountData account)
         {
-            driver.FindElement(By.Name("user")).Clear();
-            //в поля вносятся значения свойств объекта (account.Username). Передаем параметр как объект
-            driver.FindElement(By.Name("user")).SendKeys(account.Username);
-            driver.FindElement(By.Name("pass")).Click();
-            driver.FindElement(By.Name("pass")).Clear();
-            //в поля вносятся значения свойств объекта (account.Password)
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
+            /// в поля вносятся значения свойств объекта (account.Username). Передаем параметр как объект
+            Type(By.Name("user"), account.Username);
+            /// в поля вносятся значения свойств объекта (account.Password)
+            Type(By.Name("pass"), account.Password);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
     }

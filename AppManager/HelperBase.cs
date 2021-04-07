@@ -26,5 +26,26 @@ namespace WebAddressbookTests
             //получает ссылку на Driver у менеджера и все этой ссылкой могут пользоваться
             driver = manager.Driver;
         }
+
+        /// <summary>
+        /// Перенесен из GroupHelper
+        /// Метод делается из обычного Clear-SendKeys выносом By.Name("group_name") и group.Name в локальные переменные,
+        /// заменой ими в основной части и рефакторингом
+        /// Делается один раз и используется для всех форм
+        /// было так:
+        /// driver.FindElement(By.Name("group_name")).Clear();
+        /// driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
+        /// </summary>
+        /// <param name="locator">бывший By.Name("group_name"), по которому искалось поле, куда потом записывалось значение</param>
+        /// <param name="text">бывший group.Name, где передавалось значение для хедера\футера</param>
+        public void Type(By locator, string text)
+        {
+            ///Если поле text (значение футера\хедера не NULL, то его надо очистить и запонить, иначе не трогать
+            if (text != null)
+            {
+                driver.FindElement(locator).Clear();
+                driver.FindElement(locator).SendKeys(text);
+            }
+        }
     }
 }
