@@ -76,6 +76,7 @@
     <Compile Include="Figure\Square.cs" />
     <Compile Include="Figure\TestFigure.cs" />
     <Compile Include="Tests\TestBase.cs" />
+    <Compile Include="Tests\TestSuiteFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

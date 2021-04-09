@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -13,37 +14,90 @@ namespace WebAddressbookTests
 {
     public class ApplicationManager
     {
-        //взяли все ссылки на помощников из TestBase
+        ///взяли все ссылки на помощников из TestBase
 
-        //поле driver. Используется в помощниках
+        /// <summary>
+        /// поле driver. Используется в помощниках
+        /// </summary>
         protected IWebDriver driver;
-        //поле baseURL, задается ниже
+        /// <summary>
+        /// поле baseURL, задается ниже
+        /// </summary>
         protected string baseURL;
 
-        //это ссылки на помощников
-        //добавляем поле loginHelper, которое используется в методе SetUp для логина (имя должно отличаться (L и l)
+        ///это ссылки на помощников
+        /// <summary>
+        /// добавляем поле loginHelper, которое используется в методе SetUp для логина (имя должно отличаться (L и l)
+        /// </summary>
         protected LoginHelper loginHelper;
-        //добавляем поле navigator, которое используется в методе SetUp для навигации (имя должно отличаться (N и n)
+        /// <summary>
+        /// добавляем поле navigator, которое используется в методе SetUp для навигации (имя должно отличаться (N и n)
+        /// </summary>
         protected NavigationHelper navigator;
-        //добавляем поле groupHelper, которое используется в методе SetUp для всего по группам (имя должно отличаться (G и g)
+        /// <summary>
+        /// добавляем поле groupHelper, которое используется в методе SetUp для всего по группам (имя должно отличаться (G и g)
+        /// </summary>
         protected GroupHelper groupHelper;
 
-        //Инициализируем помощников с помощью конструктора (тоже просто скопировали из TestBase)
-        public ApplicationManager()
+        /// <summary>
+        /// Единственный экземпляр ApllicationManager
+        /// Специальный объект, который будет устанавливать соотвествие между текущим потоком и объктом типа ApplicationManager
+        /// </summary>
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
+
+        /// <summary>
+        /// Инициализируем помощников с помощью конструктора (тоже просто скопировали из TestBase)
+        /// Конструктор приватный, чтобы за пределами класса ApplicationManager никто не мог создать другие объекты
+        /// </summary>
+        private ApplicationManager()
         {
             driver = new ChromeDriver();
             baseURL = "http://localhost";
 
-            //вместо ссылки на драйвер (в скобках) передается ссылка на ApplicationManager
-            //подключаем помощника по логинам из LoginHelper
+            ///вместо ссылки на драйвер (в скобках) передается ссылка на ApplicationManager
+            ///подключаем помощника по логинам из LoginHelper
             loginHelper = new LoginHelper(this);
-            //подключаем помощника по навигации и NavgationHelper
+            ///подключаем помощника по навигации и NavgationHelper
             navigator = new NavigationHelper(this, baseURL);
-            //подключаем помощника по всему остальному из GroupHelper
+            ///подключаем помощника по всему остальному из GroupHelper
             groupHelper = new GroupHelper(this);
         }
 
-        //property для HelperBase для получения ссылки на driver
+        /// <summary>
+        /// Деструктор. Нужен для избавления от метода Stop() и остановки браузера
+        /// </summary>
+        ~ApplicationManager()
+        {
+            try
+            {
+                driver.Quit();
+            }
+            catch (Exception)
+            {
+                // Ignore errors if unable to close the browser
+            }
+        } 
+
+        /// <summary>
+        /// Singleton вместо глобальной переменной. Нужен для парраллельного запуска тестов
+        /// При первом запуске инициализируется, запускается браузер и все такое, а потом уже используется ранее созданный объект
+        /// </summary>
+        /// <returns></returns>
+        public static ApplicationManager GetInstance()
+        {
+            ///если для текщего потока внутри хранилища ничего не создано...
+            if (! app.IsValueCreated)
+            {
+                ///...то нужно его создать
+                app.Value = new ApplicationManager();
+            }
+            ///возвращается это самое значение (выше написано какое)
+            return app.Value;
+        }
+
+        /// <summary>
+        /// property для HelperBase для получения ссылки на driver
+        /// </summary>
         public IWebDriver Driver
         {
             get
@@ -52,22 +106,9 @@ namespace WebAddressbookTests
             }
         }
 
-        //Метод для остановки браузера
-        public void Stop()
-        {
-            {
-                try
-                {
-                    driver.Quit();
-                }
-                catch (Exception)
-                {
-                    // Ignore errors if unable to close the browser
-                }
-            }
-        }
-
-        //для доступа тестов к АппМанагеру делаем проперти только с set-тером
+        /// <summary>
+        /// для доступа тестов к ApplicationManager делаем проперти только с set-тером
+        /// </summary>
         public LoginHelper Auth
         {
             get

@@ -19,22 +19,9 @@ namespace WebAddressbookTests
         //метод для инициализации (драйвер, ссылка на главную, помощники)
         public void SetupTest()
         {
-            //инициализация ApplicationManager, так как все теперь там
-            app = new ApplicationManager();
-            //так как переход на главную и авторизация происходят всегда, то эта часть вынесена сюда
-            //через ApplicationManager взываем к помощникам (app.Navigator, app.Auth, app,Groups)
-            app.Navigator.GoToHomePage();
-            //передается один объект AccountData
-            //говорим тесту, что у него есть помощник
-            app.Auth.Login(new AccountData("admin", "secret"));
-        }
-
-        [TearDown]
-        //останавливает браузер в конце
-        public void TeardownTest()
-        {
-            //ccылка на AppManager
-            app.Stop();
+            ///инициализация ApplicationManager, так как все теперь там
+            ///обращаемся к GetInstance, чтобы получить доступ к единственному экземпляру ApplicationManager
+            app = ApplicationManager.GetInstance();
         }
     }
 }
