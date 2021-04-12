@@ -88,8 +88,14 @@ namespace WebAddressbookTests
             ///если для текщего потока внутри хранилища ничего не создано...
             if (! app.IsValueCreated)
             {
+                ApplicationManager newInstance = new ApplicationManager();
+                ///так как переход на главную и авторизация происходят всегда, то эта часть вынесена сюда
+                ///через ApplicationManager взываем к помощникам (app.Navigator, app.Auth, app,Groups)
+                newInstance.Navigator.GoToHomePage();
                 ///...то нужно его создать
-                app.Value = new ApplicationManager();
+                ///и присвоить новый созданный объект в хранилище ThreadLocal
+                app.Value = newInstance;
+                
             }
             ///возвращается это самое значение (выше написано какое)
             return app.Value;

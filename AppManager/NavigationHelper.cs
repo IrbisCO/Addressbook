@@ -24,15 +24,33 @@ namespace WebAddressbookTests
             this.baseURL = baseURL;
         }
 
-        //страница со входом
+        /// <summary>
+        /// страница со входом
+        /// </summary>
         public void GoToHomePage()
         {
+            ///Если есть нужный адрес
+            if (driver.Url == baseURL + "/addressbook/")
+            {
+                ///...то ничего делать не надо
+                return;
+            }
+            ///иначе переходим на главную
             driver.Navigate().GoToUrl(baseURL + "/addressbook/");
         }
 
-        //Страница групп
+        /// <summary>
+        /// Страница групп
+        /// </summary>
         public void GoToGroupsPage()
         {
+            ///Если есть нужный адрес + кнопка new...
+            if (driver.Url == baseURL + "/addressbook/group.php" && IsElementPresent(By.Name("new")))
+            {
+                ///...то ничего делать не надо
+                return;
+            }
+            ///иначе клик по groups
             driver.FindElement(By.LinkText("groups")).Click();
         }
     }

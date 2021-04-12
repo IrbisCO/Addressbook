@@ -1,4 +1,4 @@
-﻿//Базовый класс
+﻿///Базовый класс всея тестов
 
 using System;
 using System.Collections.Generic;
@@ -9,15 +9,19 @@ using NUnit.Framework;
 
 namespace WebAddressbookTests
 {
-    //перенесли это + SetUp + TearDown из основных тестов, так как это повторяется
+    /// <summary>
+    /// перенесли это + SetUp + TearDown из основных тестов, так как это повторяется
+    /// </summary>
     public class TestBase
     {
-        //так как все ссылки перенесены в ApplicationManager, то создаем ссылку на него
+        /// <summary>
+        /// так как все ссылки перенесены в ApplicationManager, то создаем ссылку на него
+        /// </summary>
         protected ApplicationManager app;
 
         [SetUp]
-        //метод для инициализации (драйвер, ссылка на главную, помощники)
-        public void SetupTest()
+        ///метод для инициализации (драйвер, ссылка на главную, помощники)
+        public void SetupApplicationManager()
         {
             ///инициализация ApplicationManager, так как все теперь там
             ///обращаемся к GetInstance, чтобы получить доступ к единственному экземпляру ApplicationManager
