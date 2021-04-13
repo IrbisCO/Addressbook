@@ -38,6 +38,10 @@ namespace WebAddressbookTests
         /// добавляем поле groupHelper, которое используется в методе SetUp для всего по группам (имя должно отличаться (G и g)
         /// </summary>
         protected GroupHelper groupHelper;
+        /// <summary>
+        /// добавляем поле contactHelper, которое используется в методе SetUp для всего по группам (имя должно отличаться (C и c)
+        /// </summary>
+        protected ContactHelper contactHelper;
 
         /// <summary>
         /// Единственный экземпляр ApllicationManager
@@ -61,6 +65,8 @@ namespace WebAddressbookTests
             navigator = new NavigationHelper(this, baseURL);
             ///подключаем помощника по всему остальному из GroupHelper
             groupHelper = new GroupHelper(this);
+            ///подключаем помощника по всему остальному из ContactHelper
+            contactHelper = new ContactHelper(this);
         }
 
         /// <summary>
@@ -134,6 +140,13 @@ namespace WebAddressbookTests
             get
             {
                 return groupHelper;
+            }
+        }
+        public ContactHelper Contacts
+        {
+            get
+            {
+                return contactHelper;
             }
         }
     }

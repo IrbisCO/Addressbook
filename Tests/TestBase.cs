@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace WebAddressbookTests
+namespace WebAddressbookTests.Tests
 {
     /// <summary>
     /// перенесли это + SetUp + TearDown из основных тестов, так как это повторяется

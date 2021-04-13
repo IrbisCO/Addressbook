@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
 
-namespace WebAddressbookTests
+namespace WebAddressbookTests.Tests
 {
     [TestFixture]
     public class GroupRemovalTests : AuthTestBase

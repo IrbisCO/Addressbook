@@ -53,5 +53,20 @@ namespace WebAddressbookTests
             ///иначе клик по groups
             driver.FindElement(By.LinkText("groups")).Click();
         }
+
+        /// <summary>
+        /// Страница Home (со списком контактов)
+        /// </summary>
+        public void GoToHome()
+        {
+            ///Если есть нужный адрес + текст Last name...
+            if (driver.Url == baseURL + "addressbook/" && IsElementPresent(By.LinkText("Last name")))
+            {
+                ///...то ничего делать не надо
+                return;
+            }
+            ///иначе клик по Home
+            driver.FindElement(By.LinkText("home")).Click();
+        }
     }
 }

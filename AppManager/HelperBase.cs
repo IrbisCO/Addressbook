@@ -1,5 +1,5 @@
-﻿//этот класс создан, чтобы одинаковый код из помощников переместить сюда
-//Базовый класс для помощников 
+﻿///Базовый класс для помощников 
+///этот класс создан, чтобы одинаковый код из помощников переместить сюда
 
 using System;
 using System.Collections.Generic;
@@ -14,9 +14,12 @@ namespace WebAddressbookTests
 {
     public class HelperBase
     {
-        //вот это самое поле driver для хелперов
+        /// <summary>
+        /// вот это самое поле driver для хелперов
+        /// </summary>
         protected IWebDriver driver;
         protected ApplicationManager manager;
+        private bool acceptNextAlert = true;
 
         //конструктор. На вход принимает ссылку на Application manager
         public HelperBase(ApplicationManager manager)
@@ -62,6 +65,33 @@ namespace WebAddressbookTests
             catch (NoSuchElementException)
             {
                 return false;
+            }
+        }
+        /// <summary>
+        /// Для закрытия алёрта при удалении контактов
+        /// Если надоест, это можно убрать
+        /// и использовать driver.SwitchTo().Alert().Accept(); в ContactHelper
+        /// </summary>
+        /// <returns></returns>
+        public string CloseAlertAndGetItsText()
+        {
+            try
+            {
+                IAlert alert = driver.SwitchTo().Alert();
+                string alertText = alert.Text;
+                if (acceptNextAlert)
+                {
+                    alert.Accept();
+                }
+                else
+                {
+                    alert.Dismiss();
+                }
+                return alertText;
+            }
+            finally
+            {
+                acceptNextAlert = true;
             }
         }
     }
