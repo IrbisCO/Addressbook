@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// Тест на проверку логина
+
 using NUnit.Framework;
 
 namespace WebAddressbookTests.Tests

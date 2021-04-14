@@ -1,26 +1,26 @@
 ﻿using OpenQA.Selenium;
-using System;
 
 namespace WebAddressbookTests
 {
     public class GroupHelper : HelperBase
     {
-        //создается поле типа IWebDriver, но теперь это в HelperBase
-
-        //чтобы было видно driver. надо создать конструктор, в качестве параметра передается driver
-        //так как есть БАЗОВЫЙ класс, то обращаемся к ЕГО конструктору и передается в качесве параметра ссылка на driver
-        //теперь передаем ссылку на manager, так как в ApplicationManager 
-        //вместо ссылки на драйвер (в скобках) передается ссылка на ApplicationManager
+        /// <summary>
+        /// чтобы было видно driver, надо создать конструктор, в качестве параметра передается driver
+        /// так как есть БАЗОВЫЙ класс, то обращаемся к ЕГО конструктору и передается в качесве параметра ссылка на driver
+        /// теперь передаем ссылку на manager, так как в ApplicationManager 
+        /// вместо ссылки на драйвер (в скобках) передается ссылка на ApplicationManager
+        /// </summary>
+        /// <param name="manager"></param>
         public GroupHelper(ApplicationManager manager) : base(manager)
         {
         }
 
         /// <summary>
-        /// этот метод описыват основные и одинаковые действия при создании групп. Его перенес из тестов GroupCreationTests
+        /// этот метод описыват действия при создании групп
         /// </summary>
         /// <param name="group">Данные, которыми заполняются строки при создании группы</param>
         /// <returns></returns>
-        public GroupHelper Create (GroupData group)
+        public GroupHelper Create(GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
             InitGroupCreation();
@@ -31,13 +31,16 @@ namespace WebAddressbookTests
         }
 
         /// <summary>
-        /// этот метод описыват основные и одинаковые действия при модификации групп
+        /// этот метод описыват действия для модификации групп
         /// </summary>
         /// <param name="p">Номер группы, который надо модифицировать</param>
         /// <param name="newData">новые данные, которые указываются вместо старых</param>
+        /// <param name="group">данные для создания группы</param>
         /// <returns></returns>
         public GroupHelper Modify(int p, GroupData newData, GroupData group)
         {
+            ///проверяется есть ли группа, которую можно изменить
+            ///если нет, то создается
             manager.Navigator.GoToGroupsPage();
             if (!GroupIsHere())
             {
@@ -45,6 +48,7 @@ namespace WebAddressbookTests
                 FillGroupForm(group);
                 SubmitGroupCreation();
             }
+            ///модификация 
             manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
             InitGroupModification();
@@ -54,18 +58,16 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private bool GroupIsHere()
-        {
-            return IsElementPresent(By.Name("selected[]"));
-        }
-
         /// <summary>
-        /// этот метод описыват основные и одинаковые действия при удалении групп. Его перенес из тестов GroupRemovalTests
+        /// этот метод описыват действия для удаления групп
         /// </summary>
         /// <param name="p">Номер группы, который надо удалить</param>
+        /// <param name="group">данные для создания группы</param>
         /// <returns></returns>
         internal GroupHelper Remove(int p, GroupData group)
         {
+            ///проверяется есть ли группа, которую можно изменить
+            ///если нет, то создается
             manager.Navigator.GoToGroupsPage();
             if (!GroupIsHere())
             {
@@ -73,7 +75,8 @@ namespace WebAddressbookTests
                 FillGroupForm(group);
                 SubmitGroupCreation();
             }
-            manager.Navigator.GoToGroupsPage();            
+            ///удаление
+            manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
             RemoveGroup();
             ReturnToGroupsPage();
@@ -164,6 +167,15 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("edit")).Click();
             return this;
+        }
+
+        /// <summary>
+        /// Проверяет наличие хотя бы одной группы
+        /// </summary>
+        /// <returns></returns>
+        private bool GroupIsHere()
+        {
+            return IsElementPresent(By.Name("selected[]"));
         }
     }
 }

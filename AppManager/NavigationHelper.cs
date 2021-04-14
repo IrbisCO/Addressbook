@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// Хелпер по навигации. Для одинаковых перемещений по странице
+
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
     public class NavigationHelper : HelperBase
     {
-        //создается поле типа IWebDriver, но теперь это в HelperBase
-        //создаем поле типа string для baseURL
+        /// <summary>
+        /// создаем поле типа string для baseURL
+        /// </summary>
         private string baseURL;
 
-        //чтобы было видно driver. надо создать конструктор, в качестве параметра передается driver, только назвать его соотвественно
-        //и теперь, в отличии от LoginHelper, тут передается два параметра
-        //так как есть БАЗОВЫЙ класс, то обращаемся к ЕГО конструктору и передается в качесве параметра ссылка на driver
+        /// <summary>
+        /// чтобы было видно driver. надо создать конструктор, в качестве параметра передается driver, только назвать его соотвественно
+        /// и теперь, в отличии от LoginHelper, тут передается два параметра
+        /// так как есть БАЗОВЫЙ класс, то обращаемся к ЕГО конструктору и передается в качесве параметра ссылка на driver
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <param name="baseURL"></param>
         public NavigationHelper(ApplicationManager manager, string baseURL) : base(manager)
         {
             //в поле присваиваем значение, которое передано как параметр

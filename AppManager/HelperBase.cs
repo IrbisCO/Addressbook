@@ -1,14 +1,7 @@
-﻿///Базовый класс для помощников 
-///этот класс создан, чтобы одинаковый код из помощников переместить сюда
+﻿/// Базовый класс для помощников 
+/// этот класс создан, чтобы одинаковый код из помощников переместить сюда
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
@@ -16,17 +9,21 @@ namespace WebAddressbookTests
     {
         /// <summary>
         /// вот это самое поле driver для хелперов
+        /// создается поле типа IWebDriver
         /// </summary>
         protected IWebDriver driver;
         protected ApplicationManager manager;
         private bool acceptNextAlert = true;
 
-        //конструктор. На вход принимает ссылку на Application manager
+        /// <summary>
+        /// конструктор. На вход принимает ссылку на Application manager
+        /// </summary>
+        /// <param name="manager"></param>
         public HelperBase(ApplicationManager manager)
         {
-            //сохраняем ссылку на manager, чтобы каждый помощник про него знал
+            ///сохраняем ссылку на manager, чтобы каждый помощник про него знал
             this.manager = manager;
-            //получает ссылку на Driver у менеджера и все этой ссылкой могут пользоваться
+            ///получает ссылку на Driver у менеджера и все этой ссылкой могут пользоваться
             driver = manager.Driver;
         }
 
@@ -43,7 +40,7 @@ namespace WebAddressbookTests
         /// <param name="text">бывший group.Name, где передавалось значение для хедера\футера</param>
         public void Type(By locator, string text)
         {
-            ///Если поле text (значение футера\хедера не NULL, то его надо очистить и запонить, иначе не трогать
+            ///Если в поле text (значение футера\хедера или любого друго поля не NULL, то его надо очистить и запонить, иначе не трогать
             if (text != null)
             {
                 driver.FindElement(locator).Clear();

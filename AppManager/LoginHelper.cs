@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// Помощник для авторицзации 
+
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
     public class LoginHelper : HelperBase
     {
-        //создается поле типа IWebDriver, но теперь это в HelperBase
-
-        //чтобы было видно driver. надо создать конструктор, в качестве параметра передается driver
-        //так как есть БАЗОВЫЙ класс, то обращаемся к ЕГО конструктору и передается в качесве параметра ссылка на driver
-        public LoginHelper (ApplicationManager manager) : base(manager)
+        /// <summary>
+        /// чтобы было видно driver. надо создать конструктор, в качестве параметра передается driver
+        /// так как есть БАЗОВЫЙ класс, то обращаемся к ЕГО конструктору и передается в качесве параметра ссылка на driver
+        /// </summary>
+        /// <param name="manager">Обращение к конструктору базового класса</param>
+        public LoginHelper(ApplicationManager manager) : base(manager)
         {
         }
 

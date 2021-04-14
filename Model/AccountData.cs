@@ -1,15 +1,12 @@
 ﻿///Класс для описания данных дял входа
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace WebAddressbookTests
 {
     public class AccountData
     {
+        /// <summary>
+        /// парочка полей для логина\пароля
+        /// </summary>
         private string username;
         private string password;
 
@@ -40,6 +37,9 @@ namespace WebAddressbookTests
             }
         }
 
+        /// <summary>
+        /// get\set позволят менять значения свойств объекта
+        /// </summary>
         public string Password
         {
             get

@@ -1,14 +1,9 @@
-﻿//Нужен для управления помощниками
+﻿///Нужен для управления помощниками
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
+using System;
+using System.Threading;
 
 namespace WebAddressbookTests
 {
@@ -82,7 +77,7 @@ namespace WebAddressbookTests
             {
                 // Ignore errors if unable to close the browser
             }
-        } 
+        }
 
         /// <summary>
         /// Singleton вместо глобальной переменной. Нужен для парраллельного запуска тестов
@@ -92,7 +87,7 @@ namespace WebAddressbookTests
         public static ApplicationManager GetInstance()
         {
             ///если для текщего потока внутри хранилища ничего не создано...
-            if (! app.IsValueCreated)
+            if (!app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
                 ///так как переход на главную и авторизация происходят всегда, то эта часть вынесена сюда
@@ -101,7 +96,7 @@ namespace WebAddressbookTests
                 ///...то нужно его создать
                 ///и присвоить новый созданный объект в хранилище ThreadLocal
                 app.Value = newInstance;
-                
+
             }
             ///возвращается это самое значение (выше написано какое)
             return app.Value;
@@ -120,6 +115,7 @@ namespace WebAddressbookTests
 
         /// <summary>
         /// для доступа тестов к ApplicationManager делаем проперти только с set-тером
+        /// 1. Доступ к авторизации
         /// </summary>
         public LoginHelper Auth
         {
@@ -128,6 +124,9 @@ namespace WebAddressbookTests
                 return loginHelper;
             }
         }
+        /// <summary>
+        /// 2. Доступ к навигации по странице
+        /// </summary>
         public NavigationHelper Navigator
         {
             get
@@ -135,6 +134,9 @@ namespace WebAddressbookTests
                 return navigator;
             }
         }
+        /// <summary>
+        /// 3. Доступ к списку групп
+        /// </summary>
         public GroupHelper Groups
         {
             get
@@ -142,6 +144,9 @@ namespace WebAddressbookTests
                 return groupHelper;
             }
         }
+        /// <summary>
+        /// 4. Доступ к списку контактов
+        /// </summary>
         public ContactHelper Contacts
         {
             get
