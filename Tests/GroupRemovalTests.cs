@@ -13,9 +13,10 @@ namespace WebAddressbookTests.Tests
         [Test]
         public void GroupRemovalTest()
         {
+            GroupData group = new GroupData("aaa");
             //логин и переход на главную сидят в TestBase
             //оставшийся метод состоит из кучи методов и сидит в GroupHelper
-            app.Groups.Remove(1);
+            app.Groups.Remove(1, group);
         }
     }
 }

@@ -14,9 +14,10 @@ namespace WebAddressbookTests.Tests
             [Test]
             public void ContactRemovalTest()
             {
-                //логин и переход на главную сидят в TestBase
-                //оставшийся метод состоит из кучи методов и сидит в GroupHelper
-                app.Contacts.Remove(1);
+            ContactData contact = new ContactData("Name", "Surname");
+            //логин и переход на главную сидят в TestBase
+            //оставшийся метод состоит из кучи методов и сидит в GroupHelper
+            app.Contacts.Remove(1, contact);
             }
         }
     }

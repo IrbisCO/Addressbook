@@ -36,8 +36,15 @@ namespace WebAddressbookTests
         /// <param name="p">Номер группы, который надо модифицировать</param>
         /// <param name="newData">новые данные, которые указываются вместо старых</param>
         /// <returns></returns>
-        public GroupHelper Modify(int p, GroupData newData)
+        public GroupHelper Modify(int p, GroupData newData, GroupData group)
         {
+            manager.Navigator.GoToGroupsPage();
+            if (!GroupIsHere())
+            {
+                InitGroupCreation();
+                FillGroupForm(group);
+                SubmitGroupCreation();
+            }
             manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
             InitGroupModification();
@@ -47,13 +54,25 @@ namespace WebAddressbookTests
             return this;
         }
 
+        private bool GroupIsHere()
+        {
+            return IsElementPresent(By.Name("selected[]"));
+        }
+
         /// <summary>
         /// этот метод описыват основные и одинаковые действия при удалении групп. Его перенес из тестов GroupRemovalTests
         /// </summary>
         /// <param name="p">Номер группы, который надо удалить</param>
         /// <returns></returns>
-        internal GroupHelper Remove(int p)
+        internal GroupHelper Remove(int p, GroupData group)
         {
+            manager.Navigator.GoToGroupsPage();
+            if (!GroupIsHere())
+            {
+                InitGroupCreation();
+                FillGroupForm(group);
+                SubmitGroupCreation();
+            }
             manager.Navigator.GoToGroupsPage();            
             SelectGroup(p);
             RemoveGroup();
