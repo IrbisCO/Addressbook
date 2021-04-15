@@ -5,7 +5,7 @@ using OpenQA.Selenium.Chrome;
 using System;
 using System.Threading;
 
-namespace WebAddressbookTests
+namespace WebAddressbookTests.AppManager
 {
     public class ApplicationManager
     {
@@ -41,8 +41,9 @@ namespace WebAddressbookTests
         /// <summary>
         /// Единственный экземпляр ApllicationManager
         /// Специальный объект, который будет устанавливать соотвествие между текущим потоком и объктом типа ApplicationManager
+        /// модификатор readonly добавлен по желанию VS, можно убрать если что
         /// </summary>
-        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
+        private static readonly ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
         /// <summary>
         /// Инициализируем помощников с помощью конструктора (тоже просто скопировали из TestBase)

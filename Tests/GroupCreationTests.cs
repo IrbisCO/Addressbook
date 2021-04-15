@@ -2,6 +2,7 @@
 /// 7 видео 1 урока 13 минута
 
 using NUnit.Framework;
+using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
 {
@@ -15,10 +16,12 @@ namespace WebAddressbookTests.Tests
             ///передаем значения в зависимости от конструктора. Если выбран первый (где только name, то передаем только "aaa"
             /// а если выбран второй, то надо передать все  три значения (теперь в нем нет смысла)
             /// FillGroupForm(new GroupData("aaa", "sss", "ddd"));
-            GroupData group = new GroupData("aaa");
-            /// поля Header\Footer, если они не нужны, можно в любой момент убрать, они будут заполнен дефолтными значениями
-            group.Header = "sss";
-            group.Footer = "ddd";
+            GroupData group = new GroupData("aaa")
+            {
+                /// поля Header\Footer, если они не нужны, можно в любой момент убрать, они будут заполнен дефолтными значениями
+                Header = "sss",
+                Footer = "ddd"
+            };
             /// логин и переход на главную сидят в TestBase (там же их описание), а так как он от него наследуется, то сам значет что делать
             /// через ApplicationManager взываем к помощникам (app.Navigator, app.Auth, app.Groups)
             /// Единсвенное действие
@@ -30,9 +33,11 @@ namespace WebAddressbookTests.Tests
         /// описание см GroupCreationTest()
         public void EmptyGroupCreationTest()
         {
-            GroupData group = new GroupData("");
-            group.Header = "";
-            group.Footer = "";
+            GroupData group = new GroupData("")
+            {
+                Header = "",
+                Footer = ""
+            };
             app.Groups.Create(group);
         }
     }

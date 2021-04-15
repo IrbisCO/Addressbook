@@ -3,7 +3,7 @@
 
 using OpenQA.Selenium;
 
-namespace WebAddressbookTests
+namespace WebAddressbookTests.AppManager
 {
     public class HelperBase
     {

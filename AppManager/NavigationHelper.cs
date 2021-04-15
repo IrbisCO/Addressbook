@@ -2,14 +2,15 @@
 
 using OpenQA.Selenium;
 
-namespace WebAddressbookTests
+namespace WebAddressbookTests.AppManager
 {
     public class NavigationHelper : HelperBase
     {
         /// <summary>
         /// создаем поле типа string для baseURL
+        /// модификатор readonly добавлен по желанию VS, можно убрать если что
         /// </summary>
-        private string baseURL;
+        private readonly string baseURL;
 
         /// <summary>
         /// чтобы было видно driver. надо создать конструктор, в качестве параметра передается driver, только назвать его соотвественно

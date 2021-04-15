@@ -1,6 +1,7 @@
 ﻿///Базовый класс для всех тестов, которые требуют входа в систему 
 
 using NUnit.Framework;
+using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
 {

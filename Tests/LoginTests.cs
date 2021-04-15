@@ -1,6 +1,7 @@
 ﻿/// Тест на проверку логина
 
 using NUnit.Framework;
+using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
 {

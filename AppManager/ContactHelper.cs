@@ -1,8 +1,9 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using System.Text.RegularExpressions;
+using WebAddressbookTests.Model;
 
-namespace WebAddressbookTests
+namespace WebAddressbookTests.AppManager
 {
     public class ContactHelper : HelperBase
     {

@@ -1,8 +1,9 @@
 ﻿/// Помощник для авторицзации 
 
 using OpenQA.Selenium;
+using WebAddressbookTests.Model;
 
-namespace WebAddressbookTests
+namespace WebAddressbookTests.AppManager
 {
     public class LoginHelper : HelperBase
     {

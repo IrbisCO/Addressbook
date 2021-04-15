@@ -1,6 +1,6 @@
 ﻿///Класс для описания полей при создании групп
 
-namespace WebAddressbookTests
+namespace WebAddressbookTests.Model
 {
     public class GroupData
     {

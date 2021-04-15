@@ -1,6 +1,7 @@
 ﻿///Базовый класс всея тестов
 
 using NUnit.Framework;
+using WebAddressbookTests.AppManager;
 
 namespace WebAddressbookTests.Tests
 {

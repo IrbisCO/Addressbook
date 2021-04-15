@@ -1,6 +1,6 @@
 ﻿///Класс для описания данных дял входа
 
-namespace WebAddressbookTests
+namespace WebAddressbookTests.Model
 {
     public class AccountData
     {

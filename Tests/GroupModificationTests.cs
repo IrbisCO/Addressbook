@@ -1,6 +1,7 @@
 ﻿/// Модафикация группы
 
 using NUnit.Framework;
+using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
 {

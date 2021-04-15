@@ -1,6 +1,6 @@
 ﻿///Класс для описания полей при создании контактов
 
-namespace WebAddressbookTests
+namespace WebAddressbookTests.Model
 {
     public class ContactData
     {

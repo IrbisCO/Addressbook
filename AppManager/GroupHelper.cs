@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
+using WebAddressbookTests.Model;
 
-namespace WebAddressbookTests
+namespace WebAddressbookTests.AppManager
 {
     public class GroupHelper : HelperBase
     {
