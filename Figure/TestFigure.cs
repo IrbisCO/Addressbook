@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Addressbook
+namespace Theory
 {
     [TestClass]
     public class TestFigure

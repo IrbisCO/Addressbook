@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using System;
+using System.Collections.Generic;
 using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.AppManager
@@ -138,7 +140,8 @@ namespace WebAddressbookTests.AppManager
         /// <returns></returns>
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            /// index + 1 чтобы в тесте указать удаление нулевого элемента, а он как бы удалит первый 
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
@@ -177,6 +180,31 @@ namespace WebAddressbookTests.AppManager
         private bool GroupIsHere()
         {
             return IsElementPresent(By.Name("selected[]"));
+        }
+
+        /// <summary>
+        /// Cписок групп
+        /// </summary>
+        /// <returns>Возвращаем заполненный список</returns>
+        public List<GroupData> GetGroupList()
+        {
+            /// Пустой список элементов типа GroupData
+            List<GroupData> groups = new List<GroupData>();
+            manager.Navigator.GoToGroupsPage();
+            /// Поиск элементов с тегом span и классом group
+            /// Для сохранения списка используется переменная elements
+            /// Добавляем коллекцию типа ICollection
+            /// IWebElement потому что при наведении на FindElements есть IWebElement
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            /// Превратить объекты типа IWebElement в объекты типа GroupData
+            /// Для каждого элемента в такой-то коллекции выполнить такое-то действие
+            foreach (IWebElement element in elements)
+            {
+                /// element.Text передать в качестве параметра в конструкторе GroupData
+                /// После создания объекта его необходимо поместить в groups
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
         }
     }
 }
