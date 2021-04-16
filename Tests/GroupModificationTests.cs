@@ -22,7 +22,7 @@ namespace WebAddressbookTests.Tests
             /// логин и переход на главную сидят в TestBase
             /// оставшийся метод состоит из кучи методов и сидит в GroupHelper
             /// модификация нужного элемента + новые данные
-            app.Groups.Modify(1, newData, group);
+            app.Groups.Modify(0, newData, group);
         }
     }
 }
