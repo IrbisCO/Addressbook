@@ -49,13 +49,13 @@ namespace WebAddressbookTests.Model
         public bool Equals(GroupData other)
         {
             /// 1 базовая проверка. Если объект, с которым мы сравниваем, это NULL
-            if (Object.ReferenceEquals(other, null))
+            if (other is null)
             {
                 /// false потому что текущий объект точно есть и точно не равен NULL
                 return false;
             }
             /// 2 базовая проверка. Если объект, с которым мы сравниваем, это тот же объект и они совпадают (две ссылки указывают на один и тот же объект)
-            if (Object.ReferenceEquals(this, other))
+            if (ReferenceEquals(this, other))
             {
                 /// true потому что никаких проверок не надо, так как объект сравниваем сам с собой 
                 return true;
@@ -98,7 +98,7 @@ namespace WebAddressbookTests.Model
         public int CompareTo(GroupData other)
         {
             /// 1. Стандартная проверка. Если второй объект равен NULL
-            if(object.ReferenceEquals(other, null))
+            if(other is null)
             {
                 /// Однозначно текущий объект больше
                 return 1;

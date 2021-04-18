@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
+using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using WebAddressbookTests.Model;
 
@@ -103,7 +105,7 @@ namespace WebAddressbookTests.AppManager
         /// <returns></returns>
         public ContactHelper InitContactModification(int index)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index+1) + "]")).Click();
             return this;
         }
 
@@ -135,7 +137,8 @@ namespace WebAddressbookTests.AppManager
         /// <param name="index">Номер выбранного контакта, задается в тесте</param>
         private void SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            /// index + 1 чтобы в тесте указать удаление нулевого элемента, а он как бы удалит первый 
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
         }
 
         /// <summary>
@@ -179,5 +182,34 @@ namespace WebAddressbookTests.AppManager
         {
             return IsElementPresent(By.XPath("//img[@alt='Details']"));
         }
+
+        /// <summary>
+        /// Cписок контактов
+        /// </summary>
+        /// <returns>Возвращаем заполненный список</returns>
+        public List<ContactData> GetContactList()
+        {
+            /// Пустой список элементов типа ContactData
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToHome();
+            /// Поиск элементов с именем entry
+            /// Для сохранения списка используется переменная elements
+            /// Добавляем коллекцию типа ICollection
+            /// IWebElement потому что при наведении на FindElements есть IWebElement
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            /// Превратить объекты типа IWebElement в объекты типа ContactData
+            /// Для каждого элемента в такой-то коллекции выполнить такое-то действие
+            foreach (IWebElement element in elements)
+            {
+                /// element.Text передать в качестве параметра в конструкторе ContactData
+                /// После создания объекта его необходимо поместить в contacts
+                contacts.Add(new ContactData(element.Text, ""));
+            }
+            return contacts;
+        }
     }
 }
+/*
+(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[2]"));
+(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[3]"));
+*/
