@@ -25,6 +25,9 @@ namespace WebAddressbookTests.Tests
             /// оставшийся метод состоит из кучи методов и сидит в GroupHelper
             app.Groups.Remove(0, group);
 
+            /// Операция возвращает количесвто групп, не читая их названия
+            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GroupsGetGroupCount());
+
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп

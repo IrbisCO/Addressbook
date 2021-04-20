@@ -206,7 +206,6 @@ namespace WebAddressbookTests.AppManager
     }
 }
 /*
-
-(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[2]"));
-(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[3]"));
+(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[2]")); Поле Фамидия
+(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[3]")); Поле Имя
 */

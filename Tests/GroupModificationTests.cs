@@ -31,6 +31,9 @@ namespace WebAddressbookTests.Tests
             /// модификация нужного элемента + новые данные
             app.Groups.Modify(0, newData, group);
 
+            /// Операция возвращает количесвто групп, не читая их названия
+            Assert.AreEqual(oldGroups.Count, app.Groups.GroupsGetGroupCount());
+
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
