@@ -48,9 +48,7 @@ namespace WebAddressbookTests.AppManager
             ///если нет, то создается
             if (!ContactHere())
             {
-                InitContactCreation();
-                FillContactForm(contact);
-                SubmitContactCreation();
+                Create(contact);
             }
             ///модификация
             manager.Navigator.GoToHome();
@@ -74,9 +72,7 @@ namespace WebAddressbookTests.AppManager
             ///если нет, то создается
             if (!ContactHere())
             {
-                InitContactCreation();
-                FillContactForm(contact);
-                SubmitContactCreation();
+                Create(contact);
             }
             ///удаление
             manager.Navigator.GoToHome();
@@ -105,7 +101,7 @@ namespace WebAddressbookTests.AppManager
         /// <returns></returns>
         public ContactHelper InitContactModification(int index)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index+1) + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
@@ -138,7 +134,7 @@ namespace WebAddressbookTests.AppManager
         private void SelectContact(int index)
         {
             /// index + 1 чтобы в тесте указать удаление нулевого элемента, а он как бы удалит первый 
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
         }
 
         /// <summary>
@@ -210,6 +206,7 @@ namespace WebAddressbookTests.AppManager
     }
 }
 /*
+
 (By.XPath("//table[@id='maintable']/tbody/tr[2]/td[2]"));
 (By.XPath("//table[@id='maintable']/tbody/tr[2]/td[3]"));
 */

@@ -37,21 +37,18 @@ namespace WebAddressbookTests.AppManager
         /// этот метод описыват действия для модификации групп
         /// </summary>
         /// <param name="p">Номер группы, который надо модифицировать</param>
-        /// <param name="newData">новые данные, которые указываются вместо старых</param>
+        /// <param name="newData">данные для изменения группы</param>
         /// <param name="group">данные для создания группы</param>
         /// <returns></returns>
         public GroupHelper Modify(int p, GroupData newData, GroupData group)
         {
-            ///проверяется есть ли группа, которую можно изменить
-            ///если нет, то создается
-            manager.Navigator.GoToGroupsPage();
+            /// Проверка наличия хотя бы одной группы
             if (!GroupIsHere())
             {
-                InitGroupCreation();
-                FillGroupForm(group);
-                SubmitGroupCreation();
+                /// СОздание группы, если ее нет
+                Create(group);
             }
-            ///модификация 
+            /// Модификация 
             manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
             InitGroupModification();
@@ -65,20 +62,16 @@ namespace WebAddressbookTests.AppManager
         /// этот метод описыват действия для удаления групп
         /// </summary>
         /// <param name="p">Номер группы, который надо удалить</param>
-        /// <param name="group">данные для создания группы</param>
         /// <returns></returns>
-        internal GroupHelper Remove(int p, GroupData group)
+        public GroupHelper Remove(int p, GroupData group)
         {
-            ///проверяется есть ли группа, которую можно изменить
-            ///если нет, то создается
-            manager.Navigator.GoToGroupsPage();
+            /// Проверка наличия хотя бы одной группы
             if (!GroupIsHere())
             {
-                InitGroupCreation();
-                FillGroupForm(group);
-                SubmitGroupCreation();
+                /// СОздание группы, если ее нет
+                Create(group);
             }
-            ///удаление
+            /// Удаление
             manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
             RemoveGroup();
@@ -177,7 +170,7 @@ namespace WebAddressbookTests.AppManager
         /// Проверяет наличие хотя бы одной группы
         /// </summary>
         /// <returns></returns>
-        private bool GroupIsHere()
+        public bool GroupIsHere()
         {
             return IsElementPresent(By.Name("selected[]"));
         }
