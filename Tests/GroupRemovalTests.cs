@@ -1,4 +1,5 @@
 ﻿/// Удаление группы
+/// 6:41 - ошибка в уроке 4_5
 
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace WebAddressbookTests.Tests
             app.Groups.Remove(0, group);
 
             /// Операция возвращает количесвто групп, не читая их названия
-            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GroupsGetGroupCount());
+            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
 
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
@@ -40,6 +41,18 @@ namespace WebAddressbookTests.Tests
             /// В данном случае сравниваются не размеры, а списки
             /// сравнивается старый список с удаленным элементом (вот для чего метод RemoveAt) с новым списком
             Assert.AreEqual(oldGroups, newGroups);
+
+            /// Для каждой группы в новом списке проверить, что Id этого элемента не равен Id удаленного
+            /// ДЛЯ ИСПРАВЛЕНИЯ ОШБИКИ НАДО УБРАТЬ GroupData group = new GroupData("aaa");
+            /// НО УБИРАТЬ НЕЛЬЗЯ, ТАК КАК ЭТО ЮЗАЕТСЯ ДЛЯ СОЗДАНИЯ ГРУППЫ В СЛУЧАЕ ЧЕГО
+            /// ТАК ЧТО НАДО ДУМАТЬ
+            /// 
+            /// Можно заменить group на group1, но выглядит не оч + все еще есть ошибка при отсутсвии групп (ошибка Баранцева)
+            foreach (GroupData group1 in newGroups)
+            {
+                /// Сравнивается с [0], так удаляли элемент с нулевым индексом
+                Assert.AreNotEqual(group1.Id, oldGroups[0]);
+            }
         }
     }
 }

@@ -35,7 +35,7 @@ namespace WebAddressbookTests.Tests
             app.Groups.Create(group);
 
             /// Операция возвращает количесвто групп, не читая их названия
-            Assert.AreEqual(oldGroups.Count+1, app.GroupsGetGroupCount());
+            Assert.AreEqual(oldGroups.Count+1, app.Groups.GetGroupCount());
 
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
@@ -80,7 +80,7 @@ namespace WebAddressbookTests.Tests
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
             /// Операция возвращает количесвто групп, не читая их названия
-            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GroupsGetGroupCount());
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
             /// Количество элементов в списке
             /// Сравнение не только длины, но и содержимого списков
@@ -115,7 +115,7 @@ namespace WebAddressbookTests.Tests
             app.Groups.Create(group);
 
             /// Операция возвращает количесвто групп, не читая их названия
-            Assert.AreEqual(oldGroups.Count, app.Groups.GroupsGetGroupCount());
+            Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 

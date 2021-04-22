@@ -18,17 +18,6 @@ namespace WebAddressbookTests.Model
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         /// <summary>
-        /// поле для названия группы
-        /// </summary>
-        private string name;
-        /// <summary>
-        /// создаем с дефолтным пустым значением. Следовательно, конструктор создавать не надо, 
-        /// туда будет по умолчанию передана пустая строка
-        /// </summary>
-        private string header = "";
-        private string footer = "";
-
-        /// <summary>
         /// конструктор. Принимает на вход только параметр name
         /// можно сделать несколько конструкторов. Например во втором хотим сделать все 3 поля обязательными
         /// оставляем первый конструктор для обратной совместимости
@@ -37,8 +26,8 @@ namespace WebAddressbookTests.Model
         /// <param name="name">Название группы</param>
         public GroupData(string name)
         {
-            ///в поле присваиваем значение, которое передано как параметр
-            this.name = name;
+            ///в поле присваиваем свойство
+            Name = name;
         }
 
         /// <summary>
@@ -110,49 +99,23 @@ namespace WebAddressbookTests.Model
         }
 
         /// <summary>
-        /// свойства
+        /// свойства (короткая запись). Поля создаются автоматически
         /// </summary>
-        public string Name
-        {
-            ///get - возвращает
-            get
-            {
-                return name;
-            }
-            ///set - устанавливает
-            set
-            {
-                name = value;
-            }
-        }
-        /// <summary>
-        /// если нужно поменять это дополнительное необязательное значние, испоьзуют свойства
-        /// </summary>
-        public string Header
-        {
-            get
-            {
-                return header;
-            }
-            set
-            {
-                header = value;
-            }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         /// если нужно поменять это дополнительное необязательное значние, испоьзуют свойства
         /// </summary>
-        public string Footer
-        {
-            get
-            {
-                return footer;
-            }
-            set
-            {
-                footer = value;
-            }
-        }
+        public string Header { get; set; }
+
+        /// <summary>
+        /// если нужно поменять это дополнительное необязательное значние, испоьзуют свойства
+        /// </summary>
+        public string Footer { get; set; }
+
+        /// <summary>
+        /// Свойство ID. Для определения элемента не только по имени, но и по ID
+        /// </summary>
+        public string Id { get; set; }
     }
 }

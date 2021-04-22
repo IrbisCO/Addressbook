@@ -19,7 +19,7 @@ namespace WebAddressbookTests.AppManager
         }
 
         /// <summary>
-        /// этот метод описыват действия при создании групп
+        /// метод описыват действия при создании групп
         /// </summary>
         /// <param name="group">Данные, которыми заполняются строки при создании группы</param>
         /// <returns></returns>
@@ -34,7 +34,7 @@ namespace WebAddressbookTests.AppManager
         }
 
         /// <summary>
-        /// этот метод описыват действия для модификации групп
+        /// метод описыват действия для модификации групп
         /// </summary>
         /// <param name="p">Номер группы, который надо модифицировать</param>
         /// <param name="newData">данные для изменения группы</param>
@@ -45,7 +45,7 @@ namespace WebAddressbookTests.AppManager
             /// Проверка наличия хотя бы одной группы
             if (!GroupIsHere())
             {
-                /// СОздание группы, если ее нет
+                /// Создание группы, если ее нет
                 Create(group);
             }
             /// Модификация 
@@ -208,10 +208,14 @@ namespace WebAddressbookTests.AppManager
                 /// Превратить объекты типа IWebElement в объекты типа GroupData
                 /// Для каждого элемента в такой-то коллекции выполнить такое-то действие
                 foreach (IWebElement element in elements)
-                {
+                {                    
                     /// element.Text передать в качестве параметра в конструкторе GroupData
                     /// После создания объекта его необходимо поместить в groupCache
-                    groupCache.Add(new GroupData(element.Text));
+                    /// В данном случае извлекается Id элемента
+                    groupCache.Add(new GroupData(element.Text)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
                 }
             }
             /// Возвращаем запомненный кэш. Новый список, построенный из старого
@@ -219,8 +223,11 @@ namespace WebAddressbookTests.AppManager
             return new List<GroupData>(groupCache);
         }
 
-
-        public int GroupsGetGroupCount()
+        /// <summary>
+        /// Считаем количество групп для удобства хэширования
+        /// </summary>
+        /// <returns></returns>
+        public int GetGroupCount()
         {
             return driver.FindElements(By.CssSelector("span.group")).Count;
         }
