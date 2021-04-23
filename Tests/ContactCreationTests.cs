@@ -29,6 +29,9 @@ namespace WebAddressbookTests.Tests
             /// все одинаковые методы были пересены в ContactHelper и теперь вызывается один метод, в котором вызываются другие методы
             app.Contacts.Create(contact);
 
+            /// Операция возвращает количесвто контактов, не читая их названия
+            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
+
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
@@ -62,6 +65,9 @@ namespace WebAddressbookTests.Tests
             /// все одинаковые методы были пересены в ContactHelper и теперь вызывается один метод, в котором вызываются другие методы
             app.Contacts.Create(contact);
 
+            /// Операция возвращает количесвто контактов, не читая их названия
+            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
+
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
@@ -94,6 +100,9 @@ namespace WebAddressbookTests.Tests
             /// Единсвенное действие:
             /// все одинаковые методы были пересены в ContactHelper и теперь вызывается один метод, в котором вызываются другие методы
             app.Contacts.Create(contact);
+
+            /// Операция возвращает количесвто контактов, не читая их названия
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
 
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 

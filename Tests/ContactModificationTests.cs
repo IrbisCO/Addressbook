@@ -21,10 +21,16 @@ namespace WebAddressbookTests.Tests
             /// oldGroups - Старый список групп
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
+            /// Запоминаем элемент с [0] ID
+            ContactData oldData = oldContacts[0];
+
             /// логин и переход на главную сидят в TestBase
             /// оставшийся метод состоит из кучи методов и сидит в GroupHelper
             /// модификация нужного элемента + новые данные
             app.Contacts.Modify(0, newData, contact);
+
+            /// Операция сравнивает количесвто контактов, не читая их названия
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
 
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
@@ -40,6 +46,21 @@ namespace WebAddressbookTests.Tests
             newContacts.Sort();
             /// И сравнивается старыый список с добавленным контактом и новый список из приложения
             Assert.AreEqual(oldContacts, newContacts);
+
+            /// Для каждого контакта в новом списке проверить, что Id этого элемента равен Id измененного
+            /// ДЛЯ ИСПРАВЛЕНИЯ ОШБИКИ НАДО УБРАТЬ ContactData contact = new ContactData("Name", "Surname");
+            /// НО УБИРАТЬ НЕЛЬЗЯ, ТАК КАК ЭТО ЮЗАЕТСЯ ДЛЯ СОЗДАНИЯ ГРУППЫ В СЛУЧАЕ ЧЕГО
+            /// ТАК ЧТО НАДО ДУМАТЬ
+            /// 
+            /// Можно заменить group на contact1, но выглядит не оч + все еще есть ошибка при отсутсвии контактов (ошибка Баранцева)
+            foreach (ContactData contact1 in newContacts)
+            {
+                /// Найти нужный элемент и проверить, что его имя изменилось
+                if (contact1.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.Name, contact1.Name);
+                }
+            }
         }
     }
 }

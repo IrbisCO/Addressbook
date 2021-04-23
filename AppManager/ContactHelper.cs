@@ -180,32 +180,58 @@ namespace WebAddressbookTests.AppManager
         }
 
         /// <summary>
+        /// Кэширование списка контактов
+        /// Тут хранится запомненный сохраненный список контактов
+        /// </summary>
+        /// <returns></returns>
+        private List<ContactData> contactCache = null;
+
+        /// <summary>
         /// Cписок контактов
         /// </summary>
         /// <returns>Возвращаем заполненный список</returns>
         public List<ContactData> GetContactList()
         {
-            /// Пустой список элементов типа ContactData
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.GoToHome();
-            /// Поиск элементов с именем entry
-            /// Для сохранения списка используется переменная elements
-            /// Добавляем коллекцию типа ICollection
-            /// IWebElement потому что при наведении на FindElements есть IWebElement
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
-            /// Превратить объекты типа IWebElement в объекты типа ContactData
-            /// Для каждого элемента в такой-то коллекции выполнить такое-то действие
-            foreach (IWebElement element in elements)
+            /// Если кэш еще не заполнен
+            if (contactCache == null)
             {
-                /// element.Text передать в качестве параметра в конструкторе ContactData
-                /// После создания объекта его необходимо поместить в contacts
-                contacts.Add(new ContactData(element.Text, ""));
+                /// Заполняем кэш
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToHome();
+                /// Поиск элементов с именем entry
+                /// Для сохранения списка используется переменная elements
+                /// Добавляем коллекцию типа ICollection
+                /// IWebElement потому что при наведении на FindElements есть IWebElement
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                /// Превратить объекты типа IWebElement в объекты типа ContactData
+                /// Для каждого элемента в такой-то коллекции выполнить такое-то действие
+                foreach (IWebElement element in elements)
+                {
+                    /// element.Text передать в качестве параметра в конструкторе ContactData
+                    /// После создания объекта его необходимо поместить в contacts
+                    /// В данном случае извлекается Id элемента
+                    contactCache.Add(new ContactData(element.Text, "")
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });                   
+                }
             }
-            return contacts;
+            /// Возвращаем запомненный кэш. Новый список, построенный из старого
+            /// Защита от добавления\удаления\ новых элементов в кэш
+            return new List<ContactData>(contactCache);
+        }
+
+        /// <summary>
+        /// Считаем количество контактов для удобства хэширования
+        /// </summary>
+        /// <returns></returns>
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.Name("entry")).Count;
         }
     }
 }
 /*
-(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[2]")); Поле Фамидия
+(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[2]")); Поле Фамилия
 (By.XPath("//table[@id='maintable']/tbody/tr[2]/td[3]")); Поле Имя
 */

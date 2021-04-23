@@ -74,13 +74,14 @@ namespace WebAddressbookTests.Tests
             /// все одинаковые методы были пересены в GroupHelper и теперь вызывается один метод, в котором вызываются другие методы
             app.Groups.Create(group);
 
+
+            /// Операция возвращает количесвто групп, не читая их названия
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
             List<GroupData> newGroups = app.Groups.GetGroupList();
-
-            /// Операция возвращает количесвто групп, не читая их названия
-            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
             /// Количество элементов в списке
             /// Сравнение не только длины, но и содержимого списков

@@ -17,11 +17,6 @@ namespace WebAddressbookTests.Model
     /// </summary>
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        /// <summary>
-        /// пара полей для имени\фамилии
-        /// </summary>
-        private string name;
-        private string surname;
 
         /// <summary>
         /// конструктор. Принимает на вход параметры name\surname
@@ -31,8 +26,8 @@ namespace WebAddressbookTests.Model
         /// <param name="surname">Фамилия</param>
         public ContactData(string name, string surname)
         {
-            this.name = name;
-            this.surname = surname;
+            Name = name;
+            Surname = surname;
         }
 
         /// <summary>
@@ -104,31 +99,16 @@ namespace WebAddressbookTests.Model
         /// <summary>
         /// свойства
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
-            }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         /// свойства
         /// </summary>
-        public string Surname
-        {
-            get
-            {
-                return surname;
-            }
-            set
-            {
-                surname = value;
-            }
-        }
+        public string Surname { get; set; }
+
+        /// <summary>
+        /// Свойство ID. Для определения элемента не только по имени, но и по ID
+        /// </summary>
+        public string Id { get; set; }
     }
 }
