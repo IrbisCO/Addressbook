@@ -49,7 +49,7 @@ namespace WebAddressbookTests.Tests
             foreach (ContactData contact1 in newContacts)
             {
                 /// Сравнивается с [0], так удаляли элемент с нулевым индексом
-                Assert.AreEqual(contact1.Name, oldContacts[0]);
+                Assert.AreEqual(contact1.Id, oldContacts[0]);
             }
         }
     }

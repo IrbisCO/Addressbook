@@ -17,6 +17,9 @@ namespace WebAddressbookTests.Model
     /// </summary>
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
+        public ContactData()
+        {
+        }
 
         /// <summary>
         /// конструктор. Принимает на вход параметры name\surname
@@ -38,7 +41,7 @@ namespace WebAddressbookTests.Model
         public bool Equals(ContactData other)
         {
             /// 1 базовая проверка. Если объект, с которым мы сравниваем, это NULL
-            if (other is null)
+            if (ReferenceEquals(other, null))
             {
                 /// false потому что текущий объект точно есть и точно не равен NULL
                 return false;
@@ -50,7 +53,7 @@ namespace WebAddressbookTests.Model
                 return true;
             }
             /// Проверка по смыслу. Сравниваем только имена. Для контактов имя+фамилия
-            return Surname == other.Surname && Name == other.Name;
+            return Name == other.Name & Surname == other.Surname;
         }
 
         /// <summary>
@@ -63,7 +66,7 @@ namespace WebAddressbookTests.Model
         public override int GetHashCode()
         {
             /// так как в сравнении участвует Name, то и хэш-коды вычисляются по именам
-            return (Surname + " " + Name).GetHashCode();
+            return (Name + Surname).GetHashCode();
         }
 
         /// <summary>
@@ -74,7 +77,7 @@ namespace WebAddressbookTests.Model
         public override string ToString()
         {
             /// Возвращает имя. Для контактов имя+фамилия
-            return "Contact: " + Surname + " " + Name;
+            return "Fullname = " + Name + " " + Surname;
         }
         /// <summary>
         /// Метод для сравнения
@@ -87,13 +90,18 @@ namespace WebAddressbookTests.Model
         public int CompareTo(ContactData other)
         {
             /// 1. Стандартная проверка. Если второй объект равен NULL
-            if (other is null)
+            if (ReferenceEquals(other, null))
             {
                 /// Однозначно текущий объект больше
                 return 1;
             }
-            /// 2. Сравнение по смыслу. Сравниваем Name
-            return (Surname + " " + Name).CompareTo(other.Surname + " " + Name);
+            /// 2. Сравнение по смыслу. Сравниваем Name и Surname
+            if (Equals(this.Surname, other.Surname))
+            {
+                return Name.CompareTo(other.Name);
+            }
+
+            return Surname.CompareTo(other.Surname);
         }
 
         /// <summary>

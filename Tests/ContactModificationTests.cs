@@ -1,4 +1,4 @@
-﻿/// Модафикация контакта
+﻿/// Модификация контакта
 
 using NUnit.Framework;
 using System.Collections.Generic;

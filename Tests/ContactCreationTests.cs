@@ -13,15 +13,19 @@ namespace WebAddressbookTests.Tests
         [Test]
         public void ContactCreationTest()
         {
-            /// передаем значения в зависимости от конструктора. Если выбран только name\surname, то передаем только "Name", "Surname"
-            /// поля Name\Surname, если они не нужны, можно в любой момент убрать, они будут заполнены дефолтными значениями (при указании Name = "")
-            /// если написано NULL, то с полем не выполняется каких-либо действий
-            ContactData contact = new ContactData("Имя", "Фамилия");
-
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
             List<ContactData> oldContacts = app.Contacts.GetContactList();
+
+            /// передаем значения в зависимости от конструктора. Если выбран только name\surname, то передаем только "Name", "Surname"
+            /// поля Name\Surname, если они не нужны, можно в любой момент убрать, они будут заполнены дефолтными значениями (при указании Name = "")
+            /// если написано NULL, то с полем не выполняется каких-либо действий
+            ContactData contact = new ContactData()
+            {
+                Name = "Имя",
+                Surname = "Фамилия"
+            };
 
             /// логин и переход на главную сидят в TestBase (там же их описание), а так как он от него наследуется, то сам значет что делать
             /// через ApplicationManager взываем к помощникам (app.Navigator, app.Auth, app.Contacts)
@@ -47,7 +51,7 @@ namespace WebAddressbookTests.Tests
             /// И сравнивается старыый список с добавленным контактом и новый список из приложения
             Assert.AreEqual(oldContacts, newContacts);
         }
-
+ 
         [Test]
         public void EmptyContactCreationTest()
         {
@@ -120,4 +124,3 @@ namespace WebAddressbookTests.Tests
         }
     }
 }
-

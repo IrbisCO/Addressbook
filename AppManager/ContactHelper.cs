@@ -124,6 +124,7 @@ namespace WebAddressbookTests.AppManager
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -147,6 +148,7 @@ namespace WebAddressbookTests.AppManager
             ///Для закрытия алёрта
             ///Если надоест можно использовать driver.SwitchTo().Alert().Accept();
             Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            contactCache = null;
             return this;
         }
 
@@ -157,6 +159,7 @@ namespace WebAddressbookTests.AppManager
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -202,15 +205,19 @@ namespace WebAddressbookTests.AppManager
                 /// Для сохранения списка используется переменная elements
                 /// Добавляем коллекцию типа ICollection
                 /// IWebElement потому что при наведении на FindElements есть IWebElement
-                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name='entry']"));
                 /// Превратить объекты типа IWebElement в объекты типа ContactData
                 /// Для каждого элемента в такой-то коллекции выполнить такое-то действие
                 foreach (IWebElement element in elements)
                 {
+                    /// Выбираем поочередно поля имя и фамилию
+                    string Name = element.FindElement(By.XPath("td[3]")).Text;
+                    string Surname = element.FindElement(By.XPath("td[2]")).Text;
                     /// element.Text передать в качестве параметра в конструкторе ContactData
+                    /// Объект передан явно (через .Text) выше и дальше уже используется Name\Surname
                     /// После создания объекта его необходимо поместить в contacts
                     /// В данном случае извлекается Id элемента
-                    contactCache.Add(new ContactData(element.Text, "")
+                    contactCache.Add(new ContactData(Name, Surname)
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     });                   
@@ -227,11 +234,7 @@ namespace WebAddressbookTests.AppManager
         /// <returns></returns>
         public int GetContactCount()
         {
-            return driver.FindElements(By.Name("entry")).Count;
+            return driver.FindElements(By.CssSelector("tr[name='entry']")).Count;
         }
     }
 }
-/*
-(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[2]")); Поле Фамилия
-(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[3]")); Поле Имя
-*/
