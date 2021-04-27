@@ -40,15 +40,8 @@ namespace WebAddressbookTests.AppManager
         /// <param name="newData">данные для изменения группы</param>
         /// <param name="group">данные для создания группы</param>
         /// <returns></returns>
-        public GroupHelper Modify(int p, GroupData newData, GroupData group)
+        public GroupHelper Modify(int p, GroupData newData)
         {
-            /// Проверка наличия хотя бы одной группы
-            if (!GroupIsHere())
-            {
-                /// Создание группы, если ее нет
-                Create(group);
-            }
-            /// Модификация 
             manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
             InitGroupModification();
@@ -63,15 +56,8 @@ namespace WebAddressbookTests.AppManager
         /// </summary>
         /// <param name="p">Номер группы, который надо удалить</param>
         /// <returns></returns>
-        public GroupHelper Remove(int p, GroupData group)
+        public GroupHelper Remove(int p)
         {
-            /// Проверка наличия хотя бы одной группы
-            if (!GroupIsHere())
-            {
-                /// СОздание группы, если ее нет
-                Create(group);
-            }
-            /// Удаление
             manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
             RemoveGroup();

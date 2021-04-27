@@ -16,7 +16,14 @@ namespace WebAddressbookTests.Tests
         {
             /// Данные для заполнения группы при создании группы для удаления
             GroupData group = new GroupData("aaa");
-            
+
+            /// Проверка наличия хотя бы одной группы
+            if (!app.Groups.GroupIsHere())
+            {
+                /// Создание группы, если ее нет
+                app.Groups.Create(group);
+            }
+
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
@@ -24,7 +31,7 @@ namespace WebAddressbookTests.Tests
 
             /// логин и переход на главную сидят в TestBase
             /// оставшийся метод состоит из кучи методов и сидит в GroupHelper
-            app.Groups.Remove(0, group);
+            app.Groups.Remove(0);
 
             /// Операция возвращает количесвто групп, не читая их названия
             Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
@@ -39,7 +46,7 @@ namespace WebAddressbookTests.Tests
             oldGroups.RemoveAt(0);
 
             /// В данном случае сравниваются не размеры, а списки
-            /// сравнивается старый список с удаленным элементом (вот для чего метод RemoveAt) с новым списком
+            /// сравнивается старый список с удаленным элементом (вот для чего метод RemoveAt() с новым списком
             Assert.AreEqual(oldGroups, newGroups);
 
             /// Для каждой группы в новом списке проверить, что Id этого элемента не равен Id удаленного

@@ -19,6 +19,14 @@ namespace WebAddressbookTests.Tests
             /// Метод возвращает список контактов, список объектов типа ContactData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
+
+            ///проверяется есть ли контакт, который можно изменить
+            ///если нет, то создается
+            if (!app.Contacts.ContactIsHere())
+            {
+                app.Contacts.Create(contact);
+            }
+
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             /// Запоминаем элемент с [0] ID
@@ -27,7 +35,7 @@ namespace WebAddressbookTests.Tests
             /// логин и переход на главную сидят в TestBase
             /// оставшийся метод состоит из кучи методов и сидит в GroupHelper
             /// модификация нужного элемента + новые данные
-            app.Contacts.Modify(0, newData, contact);
+            app.Contacts.Modify(0, newData);
 
             /// Операция сравнивает количесвто контактов, не читая их названия
             Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());

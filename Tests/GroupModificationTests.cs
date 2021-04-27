@@ -21,6 +21,13 @@ namespace WebAddressbookTests.Tests
             newData.Header = null;
             newData.Footer = null;
 
+            /// Проверка наличия хотя бы одной группы
+            if (!app.Groups.GroupIsHere())
+            {
+                /// Создание группы, если ее нет
+                app.Groups.Create(group);
+            }
+
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
@@ -32,7 +39,7 @@ namespace WebAddressbookTests.Tests
             /// логин и переход на главную сидят в TestBase
             /// оставшийся метод состоит из кучи методов и сидит в GroupHelper
             /// модификация нужного элемента + новые данные
-            app.Groups.Modify(0, newData, group);
+            app.Groups.Modify(0, newData);
 
             /// Операция сравнивает количесвто групп, не читая их названия
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());

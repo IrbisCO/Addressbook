@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading;
 using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.AppManager
@@ -40,19 +41,10 @@ namespace WebAddressbookTests.AppManager
         /// </summary>
         /// <param name="p">Номер контакта, который надо модифицировать</param>
         /// <param name="newData">новые данные, которые указываются вместо старых</param>
-        /// <param name="contact">данные для создания контакта</param>
         /// <returns></returns>
-        public ContactHelper Modify(int p, ContactData newData, ContactData contact)
+        public ContactHelper Modify(int p, ContactData newData)
         {
-            ///проверяется есть ли контакт, который можно изменить
-            ///если нет, то создается
-            if (!ContactHere())
-            {
-                Create(contact);
-            }
-            ///модификация
             manager.Navigator.GoToHome();
-            SelectContact(p);
             InitContactModification(p);
             FillContactForm(newData);
             SubmitContactModification();
@@ -64,20 +56,13 @@ namespace WebAddressbookTests.AppManager
         /// этот метод описыват действия для удаления контакта
         /// </summary>
         /// <param name="p">Номер контакта, который надо удалить</param>
-        /// <param name="contact">данные для создания контакта</param>
         /// <returns></returns>
-        public ContactHelper Remove(int p, ContactData contact)
+        public ContactHelper Remove(int p)
         {
-            ///проверяется есть ли контакт, который можно изменить
-            ///если нет, то создается
-            if (!ContactHere())
-            {
-                Create(contact);
-            }
-            ///удаление
             manager.Navigator.GoToHome();
             SelectContact(p);
             DeleteContact();
+            manager.Navigator.GoToHome();
             return this;
         }
 
@@ -177,7 +162,7 @@ namespace WebAddressbookTests.AppManager
         /// Проверка наличия хотя бы одного контакта (по кнопке Details)
         /// </summary>
         /// <returns></returns>
-        public bool ContactHere()
+        public bool ContactIsHere()
         {
             return IsElementPresent(By.XPath("//img[@alt='Details']"));
         }

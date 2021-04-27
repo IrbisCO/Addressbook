@@ -73,6 +73,12 @@ namespace WebAddressbookTests.AppManager
             /// Проверка, что залогинен и имя указанное в скобках равно данным из account 
             return IsLoggedIn()
                 && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text == "(" + account.Username + ")";
+            /*Вроде аналогичный вариант (как сказал Баранцев, но не работает)
+            /// Проверка, что залогинен и имя указанное в скобках равно данным из account 
+            return IsLoggedIn()
+                && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text
+                /// Запись "(${0})" нужна чтобы не указывать скобки в начале и конце и всякие +"("+")"
+                == System.String.Format("(${0})" + account.Username);*/
         }
     }
 }
