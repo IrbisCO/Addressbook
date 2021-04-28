@@ -1,6 +1,7 @@
 ﻿/// Помощник для авторицзации 
 
 using OpenQA.Selenium;
+using System;
 using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.AppManager
@@ -71,14 +72,21 @@ namespace WebAddressbookTests.AppManager
         public bool IsLoggedIn(AccountData account)
         {
             /// Проверка, что залогинен и имя указанное в скобках равно данным из account 
-            return IsLoggedIn()
-                && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text == "(" + account.Username + ")";
-            /*Вроде аналогичный вариант (как сказал Баранцев, но не работает)
+           // return IsLoggedIn()
+           //     && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text == "(" + account.Username + ")";
+
             /// Проверка, что залогинен и имя указанное в скобках равно данным из account 
-            return IsLoggedIn()
-                && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text
-                /// Запись "(${0})" нужна чтобы не указывать скобки в начале и конце и всякие +"("+")"
-                == System.String.Format("(${0})" + account.Username);*/
+            /// GetLoggetUserName - Извлекает имя пользователя, который залогинен
+            return IsLoggedIn() && GetLoggetUserName() == account.Username;
+                
+        }
+
+        public string GetLoggetUserName()
+        {
+            string text = driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;
+                
+            /// Substring - берем кусочек текста. Обрезаем первый и последний символ
+            return text.Substring(1, text.Length - 2);
         }
     }
 }

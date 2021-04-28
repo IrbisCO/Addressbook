@@ -195,13 +195,36 @@ namespace WebAddressbookTests.AppManager
                 /// Для каждого элемента в такой-то коллекции выполнить такое-то действие
                 foreach (IWebElement element in elements)
                 {                    
-                    /// element.Text передать в качестве параметра в конструкторе GroupData
+                    /// вместо element.Text ищем сразу по ID
                     /// После создания объекта его необходимо поместить в groupCache
                     /// В данном случае извлекается Id элемента
-                    groupCache.Add(new GroupData(element.Text)
+                    groupCache.Add(new GroupData(null)
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     });
+                }
+
+                /// Получаем список всех групп
+                string allGroupNames = driver.FindElement(By.CssSelector("div#content > form")).Text;
+                /// Получаем имена всех групп и помещаем их в массив строк
+                string[] parts = allGroupNames.Split('\n');
+                /// Проверяем насколько в кэше правильных групп больше кусочков, которые смогли получить
+                int shift = groupCache.Count - parts.Length;
+                /// прописываем имена всем группам
+                for(int i = 0; i < groupCache.Count; i++)
+                {
+                    /// Если i меньше, чем сдвиг
+                    if(i < shift)
+                    {
+                        /// То прописываем пустое имя
+                        groupCache[i].Name = "";
+                    }
+                    else
+                    {
+                        /// Иначе прописываем то имя, что нужно, но со сдвигом
+                        /// Trim - удаляет лишние пробелы в начале и конце группы
+                        groupCache[i].Name = parts[i - shift].Trim();
+                    }
                 }
             }
             /// Возвращаем запомненный кэш. Новый список, построенный из старого
