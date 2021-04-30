@@ -17,6 +17,133 @@ namespace WebAddressbookTests.Model
     /// </summary>
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
+        /// <summary>
+        /// Поле всех телефонов
+        /// </summary>
+        private string allPhones;
+        /// <summary>
+        /// Поле всех мэйлов
+        /// </summary>
+        private string allEmails;
+
+        /// <summary>
+        /// Имя
+        /// </summary>
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Фамилия
+        /// </summary>
+        public string SecondName { get; set; }
+
+        /// <summary>
+        /// Свойство ID. Для определения элемента не только по имени, но и по ID
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Адрес
+        /// </summary>
+        public string Address { get; set; }
+
+        /// <summary>
+        /// мэйл 1
+        /// </summary>
+        public string Email1 { get; set; }
+
+        /// <summary>
+        /// мэйл 2
+        /// </summary>
+        public string Email2 { get; set; }
+
+        /// <summary>
+        /// мэйл 3
+        /// </summary>
+        public string Email3 { get; set; }
+
+        /// <summary>
+        /// Все мэйлы
+        /// </summary>
+        public string AllEmails
+        {
+            get
+            {
+                /// Если поле allEmails установлено
+                if (allEmails != null)
+                {
+                    /// Возвращаем его же
+                    return allEmails;
+                }
+                /// Иначе склеиваем данные
+                else
+                {
+                    /// Trim - убирает лишние пробелы в начале и в конце 
+                    return (CleanUp(Email1) + CleanUp(Email2) + CleanUp(Email3)).Trim();
+                }
+            }
+            set
+            {
+                allEmails = value;
+            }
+        }
+
+        /// <summary>
+        /// Домашний телефон
+        /// </summary>
+        public string HomePhone { get; set; }
+
+        /// <summary>
+        /// Мобильный телефон
+        /// </summary>
+        public string MobilePhone { get; set; }
+
+        /// <summary>
+        /// Рабочий телефон
+        /// </summary>
+        public string WorkPhone { get; set; }
+
+        /// <summary>
+        /// Все телефоны
+        /// </summary>
+        public string AllPhones
+        {
+            get
+            {
+                /// Если поле allPhones установлено
+                if (allPhones != null)
+                {
+                    /// Возвращаем его же
+                    return allPhones;
+                }
+                /// Иначе склеиваем данные
+                else
+                {
+                    /// Trim - убирает лишние пробелы в начале и в конце 
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
+
+        /// <summary>
+        /// Убирает лишние символы (пробелы, скобки и тд)
+        /// </summary>
+        /// <param name="homePhone"></param>
+        /// <returns></returns>
+        private string CleanUp(string phone)
+        {
+            /// Если строка пустая 
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            /// Убираем лишние символы. Можно добавить больше при необходимости. В конце переносим строку
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+        }
+
         public ContactData()
         {
         }
@@ -25,12 +152,12 @@ namespace WebAddressbookTests.Model
         /// конструктор. Принимает на вход параметры name\surname
         /// можно сделать несколько конструкторов. Например во втором сделать все поля обязательными
         /// </summary>
-        /// <param name="name">Имя</param>
-        /// <param name="surname">Фамилия</param>
-        public ContactData(string name, string surname)
+        /// <param name="firstName">Имя</param>
+        /// <param name="secondName">Фамилия</param>
+        public ContactData(string firstName, string secondName)
         {
-            Name = name;
-            Surname = surname;
+            FirstName = firstName;
+            SecondName = secondName;
         }
 
         /// <summary>
@@ -53,7 +180,7 @@ namespace WebAddressbookTests.Model
                 return true;
             }
             /// Проверка по смыслу. Сравниваем только имена. Для контактов имя+фамилия
-            return Name == other.Name & Surname == other.Surname;
+            return FirstName == other.FirstName && SecondName == other.SecondName;
         }
 
         /// <summary>
@@ -66,7 +193,7 @@ namespace WebAddressbookTests.Model
         public override int GetHashCode()
         {
             /// так как в сравнении участвует Name, то и хэш-коды вычисляются по именам
-            return (Name + Surname).GetHashCode();
+            return (FirstName + SecondName).GetHashCode();
         }
 
         /// <summary>
@@ -77,7 +204,7 @@ namespace WebAddressbookTests.Model
         public override string ToString()
         {
             /// Возвращает имя. Для контактов имя+фамилия
-            return "Fullname = " + Name + " " + Surname;
+            return "Fullname = " + FirstName + " " + SecondName;
         }
         /// <summary>
         /// Метод для сравнения
@@ -96,27 +223,12 @@ namespace WebAddressbookTests.Model
                 return 1;
             }
             /// 2. Сравнение по смыслу. Сравниваем Name и Surname
-            if (Equals(this.Surname, other.Surname))
+            if (Equals(this.SecondName, other.SecondName))
             {
-                return Name.CompareTo(other.Name);
+                return FirstName.CompareTo(other.FirstName);
             }
 
-            return Surname.CompareTo(other.Surname);
+            return SecondName.CompareTo(other.SecondName);
         }
-
-        /// <summary>
-        /// свойства
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// свойства
-        /// </summary>
-        public string Surname { get; set; }
-
-        /// <summary>
-        /// Свойство ID. Для определения элемента не только по имени, но и по ID
-        /// </summary>
-        public string Id { get; set; }
     }
 }

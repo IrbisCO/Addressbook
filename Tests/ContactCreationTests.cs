@@ -23,8 +23,8 @@ namespace WebAddressbookTests.Tests
             /// если написано NULL, то с полем не выполняется каких-либо действий
             ContactData contact = new ContactData()
             {
-                Name = "Имя",
-                Surname = "Фамилия"
+                FirstName = "Имя",
+                SecondName = "Фамилия"
             };
 
             /// логин и переход на главную сидят в TestBase (там же их описание), а так как он от него наследуется, то сам значет что делать

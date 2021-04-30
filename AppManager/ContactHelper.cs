@@ -86,7 +86,11 @@ namespace WebAddressbookTests.AppManager
         /// <returns></returns>
         public ContactHelper InitContactModification(int index)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click();
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[7]
+                .FindElement(By.TagName("a")).Click();
+
+            //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click(); // Работает аналогично
             return this;
         }
 
@@ -97,8 +101,8 @@ namespace WebAddressbookTests.AppManager
         /// <returns></returns>
         public ContactHelper FillContactForm(ContactData contact)
         {
-            Type(By.Name("firstname"), contact.Name);
-            Type(By.Name("lastname"), contact.Surname);
+            Type(By.Name("firstname"), contact.FirstName);
+            Type(By.Name("lastname"), contact.SecondName);
             return this;
         }
 
@@ -220,6 +224,69 @@ namespace WebAddressbookTests.AppManager
         public int GetContactCount()
         {
             return driver.FindElements(By.CssSelector("tr[name='entry']")).Count;
+        }
+
+        /// <summary>
+        /// Получение информации из таблицы
+        /// </summary>
+        /// <returns></returns>
+        public ContactData GetContactInformationFromTable(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            /// Сохраняем все ячейки в переменную
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"));
+            /// Извлекаем из каждой ячейки нужный текст
+            string firstName = cells[1].Text;
+            string lastName = cells[2].Text;
+            string address = cells[3].Text;
+            /// Так как мэйлов много, сначала берем все поле с любым количеством (0-3) и извлекаем отдельно
+            string allEmails = cells[4].Text;
+            /// Так как телефонов много, сначала берем все поле с любым количеством (0-3) и извлекаем отдельно
+            string allPhones = cells[5].Text;
+            return new ContactData(lastName, firstName)
+            {
+                /// Дополнительные property. Прописываем все значения, которые извлекли из браузера 
+                Address = address,
+                AllEmails = allEmails,
+                AllPhones = allPhones
+            };
+        }
+        
+        /// <summary>
+        /// Получение информации из формы
+        /// </summary>
+        /// <returns></returns>
+        public ContactData GetContactInformationFromEditForm(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactModification(index);
+            /// Получаем данные из полей (добавить позже все обязательные)
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lasttName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+            
+            string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+
+            /// Сохраняем полученные данные
+            return new ContactData(firstName, lasttName)
+            {
+                /// Дополнительные property. Прописываем все значения, которые извлекли из браузера 
+                Address = address,
+
+                Email1 = email1,
+                Email2 = email2,
+                Email3 = email3,
+
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
+                WorkPhone = workPhone
+            };
         }
     }
 }

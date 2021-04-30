@@ -17,8 +17,8 @@ namespace WebAddressbookTests.Tests
             /// Данные для заполнения группы при создании группы для удаления
             ContactData contact = new ContactData()
             {
-                Name = "Name",
-                Surname = "Surname"
+                FirstName = "Name",
+                SecondName = "Surname"
             };
             ///проверяется есть ли контакт, который можно изменить
             ///если нет, то создается

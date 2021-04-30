@@ -46,8 +46,8 @@ namespace WebAddressbookTests.Tests
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
             /// Берем контакт с нулевым индексом, который модифицировали, и меняем ему имя Name = newData.Name
-            oldContacts[0].Name = newData.Name;
-            oldContacts[0].Surname = newData.Surname;
+            oldContacts[0].FirstName = newData.FirstName;
+            oldContacts[0].SecondName = newData.SecondName;
 
             /// Сортируем списки перед сравнением 
             oldContacts.Sort();
@@ -66,7 +66,7 @@ namespace WebAddressbookTests.Tests
                 /// Найти нужный элемент и проверить, что его имя изменилось
                 if (contact1.Id == oldData.Id)
                 {
-                    Assert.AreEqual(newData.Name, contact1.Name);
+                    Assert.AreEqual(newData.FirstName, contact1.FirstName);
                 }
             }
         }
