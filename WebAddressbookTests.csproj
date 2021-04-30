@@ -97,6 +97,7 @@
     <Compile Include="Figure\Square.cs" />
     <Compile Include="Figure\TestFigure.cs" />
     <Compile Include="Tests\LoginTests.cs" />
+    <Compile Include="Tests\SearchTests.cs" />
     <Compile Include="Tests\TestBase.cs" />
   </ItemGroup>
   <ItemGroup>

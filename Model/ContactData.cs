@@ -1,6 +1,7 @@
 ﻿///Класс для описания полей при создании контактов
 
 using System;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests.Model
 {
@@ -141,7 +142,7 @@ namespace WebAddressbookTests.Model
                 return "";
             }
             /// Убираем лишние символы. Можно добавить больше при необходимости. В конце переносим строку
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
         }
 
         public ContactData()

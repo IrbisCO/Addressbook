@@ -288,5 +288,18 @@ namespace WebAddressbookTests.AppManager
                 WorkPhone = workPhone
             };
         }
+
+        /// <summary>
+        /// Количество контактов
+        /// </summary>
+        /// <returns></returns>
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.GoToHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            // TODO добавить описание этих шагов (урок 5_4)
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
+        }
     }
 }
