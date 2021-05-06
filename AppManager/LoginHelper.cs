@@ -72,15 +72,14 @@ namespace WebAddressbookTests.AppManager
         public bool IsLoggedIn(AccountData account)
         {
             /// Проверка, что залогинен и имя указанное в скобках равно данным из account 
-           // return IsLoggedIn()
-           //     && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text == "(" + account.Username + ")";
-
-            /// Проверка, что залогинен и имя указанное в скобках равно данным из account 
-            /// GetLoggetUserName - Извлекает имя пользователя, который залогинен
             return IsLoggedIn() && GetLoggetUserName() == account.Username;
                 
         }
 
+        /// <summary>
+        /// Извлекает имя пользователя, который залогинен
+        /// </summary>
+        /// <returns></returns>
         public string GetLoggetUserName()
         {
             string text = driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;

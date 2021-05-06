@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿/// Тест для подсчета количества контактов
+
+using NUnit.Framework;
 using System.Collections.Generic;
 using WebAddressbookTests.Model;
 

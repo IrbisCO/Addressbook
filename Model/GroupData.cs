@@ -76,7 +76,7 @@ namespace WebAddressbookTests.Model
         public override string ToString()
         {
             /// Возвращает имя. Для контактов имя+фамилия
-            return "name = " + Name;
+            return "name = " + Name + "\nheader = " + Header + "\nfooter = " + Footer;
         }
         /// <summary>
         /// Метод для сравнения

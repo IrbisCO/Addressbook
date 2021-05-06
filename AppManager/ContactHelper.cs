@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿/// Helper for Contacts
+
+using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -91,6 +93,19 @@ namespace WebAddressbookTests.AppManager
                 .FindElement(By.TagName("a")).Click();
 
             //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click(); // Работает аналогично
+            return this;
+        }
+
+        /// <summary>
+        /// Клик по Details
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public ContactHelper InitContactDetails(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
             return this;
         }
 
@@ -290,15 +305,34 @@ namespace WebAddressbookTests.AppManager
         }
 
         /// <summary>
+        /// Получение информации на странице просмотра свойств контакта 
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public ContactData GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactDetails(index);
+            /// Сохраняем все данные в переменную
+            string contactDetails = driver.FindElement(By.Id("content")).Text;
+            return new ContactData()
+            {
+                ContactDetails = contactDetails
+            };
+        }
+
+        /// <summary>
         /// Количество контактов
         /// </summary>
         /// <returns></returns>
         public int GetNumberOfSearchResults()
         {
             manager.Navigator.GoToHomePage();
+            ///Находим элемент, который содержит нужное нам значение
             string text = driver.FindElement(By.TagName("label")).Text;
-            // TODO добавить описание этих шагов (урок 5_4)
+            /// Регулярное выражение. Находим фрагмент, который состоит из нескольких подряд идущих символов (\d+). И применяем его к text
             Match m = new Regex(@"\d+").Match(text);
+            /// Берем значение и преобразуем его в число
             return Int32.Parse(m.Value);
         }
     }

@@ -26,6 +26,10 @@ namespace WebAddressbookTests.Model
         /// Поле всех мэйлов
         /// </summary>
         private string allEmails;
+        /// <summary>
+        /// Поле всей поле всей информации о контакте
+        /// </summary>
+        private string contactDetailes;
 
         /// <summary>
         /// Имя
@@ -129,6 +133,25 @@ namespace WebAddressbookTests.Model
             }
         }
 
+        public string ContactDetails
+        {
+            get
+            {
+                if (contactDetailes != null)
+                {
+                    return contactDetailes;
+                }
+                else
+                {
+                    return (CleanUp(FirstName) + CleanUp(SecondName) + CleanUp(Address) + CleanUp(AllEmails) + CleanUp(allPhones)).Trim();
+                }
+            }
+            set
+            {
+                contactDetailes = value;
+            }
+        }
+
         /// <summary>
         /// Убирает лишние символы (пробелы, скобки и тд)
         /// </summary>
@@ -141,7 +164,7 @@ namespace WebAddressbookTests.Model
             {
                 return "";
             }
-            /// Убираем лишние символы. Можно добавить больше при необходимости. В конце переносим строку
+            /// Убираем лишние символы. Можно добавить больше при необходимости. Заменяеые значения в [], это пробел, тире, скобки. В конце переносим строку
             return Regex.Replace(phone, "[ -()]", "") + "\r\n";
         }
 

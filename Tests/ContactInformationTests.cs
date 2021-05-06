@@ -10,11 +10,15 @@ namespace WebAddressbookTests.Tests
     [TestFixture]
     public class ContactInformationTests : AuthTestBase
     {
-
+        /// <summary>
+        /// Проверка данных из формы и из таблицы
+        /// </summary>
         [Test]
         public void TestContactInformation()
         {
+            /// Получение информации из таблицы контактов
             ContactData fromTable = app.Contacts.GetContactInformationFromTable(0);
+            /// Получение информации из формы редактирования контакта
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
 
             /// Verification
@@ -25,6 +29,18 @@ namespace WebAddressbookTests.Tests
             Assert.AreEqual(fromTable.Address, fromForm.Address);
             /// Сравниваем телефоны
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
+        }
+
+        [Test]
+        public void TestDetailsInformation()
+        {
+            /// Получение информации из формы редактирования контакта
+            ContactData fromForm = app.Contacts.GetContactInformationFromTable(0);
+            /// Получение информации на странице просмотра свойств контакта 
+            ContactData fromDetails = app.Contacts.GetContactInformationFromDetails(0);
+
+            /// Verification
+            Assert.AreEqual(fromDetails.ContactDetails, fromForm.ContactDetails);
         }
     }
 }
