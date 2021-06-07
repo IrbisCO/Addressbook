@@ -37,9 +37,29 @@ namespace WebAddressbookTests.Model
         public string FirstName { get; set; }
 
         /// <summary>
+        /// Отчество
+        /// </summary>
+        public string MiddleName { get; set; }
+
+        /// <summary>
         /// Фамилия
         /// </summary>
         public string SecondName { get; set; }
+
+        /// <summary>
+        /// Никнейм
+        /// </summary>
+        public string Nickname { get; set; }
+
+        /// <summary>
+        /// Комания
+        /// </summary>
+        public string Company { get; set; }
+
+        /// <summary>
+        /// ЗАголовок
+        /// </summary>
+        public string Title { get; set; }
 
         /// <summary>
         /// Свойство ID. Для определения элемента не только по имени, но и по ID
@@ -52,19 +72,41 @@ namespace WebAddressbookTests.Model
         public string Address { get; set; }
 
         /// <summary>
-        /// мэйл 1
+        /// Secondary Address
+        /// </summary>
+        public string SecondaryAddress { get; set; }
+
+
+        /// <summary>
+        /// Secondary Home Phone
+        /// </summary>
+        public string SecondaryHomePhone { get; set; }
+
+
+        /// <summary>
+        /// Notes
+        /// </summary>
+        public string Notes { get; set; }
+
+        /// <summary>
+        /// E-mail #1
         /// </summary>
         public string Email1 { get; set; }
 
         /// <summary>
-        /// мэйл 2
+        /// E-mail #2
         /// </summary>
         public string Email2 { get; set; }
 
         /// <summary>
-        /// мэйл 3
+        /// E-mail #3
         /// </summary>
         public string Email3 { get; set; }
+
+        /// <summary>
+        /// Homepage (E-mail)
+        /// </summary>
+        public string Homepage { get; set; }
 
         /// <summary>
         /// Все мэйлы
@@ -83,7 +125,7 @@ namespace WebAddressbookTests.Model
                 else
                 {
                     /// Trim - убирает лишние пробелы в начале и в конце 
-                    return (CleanUp(Email1) + CleanUp(Email2) + CleanUp(Email3)).Trim();
+                    return ((Email1) + (Email2) + (Email3)).Trim();
                 }
             }
             set
@@ -108,6 +150,11 @@ namespace WebAddressbookTests.Model
         public string WorkPhone { get; set; }
 
         /// <summary>
+        /// Fax
+        /// </summary>
+        public string Fax { get; set; }
+
+        /// <summary>
         /// Все телефоны
         /// </summary>
         public string AllPhones
@@ -124,7 +171,7 @@ namespace WebAddressbookTests.Model
                 else
                 {
                     /// Trim - убирает лишние пробелы в начале и в конце 
-                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone) + CleanUp(SecondaryHomePhone)).Trim();
                 }
             }
             set
@@ -133,6 +180,9 @@ namespace WebAddressbookTests.Model
             }
         }
 
+        /// <summary>
+        /// Просмотр детальной информации о контакте
+        /// </summary>
         public string ContactDetails
         {
             get
@@ -143,7 +193,23 @@ namespace WebAddressbookTests.Model
                 }
                 else
                 {
-                    return (CleanUp(FirstName) + CleanUp(SecondName) + CleanUp(Address) + CleanUp(AllEmails) + CleanUp(allPhones)).Trim();
+                    return 
+                        (FirstName + " " + MiddleName + " " + SecondName + "\r\n"
+                        + Nickname + "\r\n"
+                        + Title + "\r\n"
+                        + Company + "\r\n"
+                        + Address + "\r\n\r\n"
+                        + "H: " + HomePhone + "\r\n"
+                        + "M: " + MobilePhone + "\r\n"
+                        + "W: " + WorkPhone + "\r\n"
+                        + "F: " + Fax + "\r\n\r\n"
+                        + Email1 + "\r\n"
+                        + Email2 + "\r\n"
+                        + Email3 + "\r\n"
+                        + "Homepage:" + "\r\n" + Homepage + "\r\n\r\n\r\n"
+                        + (SecondaryAddress) + "\r\n\r\n"
+                        + "P: " + (SecondaryHomePhone) + "\r\n\r\n"
+                        + Notes).Trim();
                 }
             }
             set
@@ -165,7 +231,7 @@ namespace WebAddressbookTests.Model
                 return "";
             }
             /// Убираем лишние символы. Можно добавить больше при необходимости. Заменяеые значения в [], это пробел, тире, скобки. В конце переносим строку
-            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
+            return Regex.Replace(phone, "[ ()-]", "") + "\r\n";
         }
 
         public ContactData()

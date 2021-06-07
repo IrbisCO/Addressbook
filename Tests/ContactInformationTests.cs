@@ -2,6 +2,7 @@
 /// соответствует информации, представленной в форме редактирования контакта (где задаются все его свойства).
 
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using WebAddressbookTests.Model;
 
@@ -21,6 +22,8 @@ namespace WebAddressbookTests.Tests
             /// Получение информации из формы редактирования контакта
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
 
+            Console.Out.WriteLine(fromForm.SecondaryHomePhone + "\n" + fromForm.SecondaryAddress +"\n" + fromForm.Notes);
+
             /// Verification
             /// 
             /// Сравнивается имя и фамилия, так как в ContactData только они и сравниваются в методе Equals
@@ -35,9 +38,11 @@ namespace WebAddressbookTests.Tests
         public void TestDetailsInformation()
         {
             /// Получение информации из формы редактирования контакта
-            ContactData fromForm = app.Contacts.GetContactInformationFromTable(0);
+            ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
             /// Получение информации на странице просмотра свойств контакта 
             ContactData fromDetails = app.Contacts.GetContactInformationFromDetails(0);
+
+            Console.Out.Write("Information from EditForm:" + "\n\n" + fromForm.ContactDetails + "\n\n" + "Information from Details:" + "\n\n" + fromDetails.ContactDetails);
 
             /// Verification
             Assert.AreEqual(fromDetails.ContactDetails, fromForm.ContactDetails);

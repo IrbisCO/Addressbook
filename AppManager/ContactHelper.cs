@@ -5,7 +5,6 @@ using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading;
 using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.AppManager
@@ -101,7 +100,7 @@ namespace WebAddressbookTests.AppManager
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public ContactHelper InitContactDetails(int index)
+        public ContactHelper OpenContactsDetail(int index)
         {
             driver.FindElements(By.Name("entry"))[index]
                 .FindElements(By.TagName("td"))[6]
@@ -224,7 +223,7 @@ namespace WebAddressbookTests.AppManager
                     contactCache.Add(new ContactData(Name, Surname)
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
-                    });                   
+                    });
                 }
             }
             /// Возвращаем запомненный кэш. Новый список, построенный из старого
@@ -251,22 +250,20 @@ namespace WebAddressbookTests.AppManager
             /// Сохраняем все ячейки в переменную
             IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"));
             /// Извлекаем из каждой ячейки нужный текст
-            string firstName = cells[1].Text;
-            string lastName = cells[2].Text;
-            string address = cells[3].Text;
-            /// Так как мэйлов много, сначала берем все поле с любым количеством (0-3) и извлекаем отдельно
-            string allEmails = cells[4].Text;
-            /// Так как телефонов много, сначала берем все поле с любым количеством (0-3) и извлекаем отдельно
-            string allPhones = cells[5].Text;
-            return new ContactData(lastName, firstName)
+            return new ContactData()
             {
+                /// Извлекаем из каждой ячейки нужный текст
+                SecondName = cells[1].Text,
+                FirstName = cells[2].Text,
+                Address = cells[3].Text,
+                /// Так как мэйлов много, сначала берем все поле с любым количеством (0-3) и извлекаем отдельно
+                AllEmails = cells[4].Text,
+                /// Так как телефонов много, сначала берем все поле с любым количеством (0-3) и извлекаем отдельно
+                AllPhones = cells[5].Text,
                 /// Дополнительные property. Прописываем все значения, которые извлекли из браузера 
-                Address = address,
-                AllEmails = allEmails,
-                AllPhones = allPhones
             };
         }
-        
+
         /// <summary>
         /// Получение информации из формы
         /// </summary>
@@ -275,34 +272,30 @@ namespace WebAddressbookTests.AppManager
         {
             manager.Navigator.GoToHomePage();
             InitContactModification(index);
-            /// Получаем данные из полей (добавить позже все обязательные)
-            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
-            string lasttName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
-            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
-            
-            string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
-            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
-            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
-
-            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
-            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
-            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
-
-            /// Сохраняем полученные данные
-            return new ContactData(firstName, lasttName)
+            /// Получаем данные из полей
+            return new ContactData()
             {
-                /// Дополнительные property. Прописываем все значения, которые извлекли из браузера 
-                Address = address,
-
-                Email1 = email1,
-                Email2 = email2,
-                Email3 = email3,
-
-                HomePhone = homePhone,
-                MobilePhone = mobilePhone,
-                WorkPhone = workPhone
+                FirstName = driver.FindElement(By.Name("firstname")).GetAttribute("value"),
+                MiddleName = driver.FindElement(By.Name("middlename")).GetAttribute("value"),
+                SecondName = driver.FindElement(By.Name("lastname")).GetAttribute("value"),
+                Nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value"),
+                Company = driver.FindElement(By.Name("company")).GetAttribute("value"),
+                Title = driver.FindElement(By.Name("title")).GetAttribute("value"),
+                Address = driver.FindElement(By.Name("address")).GetAttribute("value"),
+                HomePhone = driver.FindElement(By.Name("home")).GetAttribute("value"),
+                MobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value"),
+                WorkPhone = driver.FindElement(By.Name("work")).GetAttribute("value"),
+                Fax = driver.FindElement(By.Name("fax")).GetAttribute("value"),
+                Email1 = driver.FindElement(By.Name("email")).GetAttribute("value"),
+                Email2 = driver.FindElement(By.Name("email2")).GetAttribute("value"),
+                Email3 = driver.FindElement(By.Name("email3")).GetAttribute("value"),
+                Homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value"),
+                SecondaryAddress = driver.FindElement(By.Name("address2")).GetAttribute("value"),
+                SecondaryHomePhone = driver.FindElement(By.Name("phone2")).GetAttribute("value"),
+                Notes = driver.FindElement(By.Name("notes")).GetAttribute("value")
             };
         }
+
 
         /// <summary>
         /// Получение информации на странице просмотра свойств контакта 
@@ -312,9 +305,12 @@ namespace WebAddressbookTests.AppManager
         public ContactData GetContactInformationFromDetails(int index)
         {
             manager.Navigator.GoToHomePage();
-            InitContactDetails(index);
+            OpenContactsDetail(index);
             /// Сохраняем все данные в переменную
-            string contactDetails = driver.FindElement(By.Id("content")).Text;
+            IList<IWebElement> cells = driver.FindElements(By.Id("content"));
+
+            string contactDetails = cells[0].Text;
+
             return new ContactData()
             {
                 ContactDetails = contactDetails
