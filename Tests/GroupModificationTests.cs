@@ -12,22 +12,24 @@ namespace WebAddressbookTests.Tests
         [Test]
         public void GroupModificationTest()
         {
-            ///новые данные для модификации. Взяли из GroupCreationTests и заменили название на newData
-            GroupData newData = new GroupData("www");
-            /// Добавил данные для group, чтобы заполнять контакт, если его нет. Возможно есть вариант лучше
-            GroupData group = new GroupData("aaa");
-            ///поля Header\Footer, если они не нужны, можно в любой момент убрать, они будут заполнены дефолтными значениями
-            ///если написано NULL, то с полем не выполняется каких-либо действий
-            newData.Header = null;
-            newData.Footer = null;
 
             /// Проверка наличия хотя бы одной группы
             if (!app.Groups.GroupIsHere())
             {
+                GroupData group = new GroupData(GenerateRandomString(10))
+                {
+                    Header = GenerateRandomString(10),
+                    Footer = GenerateRandomString(10)
+                };
                 /// Создание группы, если ее нет
                 app.Groups.Create(group);
             }
 
+            GroupData newData = new GroupData(GenerateRandomString(10))
+            {
+                Header = GenerateRandomString(10),
+                Footer = GenerateRandomString(10)
+            };
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
@@ -61,17 +63,12 @@ namespace WebAddressbookTests.Tests
             Assert.AreEqual(oldGroups, newGroups);
 
             /// Для каждой группы в новом списке проверить, что Id этого элемента равен Id измененного
-            /// ДЛЯ ИСПРАВЛЕНИЯ ОШБИКИ НАДО УБРАТЬ GroupData group = new GroupData("aaa");
-            /// НО УБИРАТЬ НЕЛЬЗЯ, ТАК КАК ЭТО ЮЗАЕТСЯ ДЛЯ СОЗДАНИЯ ГРУППЫ В СЛУЧАЕ ЧЕГО
-            /// ТАК ЧТО НАДО ДУМАТЬ
-            /// 
-            /// Можно заменить group на group1, но выглядит не оч + все еще есть ошибка при отсутсвии групп (ошибка Баранцева)
-            foreach (GroupData group1 in newGroups)
+            foreach (GroupData group in newGroups)
             {
                 /// Найти нужный элемент и проверить, что его имя изменилось
-                if (group1.Id == oldData.Id)
+                if (group.Id == oldData.Id)
                 {
-                    Assert.AreEqual(newData.Name, group1.Name);
+                    Assert.AreEqual(newData.Name, group.Name);
                 }
             }
         }

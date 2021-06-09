@@ -9,23 +9,36 @@ namespace WebAddressbookTests.Tests
     [TestFixture]
     public class ContactCreationTests : AuthTestBase
     {
+        /// <summary>
+        /// Внешний источник тестовых данных 
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<ContactData> RandomContactDataProvider()
+        {
+            /// Новый список
+            List<ContactData> contacts = new List<ContactData>();
+            /// 5 тестовых данных
+            for (int i = 0; i < 5; i++)
+            {
+                /// Генерация случайных данных 
+                contacts.Add(new ContactData()
+                {
+                    /// Генерация случайных данных до 10 символов 
+                    FirstName = GenerateRandomString(10),
+                    SecondName = GenerateRandomString(10)
+                });
+            }
+            return contacts;
+        }
 
-        [Test]
-        public void ContactCreationTest()
+        [Test, TestCaseSource("RandomContactDataProvider")] //TestCaseSource - внешний источник тестовых данных 
+        public void ContactCreationTest(ContactData contact)
         {
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            /// передаем значения в зависимости от конструктора. Если выбран только name\surname, то передаем только "Name", "Surname"
-            /// поля Name\Surname, если они не нужны, можно в любой момент убрать, они будут заполнены дефолтными значениями (при указании Name = "")
-            /// если написано NULL, то с полем не выполняется каких-либо действий
-            ContactData contact = new ContactData()
-            {
-                FirstName = "Имя",
-                SecondName = "Фамилия"
-            };
 
             /// логин и переход на главную сидят в TestBase (там же их описание), а так как он от него наследуется, то сам значет что делать
             /// через ApplicationManager взываем к помощникам (app.Navigator, app.Auth, app.Contacts)
@@ -49,77 +62,6 @@ namespace WebAddressbookTests.Tests
             oldContacts.Sort();
             newContacts.Sort();
             /// И сравнивается старыый список с добавленным контактом и новый список из приложения
-            Assert.AreEqual(oldContacts, newContacts);
-        }
- 
-        [Test]
-        public void EmptyContactCreationTest()
-        {
-            /// аналогично ContactCreationTest
-            ContactData contact = new ContactData("", "");
-
-            /// Метод возвращает список групп, список объектов типа GroupData
-            /// List - контейнер (коллекция), который хранит набор других объектов 
-            /// oldGroups - Старый список групп
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
-
-            /// логин и переход на главную сидят в TestBase (там же их описание), а так как он от него наследуется, то сам значет что делать
-            /// через ApplicationManager взываем к помощникам (app.Navigator, app.Auth, app.Contacts)
-            /// Единсвенное действие:
-            /// все одинаковые методы были пересены в ContactHelper и теперь вызывается один метод, в котором вызываются другие методы
-            app.Contacts.Create(contact);
-
-            /// Операция возвращает количесвто контактов, не читая их названия
-            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
-
-            /// Метод возвращает список групп, список объектов типа GroupData
-            /// List - контейнер (коллекция), который хранит набор других объектов 
-            /// newGroups - новый список групп
-            List<ContactData> newContacts = app.Contacts.GetContactList();
-
-            /// Количество элементов в списке
-            /// Сравнение не только длины, но и содержимого списков
-            /// К старому списку добавляется новая группа, которую только создали
-            oldContacts.Add(contact);
-            /// Сортируем списки перед сравнением 
-            oldContacts.Sort();
-            newContacts.Sort();
-            /// И сравнивается старыый список с добавленной группой и новый список из приложения
-            Assert.AreEqual(oldContacts, newContacts);
-        }
-
-        [Test]
-        public void BadNameContactCreationTest()
-        {
-            /// аналогично ContactCreationTest
-            ContactData contact = new ContactData("'", "'");
-
-            /// Метод возвращает список групп, список объектов типа GroupData
-            /// List - контейнер (коллекция), который хранит набор других объектов 
-            /// oldGroups - Старый список групп
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
-
-            /// логин и переход на главную сидят в TestBase (там же их описание), а так как он от него наследуется, то сам значет что делать
-            /// через ApplicationManager взываем к помощникам (app.Navigator, app.Auth, app.Contacts)
-            /// Единсвенное действие:
-            /// все одинаковые методы были пересены в ContactHelper и теперь вызывается один метод, в котором вызываются другие методы
-            app.Contacts.Create(contact);
-
-            /// Операция возвращает количесвто контактов, не читая их названия
-            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
-
-            /// Метод возвращает список групп, список объектов типа GroupData
-            /// List - контейнер (коллекция), который хранит набор других объектов 
-            /// newGroups - новый список групп
-            List<ContactData> newContacts = app.Contacts.GetContactList();
-
-            /// Количество элементов в списке
-            /// Сравнение не только длины, но и содержимого списков
-
-            /// Сортируем списки перед сравнением 
-            oldContacts.Sort();
-            newContacts.Sort();
-            /// И сравнивается старыый список с добавленной группой и новый список из приложения
             Assert.AreEqual(oldContacts, newContacts);
         }
     }

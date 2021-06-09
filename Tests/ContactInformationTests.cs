@@ -22,7 +22,10 @@ namespace WebAddressbookTests.Tests
             /// Получение информации из формы редактирования контакта
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
 
-            Console.Out.WriteLine(fromForm.SecondaryHomePhone + "\n" + fromForm.SecondaryAddress +"\n" + fromForm.Notes);
+            //штука для конвертирования даты в числовой формат. Использовать для рассчета возраста 
+            string dateInput = fromForm.Birthday + ". " + fromForm.MonthOfBirth + " " + fromForm.YearhOfBirth;
+            var parsedDate = DateTime.Parse(dateInput);
+            Console.WriteLine(parsedDate);
 
             /// Verification
             /// 
@@ -34,6 +37,9 @@ namespace WebAddressbookTests.Tests
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
         }
 
+        /// <summary>
+        /// Сверка данных в форме редактирования и в детализации
+        /// </summary>
         [Test]
         public void TestDetailsInformation()
         {

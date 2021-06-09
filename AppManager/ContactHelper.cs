@@ -290,6 +290,12 @@ namespace WebAddressbookTests.AppManager
                 Email2 = driver.FindElement(By.Name("email2")).GetAttribute("value"),
                 Email3 = driver.FindElement(By.Name("email3")).GetAttribute("value"),
                 Homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value"),
+                Birthday = driver.FindElement(By.Name("bday")).GetAttribute("value"),
+                MonthOfBirth = driver.FindElement(By.Name("bmonth")).GetAttribute("value"),
+                YearhOfBirth = driver.FindElement(By.Name("byear")).GetAttribute("value"),
+                AnniversaryDay = driver.FindElement(By.Name("aday")).GetAttribute("value"),
+                MonthOfAnniversary = driver.FindElement(By.Name("amonth")).GetAttribute("value"),
+                YearOfAnniversary = driver.FindElement(By.Name("ayear")).GetAttribute("value"),
                 SecondaryAddress = driver.FindElement(By.Name("address2")).GetAttribute("value"),
                 SecondaryHomePhone = driver.FindElement(By.Name("phone2")).GetAttribute("value"),
                 Notes = driver.FindElement(By.Name("notes")).GetAttribute("value")

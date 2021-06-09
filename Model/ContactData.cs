@@ -135,6 +135,37 @@ namespace WebAddressbookTests.Model
         }
 
         /// <summary>
+        /// День рождения
+        /// </summary>
+        public string Birthday { get; set; }
+
+        /// <summary>
+        /// Месяц рождения
+        /// </summary>
+        public string MonthOfBirth { get; set; }
+
+        /// <summary>
+        /// Год рождения
+        /// </summary>
+        public string YearhOfBirth { get; set; }
+
+        /// <summary>
+        /// День юбилея
+        /// </summary>
+        public string AnniversaryDay { get; set; }
+
+        /// <summary>
+        /// Месяц юбилея
+        /// </summary>
+        public string MonthOfAnniversary { get; set; }
+
+        /// <summary>
+        /// Год юбилея
+        /// </summary>
+        public string YearOfAnniversary { get; set; }
+
+
+        /// <summary>
         /// Домашний телефон
         /// </summary>
         public string HomePhone { get; set; }
@@ -207,6 +238,8 @@ namespace WebAddressbookTests.Model
                         + Email2 + "\r\n"
                         + Email3 + "\r\n"
                         + "Homepage:" + "\r\n" + Homepage + "\r\n\r\n\r\n"
+                        //+ "Birthday " + Birthday + ". " + MonthOfBirth + " " + YearhOfBirth + "\r\n"
+                        //+ "Anniversary " + AnniversaryDay + ". " + MonthOfAnniversary + " " + YearOfAnniversary + "\r\n\r\n"
                         + (SecondaryAddress) + "\r\n\r\n"
                         + "P: " + (SecondaryHomePhone) + "\r\n\r\n"
                         + Notes).Trim();
