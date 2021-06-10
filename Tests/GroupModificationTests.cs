@@ -1,6 +1,7 @@
 ﻿/// Модафикация группы
 
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using WebAddressbookTests.Model;
 
@@ -16,8 +17,9 @@ namespace WebAddressbookTests.Tests
             /// Проверка наличия хотя бы одной группы
             if (!app.Groups.GroupIsHere())
             {
-                GroupData group = new GroupData(GenerateRandomString(10))
+                GroupData group = new GroupData()
                 {
+                    Name = GenerateRandomString(10),
                     Header = GenerateRandomString(10),
                     Footer = GenerateRandomString(10)
                 };
@@ -25,8 +27,9 @@ namespace WebAddressbookTests.Tests
                 app.Groups.Create(group);
             }
 
-            GroupData newData = new GroupData(GenerateRandomString(10))
+            GroupData newData = new GroupData()
             {
+                Name = GenerateRandomString(10),
                 Header = GenerateRandomString(10),
                 Footer = GenerateRandomString(10)
             };
@@ -50,10 +53,11 @@ namespace WebAddressbookTests.Tests
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
             List<GroupData> newGroups = app.Groups.GetGroupList();
+            Console.WriteLine(newData);
 
             /// Количество элементов в списке
             /// Сравнение не только длины, но и содержимого списков
-            
+
             /// Берем группу с нулевым индексом, который модифицировали, и меняем ему имя Name = newData.Name
             oldGroups[0].Name = newData.Name;
             /// Сортируем списки перед сравнением 

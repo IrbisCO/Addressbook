@@ -198,7 +198,7 @@ namespace WebAddressbookTests.AppManager
                     /// вместо element.Text ищем сразу по ID
                     /// После создания объекта его необходимо поместить в groupCache
                     /// В данном случае извлекается Id элемента
-                    groupCache.Add(new GroupData(null)
+                    groupCache.Add(new GroupData()
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     });

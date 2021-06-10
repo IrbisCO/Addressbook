@@ -1,6 +1,7 @@
 ﻿/// Создание контакта
 
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using WebAddressbookTests.Model;
 
@@ -9,31 +10,17 @@ namespace WebAddressbookTests.Tests
     [TestFixture]
     public class ContactCreationTests : AuthTestBase
     {
-        /// <summary>
-        /// Внешний источник тестовых данных 
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<ContactData> RandomContactDataProvider()
-        {
-            /// Новый список
-            List<ContactData> contacts = new List<ContactData>();
-            /// 5 тестовых данных
-            for (int i = 0; i < 5; i++)
-            {
-                /// Генерация случайных данных 
-                contacts.Add(new ContactData()
-                {
-                    /// Генерация случайных данных до 10 символов 
-                    FirstName = GenerateRandomString(10),
-                    SecondName = GenerateRandomString(10)
-                });
-            }
-            return contacts;
-        }
 
-        [Test, TestCaseSource("RandomContactDataProvider")] //TestCaseSource - внешний источник тестовых данных 
-        public void ContactCreationTest(ContactData contact)
+
+        [Test]
+        public void ContactCreationTest()
         {
+            ContactData contacts = new ContactData()
+            {
+                /// Генерация случайных данных до 10 символов 
+                FirstName = GenerateRandomString(10),
+                SecondName = GenerateRandomString(10)
+            };
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
@@ -44,7 +31,7 @@ namespace WebAddressbookTests.Tests
             /// через ApplicationManager взываем к помощникам (app.Navigator, app.Auth, app.Contacts)
             /// Единсвенное действие:
             /// все одинаковые методы были пересены в ContactHelper и теперь вызывается один метод, в котором вызываются другие методы
-            app.Contacts.Create(contact);
+            app.Contacts.Create(contacts);
 
             /// Операция возвращает количесвто контактов, не читая их названия
             Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
@@ -53,11 +40,11 @@ namespace WebAddressbookTests.Tests
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
             List<ContactData> newContacts = app.Contacts.GetContactList();
-
+            Console.WriteLine(contacts);
             /// Количество элементов в списке
             /// Сравнение не только длины, но и содержимого списков
             /// К старому списку добавляется новый контакт, который только создали
-            oldContacts.Add(contact);
+            oldContacts.Add(contacts);
             /// Сортируем списки перед сравнением 
             oldContacts.Sort();
             newContacts.Sort();

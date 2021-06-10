@@ -15,7 +15,7 @@ namespace WebAddressbookTests.Tests
         public void GroupRemovalTest()
         {
             /// Данные для заполнения группы при создании группы для удаления
-            GroupData group = new GroupData("aaa");
+            GroupData group = new GroupData();
 
             /// Проверка наличия хотя бы одной группы
             if (!app.Groups.GroupIsHere())

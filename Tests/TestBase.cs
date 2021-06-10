@@ -2,6 +2,7 @@
 
 using NUnit.Framework;
 using System;
+using System.Linq;
 using System.Text;
 using WebAddressbookTests.AppManager;
 
@@ -38,6 +39,7 @@ namespace WebAddressbookTests.Tests
         /// <returns></returns>
         public static string GenerateRandomString(int max)
         {
+            /*
             /// Число от 0 до max
             int l = Convert.ToInt32(rnd.NextDouble() * max);
             /// Формирование строки
@@ -50,6 +52,12 @@ namespace WebAddressbookTests.Tests
             }
             /// Возвращаем слцчайную строку
             return builder.ToString();
+            */
+            
+            // Генератор, где можно указать свой набор данных
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-";
+            return new string(Enumerable.Repeat(chars, max)
+              .Select(s => s[rnd.Next(s.Length)]).ToArray());
         }
     }
 }

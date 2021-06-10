@@ -1,6 +1,7 @@
 ﻿/// Модификация контакта
 
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using WebAddressbookTests.Model;
 
@@ -48,6 +49,7 @@ namespace WebAddressbookTests.Tests
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
             List<ContactData> newContacts = app.Contacts.GetContactList();
+            Console.WriteLine(newData);
 
             /// Берем контакт с нулевым индексом, который модифицировали, и меняем ему имя Name = newData.Name
             oldContacts[0].FirstName = newData.FirstName;

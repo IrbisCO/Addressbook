@@ -22,11 +22,6 @@ namespace WebAddressbookTests.Tests
             /// Получение информации из формы редактирования контакта
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
 
-            //штука для конвертирования даты в числовой формат. Использовать для рассчета возраста 
-            string dateInput = fromForm.Birthday + ". " + fromForm.MonthOfBirth + " " + fromForm.YearhOfBirth;
-            var parsedDate = DateTime.Parse(dateInput);
-            Console.WriteLine(parsedDate);
-
             /// Verification
             /// 
             /// Сравнивается имя и фамилия, так как в ContactData только они и сравниваются в методе Equals
@@ -37,6 +32,7 @@ namespace WebAddressbookTests.Tests
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
         }
 
+        //TODO: Не сверяется возраст и юбилей
         /// <summary>
         /// Сверка данных в форме редактирования и в детализации
         /// </summary>
@@ -47,6 +43,11 @@ namespace WebAddressbookTests.Tests
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
             /// Получение информации на странице просмотра свойств контакта 
             ContactData fromDetails = app.Contacts.GetContactInformationFromDetails(0);
+
+            //штука для конвертирования даты в числовой формат. Использовать для рассчета возраста 
+            /*string dateInput = fromForm.Birthday + ". " + fromForm.MonthOfBirth + " " + fromForm.YearhOfBirth;
+            var parsedDate = DateTime.Parse(dateInput);
+            Console.WriteLine(parsedDate);*/
 
             Console.Out.Write("Information from EditForm:" + "\n\n" + fromForm.ContactDetails + "\n\n" + "Information from Details:" + "\n\n" + fromDetails.ContactDetails);
 

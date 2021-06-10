@@ -24,10 +24,10 @@ namespace WebAddressbookTests.Model
         /// Но он теперь не нужен, так как нет смысла передавать каждое значение
         /// </summary>
         /// <param name="name">Название группы</param>
-        public GroupData(string name)
+        public GroupData()
         {
             ///в поле присваиваем свойство
-            Name = name;
+
         }
 
         /// <summary>

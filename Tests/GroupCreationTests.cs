@@ -1,7 +1,7 @@
 ﻿/// Создание группы
-/// 7 видео 1 урока 13 минута
 
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using WebAddressbookTests.Model;
 
@@ -10,31 +10,16 @@ namespace WebAddressbookTests.Tests
     [TestFixture]
     public class GroupCreationTests : AuthTestBase
     {
-        /// <summary>
-        /// Внешний источник тестовых данных 
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<GroupData> RandomGroupDataProvider()
+        [Test]
+        public void GroupCreationTest()
         {
-            /// Новый список
-            List<GroupData> groups = new List<GroupData>();
-            /// 5 тестовых данных
-            for (int i = 0; i < 5; i++)
+            GroupData groups = new GroupData()
             {
-                /// Генерация случайных данных до 10 символов 
-                groups.Add(new GroupData(GenerateRandomString(10))
-                {
-                    /// Генерация случайных данных до 5 символов 
-                    Header = GenerateRandomString(5),
-                    Footer = GenerateRandomString(5)
-                });
-            }
-            return groups;
-        }
+                Name = GenerateRandomString(5),
+                Header = GenerateRandomString(5),
+                Footer = GenerateRandomString(5)
+            };
 
-        [Test, TestCaseSource("RandomGroupDataProvider")] //TestCaseSource - внешний источник тестовых данных 
-        public void GroupCreationTest(GroupData group)
-        {
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
@@ -44,7 +29,7 @@ namespace WebAddressbookTests.Tests
             /// через ApplicationManager взываем к помощникам (app.Navigator, app.Auth, app.Groups)
             /// Единсвенное действие
             /// все одинаковые методы были пересены в GroupHelper и теперь вызывается один метод, в котором вызываются другие методы
-            app.Groups.Create(group);
+            app.Groups.Create(groups);
 
             /// Операция возвращает количесвто групп, не читая их названия
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
@@ -53,11 +38,12 @@ namespace WebAddressbookTests.Tests
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
             List<GroupData> newGroups = app.Groups.GetGroupList();
+            Console.WriteLine(groups);
 
             /// Количество элементов в списке
             /// Сравнение не только длины, но и содержимого списков
             /// К старому списку добавляется новая группа, которую только создали
-            oldGroups.Add(group);
+            oldGroups.Add(groups);
             /// Сортируем списки перед сравнением 
             oldGroups.Sort();
             newGroups.Sort();
