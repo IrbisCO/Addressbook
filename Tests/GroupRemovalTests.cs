@@ -10,18 +10,20 @@ namespace WebAddressbookTests.Tests
     [TestFixture]
     public class GroupRemovalTests : AuthTestBase
     {
-        
+
         [Test]
         public void GroupRemovalTest()
         {
-            /// Данные для заполнения группы при создании группы для удаления
-            GroupData group = new GroupData();
-
             /// Проверка наличия хотя бы одной группы
             if (!app.Groups.GroupIsHere())
             {
+                GroupData groups = new GroupData(GenerateRandomString(10))
+                {
+                    Header = GenerateRandomString(10),
+                    Footer = GenerateRandomString(10)
+                };
                 /// Создание группы, если ее нет
-                app.Groups.Create(group);
+                app.Groups.Create(groups);
             }
 
             /// Метод возвращает список групп, список объектов типа GroupData
@@ -55,10 +57,10 @@ namespace WebAddressbookTests.Tests
             /// ТАК ЧТО НАДО ДУМАТЬ
             /// 
             /// Можно заменить group на group1, но выглядит не оч + все еще есть ошибка при отсутсвии групп (ошибка Баранцева)
-            foreach (GroupData group1 in newGroups)
+            foreach (GroupData groups in newGroups)
             {
                 /// Сравнивается с [0], так удаляли элемент с нулевым индексом
-                Assert.AreNotEqual(group1.Id, oldGroups[0]);
+                Assert.AreNotEqual(groups.Id, oldGroups[0]);
             }
         }
     }

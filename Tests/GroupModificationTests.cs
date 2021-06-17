@@ -17,19 +17,17 @@ namespace WebAddressbookTests.Tests
             /// Проверка наличия хотя бы одной группы
             if (!app.Groups.GroupIsHere())
             {
-                GroupData group = new GroupData()
+                GroupData groups = new GroupData(GenerateRandomString(10))
                 {
-                    Name = GenerateRandomString(10),
                     Header = GenerateRandomString(10),
                     Footer = GenerateRandomString(10)
                 };
                 /// Создание группы, если ее нет
-                app.Groups.Create(group);
+                app.Groups.Create(groups);
             }
 
-            GroupData newData = new GroupData()
+            GroupData newData = new GroupData(GenerateRandomString(10))
             {
-                Name = GenerateRandomString(10),
                 Header = GenerateRandomString(10),
                 Footer = GenerateRandomString(10)
             };

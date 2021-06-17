@@ -21,13 +21,13 @@ namespace WebAddressbookTests.AppManager
         /// <summary>
         /// метод описыват действия при создании групп
         /// </summary>
-        /// <param name="group">Данные, которыми заполняются строки при создании группы</param>
+        /// <param name="groups">Данные, которыми заполняются строки при создании группы</param>
         /// <returns></returns>
-        public GroupHelper Create(GroupData group)
+        public GroupHelper Create(GroupData groups)
         {
             manager.Navigator.GoToGroupsPage();
             InitGroupCreation();
-            FillGroupForm(group);
+            FillGroupForm(groups);
             SubmitGroupCreation();
             ReturnToGroupsPage();
             return this;
@@ -194,11 +194,11 @@ namespace WebAddressbookTests.AppManager
                 /// Превратить объекты типа IWebElement в объекты типа GroupData
                 /// Для каждого элемента в такой-то коллекции выполнить такое-то действие
                 foreach (IWebElement element in elements)
-                {                    
+                {
                     /// вместо element.Text ищем сразу по ID
                     /// После создания объекта его необходимо поместить в groupCache
                     /// В данном случае извлекается Id элемента
-                    groupCache.Add(new GroupData()
+                    groupCache.Add(new GroupData(null)
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     });
@@ -211,10 +211,10 @@ namespace WebAddressbookTests.AppManager
                 /// Проверяем насколько в кэше правильных групп больше кусочков, которые смогли получить
                 int shift = groupCache.Count - parts.Length;
                 /// прописываем имена всем группам
-                for(int i = 0; i < groupCache.Count; i++)
+                for (int i = 0; i < groupCache.Count; i++)
                 {
                     /// Если i меньше, чем сдвиг
-                    if(i < shift)
+                    if (i < shift)
                     {
                         /// То прописываем пустое имя
                         groupCache[i].Name = "";

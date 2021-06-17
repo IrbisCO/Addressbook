@@ -24,10 +24,10 @@ namespace WebAddressbookTests.Model
         /// Но он теперь не нужен, так как нет смысла передавать каждое значение
         /// </summary>
         /// <param name="name">Название группы</param>
-        public GroupData()
+        public GroupData(string name)
         {
             ///в поле присваиваем свойство
-
+            Name = name;
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace WebAddressbookTests.Model
         public int CompareTo(GroupData other)
         {
             /// 1. Стандартная проверка. Если второй объект равен NULL
-            if(other is null)
+            if (other is null)
             {
                 /// Однозначно текущий объект больше
                 return 1;
