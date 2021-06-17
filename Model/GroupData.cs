@@ -30,6 +30,10 @@ namespace WebAddressbookTests.Model
             Name = name;
         }
 
+        public GroupData()
+        {
+        }
+
         /// <summary>
         /// Функция, которая реализует сравнение. В качестве параметра принимает второй объект типа GroupData
         /// </summary>

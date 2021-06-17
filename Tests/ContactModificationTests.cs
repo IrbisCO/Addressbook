@@ -3,6 +3,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using WebAddressbookTests.AppManager;
 using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
@@ -18,8 +19,8 @@ namespace WebAddressbookTests.Tests
             {
                 ContactData contact = new ContactData
                 {
-                    FirstName = GenerateRandomString(10),
-                    SecondName = GenerateRandomString(10)
+                    FirstName = HelperBase.GenerateRandomString(10),
+                    SecondName = HelperBase.GenerateRandomString(10)
                 };
                 app.Contacts.Create(contact);
             }
@@ -37,8 +38,8 @@ namespace WebAddressbookTests.Tests
             /// модификация нужного элемента + новые данные
             ContactData newData = new ContactData
             {
-                FirstName = GenerateRandomString(10),
-                SecondName = GenerateRandomString(10)
+                FirstName = HelperBase.GenerateRandomString(10),
+                SecondName = HelperBase.GenerateRandomString(10)
             };
             app.Contacts.Modify(0, newData);
 

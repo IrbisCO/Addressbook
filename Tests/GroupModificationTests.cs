@@ -3,6 +3,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using WebAddressbookTests.AppManager;
 using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
@@ -17,19 +18,19 @@ namespace WebAddressbookTests.Tests
             /// Проверка наличия хотя бы одной группы
             if (!app.Groups.GroupIsHere())
             {
-                GroupData groups = new GroupData(GenerateRandomString(10))
+                GroupData groups = new GroupData(HelperBase.GenerateRandomString(10))
                 {
-                    Header = GenerateRandomString(10),
-                    Footer = GenerateRandomString(10)
+                    Header = HelperBase.GenerateRandomString(10),
+                    Footer = HelperBase.GenerateRandomString(10)
                 };
                 /// Создание группы, если ее нет
                 app.Groups.Create(groups);
             }
 
-            GroupData newData = new GroupData(GenerateRandomString(10))
+            GroupData newData = new GroupData(HelperBase.GenerateRandomString(10))
             {
-                Header = GenerateRandomString(10),
-                Footer = GenerateRandomString(10)
+                Header = HelperBase.GenerateRandomString(10),
+                Footer = HelperBase.GenerateRandomString(10)
             };
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 

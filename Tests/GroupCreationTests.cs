@@ -1,9 +1,12 @@
 ﻿/// Создание группы
 
+using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
@@ -11,10 +14,10 @@ namespace WebAddressbookTests.Tests
     [TestFixture]
     public class GroupCreationTests : AuthTestBase
     {
-        public static IEnumerable<GroupData> GroupDataFromFile()
+        public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
-            string[] lines = File.ReadAllLines(@"C:\Users\User\source\repos\IrbisCO\Addressbook\group.csv");
+            string[] lines = File.ReadAllLines(@"C:\Users\User\source\repos\IrbisCO\Addressbook\groups.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split(',');
@@ -27,7 +30,20 @@ namespace WebAddressbookTests.Tests
             return groups;
         }
 
-        [Test, TestCaseSource("GroupDataFromFile")]
+        public static IEnumerable<GroupData> GroupDataFromXmlFile()
+        {
+            return (List<GroupData>) //приведение типа явно 
+                new XmlSerializer(typeof(List<GroupData>)) // читает данные типа List<GroupData>
+                .Deserialize(new StreamReader(@"C:\Users\User\source\repos\IrbisCO\Addressbook\groups.xml")); // из файла groups.xml
+        }
+
+        public static IEnumerable<GroupData> GroupDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<GroupData>>(
+                File.ReadAllText(@"C:\Users\User\source\repos\IrbisCO\Addressbook\groups.json"));
+        }
+
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
             /// Метод возвращает список групп, список объектов типа GroupData
