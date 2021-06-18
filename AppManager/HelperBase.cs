@@ -3,6 +3,7 @@
 
 using OpenQA.Selenium;
 using System;
+using System.Linq;
 using System.Text;
 
 namespace WebAddressbookTests.AppManager
@@ -49,6 +50,7 @@ namespace WebAddressbookTests.AppManager
                 driver.FindElement(locator).SendKeys(text);
             }
         }
+
         /// <summary>
         /// Проверка наличия элемента
         /// </summary>
@@ -106,7 +108,7 @@ namespace WebAddressbookTests.AppManager
         /// <returns></returns>
         public static string GenerateRandomString(int max)
         {
-
+            /*
             /// Число от 0 до max
             int l = Convert.ToInt32(rnd.NextDouble() * max);
             /// Формирование строки
@@ -119,12 +121,12 @@ namespace WebAddressbookTests.AppManager
             }
             /// Возвращаем слцчайную строку
             return builder.ToString();
-
-            /*
+            */
+            
             // Генератор, где можно указать свой набор данных
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-";
             return new string(Enumerable.Repeat(chars, max)
-              .Select(s => s[rnd.Next(s.Length)]).ToArray());*/
+              .Select(s => s[rnd.Next(s.Length)]).ToArray());
         }
     }
 }

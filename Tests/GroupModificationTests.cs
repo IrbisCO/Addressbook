@@ -14,12 +14,12 @@ namespace WebAddressbookTests.Tests
         [Test]
         public void GroupModificationTest()
         {
-
             /// Проверка наличия хотя бы одной группы
             if (!app.Groups.GroupIsHere())
             {
-                GroupData groups = new GroupData(HelperBase.GenerateRandomString(10))
+                GroupData groups = new GroupData()
                 {
+                    Name = HelperBase.GenerateRandomString(10),
                     Header = HelperBase.GenerateRandomString(10),
                     Footer = HelperBase.GenerateRandomString(10)
                 };
@@ -27,8 +27,9 @@ namespace WebAddressbookTests.Tests
                 app.Groups.Create(groups);
             }
 
-            GroupData newData = new GroupData(HelperBase.GenerateRandomString(10))
+            GroupData newData = new GroupData()
             {
+                Name = HelperBase.GenerateRandomString(10),
                 Header = HelperBase.GenerateRandomString(10),
                 Footer = HelperBase.GenerateRandomString(10)
             };

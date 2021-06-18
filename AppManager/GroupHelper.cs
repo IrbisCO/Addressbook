@@ -164,6 +164,7 @@ namespace WebAddressbookTests.AppManager
         /// <returns></returns>
         public bool GroupIsHere()
         {
+            manager.Navigator.GoToGroupsPage();
             return IsElementPresent(By.Name("selected[]"));
         }
 

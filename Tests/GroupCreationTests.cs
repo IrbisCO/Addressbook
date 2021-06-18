@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using Excel = Microsoft.Office.Interop.Excel;
 using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
@@ -14,9 +15,14 @@ namespace WebAddressbookTests.Tests
     [TestFixture]
     public class GroupCreationTests : AuthTestBase
     {
+        /// <summary>
+        /// Чтение данных из CSV
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
+            // ReadAllLines - читаем все строчки из файла. Возвращаем массив строк string[] lines
             string[] lines = File.ReadAllLines(@"C:\Users\User\source\repos\IrbisCO\Addressbook\groups.csv");
             foreach (string l in lines)
             {
@@ -30,6 +36,10 @@ namespace WebAddressbookTests.Tests
             return groups;
         }
 
+        /// <summary>
+        /// Чтение данных из XML
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<GroupData> GroupDataFromXmlFile()
         {
             return (List<GroupData>) //приведение типа явно 
@@ -37,13 +47,43 @@ namespace WebAddressbookTests.Tests
                 .Deserialize(new StreamReader(@"C:\Users\User\source\repos\IrbisCO\Addressbook\groups.xml")); // из файла groups.xml
         }
 
+        /// <summary>
+        /// Чтение данных из JSON
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<GroupData> GroupDataFromJsonFile()
         {
             return JsonConvert.DeserializeObject<List<GroupData>>(
                 File.ReadAllText(@"C:\Users\User\source\repos\IrbisCO\Addressbook\groups.json"));
         }
 
-        [Test, TestCaseSource("GroupDataFromJsonFile")]
+        /// <summary>
+        /// Чтение данных из Excel
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<GroupData> GroupDataFromExcelFile()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            Excel.Application app = new Excel.Application(); //создаем приложение
+            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"C:\Users\User\source\repos\IrbisCO\Addressbook\groups.xlsx")); //открываем документ
+            Excel.Worksheet sheet = wb.ActiveSheet; //текущая страница
+            Excel.Range range = sheet.UsedRange; //берем прямоугольник с данными
+            for (int i = 1; i <= range.Rows.Count; i++)
+            {
+                groups.Add(new GroupData()
+                {
+                    Name = range.Cells[i, 1].Value,
+                    Header = range.Cells[i, 2].Value,
+                    Footer = range.Cells[i, 3].Value
+                });
+            }           
+            wb.Close();
+            app.Visible = false;
+            app.Quit();
+            return groups;
+        }
+
+        [Test, TestCaseSource("GroupDataFromExcelFile")]
         public void GroupCreationTest(GroupData group)
         {
             /// Метод возвращает список групп, список объектов типа GroupData

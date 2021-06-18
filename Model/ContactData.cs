@@ -319,6 +319,7 @@ namespace WebAddressbookTests.Model
             return (FirstName + SecondName).GetHashCode();
         }
 
+        //TODO: Сделать более корректно описание имя-имя и тд
         /// <summary>
         /// Возвращает строковое представление объектов типа GroupData
         /// Так как метод переопределяет стандартный метод, определенный во всех классах, требуется override
@@ -327,7 +328,24 @@ namespace WebAddressbookTests.Model
         public override string ToString()
         {
             /// Возвращает имя. Для контактов имя+фамилия
-            return "Fullname = " + FirstName + " " + SecondName;
+            return (FirstName + " " + MiddleName + " " + SecondName + "\r\n"
+                        + Nickname + "\r\n"
+                        + Title + "\r\n"
+                        + Company + "\r\n"
+                        + Address + "\r\n\r\n"
+                        + "H: " + HomePhone + "\r\n"
+                        + "M: " + MobilePhone + "\r\n"
+                        + "W: " + WorkPhone + "\r\n"
+                        + "F: " + Fax + "\r\n\r\n"
+                        + Email1 + "\r\n"
+                        + Email2 + "\r\n"
+                        + Email3 + "\r\n"
+                        + "Homepage:" + "\r\n" + Homepage + "\r\n\r\n\r\n"
+                        //+ "Birthday " + Birthday + ". " + MonthOfBirth + " " + YearhOfBirth + "\r\n"
+                        //+ "Anniversary " + AnniversaryDay + ". " + MonthOfAnniversary + " " + YearOfAnniversary + "\r\n\r\n"
+                        + (SecondaryAddress) + "\r\n\r\n"
+                        + "P: " + (SecondaryHomePhone) + "\r\n\r\n"
+                        + Notes).Trim();
         }
         /// <summary>
         /// Метод для сравнения
