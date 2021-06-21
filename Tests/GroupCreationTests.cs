@@ -83,7 +83,7 @@ namespace WebAddressbookTests.Tests
             return groups;
         }
 
-        [Test, TestCaseSource("GroupDataFromExcelFile")]
+        [Test, TestCaseSource("GroupDataFromXmlFile")]
         public void GroupCreationTest(GroupData group)
         {
             /// Метод возвращает список групп, список объектов типа GroupData

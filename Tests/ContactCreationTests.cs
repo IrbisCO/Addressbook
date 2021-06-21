@@ -21,7 +21,7 @@ namespace WebAddressbookTests.Tests
         public static IEnumerable<ContactData> ContactDataFromFile()
         {
             List<ContactData> contacts = new List<ContactData>();
-            string[] lines = File.ReadAllLines(@"C:\Users\User\source\repos\IrbisCO\Addressbook\contact.csv");
+            string[] lines = File.ReadAllLines(@"C:\Users\User\source\repos\IrbisCO\Addressbook\contacts.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split(',');
@@ -29,7 +29,7 @@ namespace WebAddressbookTests.Tests
                 {
                     FirstName = parts[0],
                     MiddleName = parts[1],
-                    SecondName = parts[2],
+                    Lastname = parts[2],
                     Nickname = parts[3],
                     Title = parts[4],
                     Company = parts[5],
@@ -64,7 +64,7 @@ namespace WebAddressbookTests.Tests
         {
             return (List<ContactData>) //приведение типа явно 
                 new XmlSerializer(typeof(List<ContactData>)) // читает данные типа List<GroupData>
-                .Deserialize(new StreamReader(@"C:\Users\User\source\repos\IrbisCO\Addressbook\contact.xml")); // из файла groups.xml
+                .Deserialize(new StreamReader(@"C:\Users\User\source\repos\IrbisCO\Addressbook\contacts.xml")); // из файла groups.xml
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace WebAddressbookTests.Tests
         public static IEnumerable<ContactData> ContactDataFromJsonFile()
         {
             return JsonConvert.DeserializeObject<List<ContactData>>(
-                File.ReadAllText(@"C:\Users\User\source\repos\IrbisCO\Addressbook\contact.json"));
+                File.ReadAllText(@"C:\Users\User\source\repos\IrbisCO\Addressbook\contacts.json"));
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace WebAddressbookTests.Tests
         {
             List<ContactData> groups = new List<ContactData>();
             Excel.Application app = new Excel.Application(); //создаем приложение
-            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"C:\Users\User\source\repos\IrbisCO\Addressbook\contact.xlsx")); //открываем документ
+            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"C:\Users\User\source\repos\IrbisCO\Addressbook\contacts.xlsx")); //открываем документ
             Excel.Worksheet sheet = wb.ActiveSheet; //текущая страница
             Excel.Range range = sheet.UsedRange; //берем прямоугольник с данными
             for (int i = 1; i <= range.Rows.Count; i++)
@@ -94,7 +94,7 @@ namespace WebAddressbookTests.Tests
                 {
                     FirstName = range.Cells[i, 1].Value,
                     MiddleName = range.Cells[i, 2].Value,
-                    SecondName = range.Cells[i, 3].Value,
+                    Lastname = range.Cells[i, 3].Value,
                     Nickname = range.Cells[i, 4].Value,
                     Title = range.Cells[i, 5].Value,
                     Company = range.Cells[i, 6].Value,

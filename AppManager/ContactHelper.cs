@@ -118,7 +118,7 @@ namespace WebAddressbookTests.AppManager
         {
             Type(By.Name("firstname"), contact.FirstName);
             Type(By.Name("middlename"), contact.MiddleName);
-            Type(By.Name("lastname"), contact.SecondName);
+            Type(By.Name("lastname"), contact.Lastname);
             Type(By.Name("nickname"), contact.Nickname);
             Type(By.Name("title"), contact.Title);
             Type(By.Name("company"), contact.Company);
@@ -283,7 +283,7 @@ namespace WebAddressbookTests.AppManager
             return new ContactData()
             {
                 /// Извлекаем из каждой ячейки нужный текст
-                SecondName = cells[1].Text,
+                Lastname = cells[1].Text,
                 FirstName = cells[2].Text,
                 Address = cells[3].Text,
                 /// Так как мэйлов много, сначала берем все поле с любым количеством (0-3) и извлекаем отдельно
@@ -307,7 +307,7 @@ namespace WebAddressbookTests.AppManager
             {
                 FirstName = driver.FindElement(By.Name("firstname")).GetAttribute("value"),
                 MiddleName = driver.FindElement(By.Name("middlename")).GetAttribute("value"),
-                SecondName = driver.FindElement(By.Name("lastname")).GetAttribute("value"),
+                Lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value"),
                 Nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value"),
                 Company = driver.FindElement(By.Name("company")).GetAttribute("value"),
                 Title = driver.FindElement(By.Name("title")).GetAttribute("value"),

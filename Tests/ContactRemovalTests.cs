@@ -18,7 +18,7 @@ namespace WebAddressbookTests.Tests
             ContactData contact = new ContactData()
             {
                 FirstName = "Name",
-                SecondName = "Surname"
+                Lastname = "Surname"
             };
             ///проверяется есть ли контакт, который можно изменить
             ///если нет, то создается

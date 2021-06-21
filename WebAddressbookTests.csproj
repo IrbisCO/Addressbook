@@ -109,7 +109,7 @@
     <Compile Include="Tests\TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="contact.json" />
+    <None Include="contacts.json" />
     <None Include="groups.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -119,6 +119,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="contacts.xml" />
     <Content Include="groups.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

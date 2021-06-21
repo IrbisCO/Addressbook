@@ -128,5 +128,25 @@ namespace WebAddressbookTests.AppManager
             return new string(Enumerable.Repeat(chars, max)
               .Select(s => s[rnd.Next(s.Length)]).ToArray());
         }
+
+        //Генератор дат. Выглядит так, словно его надо переделать 
+        public static int GenerateRandomDay()
+        {
+            int day = rnd.Next(1, 31);
+            return day;
+        }
+
+        public static string GenerateRandomMonth()
+        {
+            string[] RM = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+            int MM = rnd.Next(RM.Length);
+            return RM[MM];
+        }
+
+        public static int GenerateRandomYear()
+        {
+            int year = rnd.Next(1900, 2021);
+            return year;
+        }
     }
 }

@@ -44,7 +44,7 @@ namespace WebAddressbookTests.Model
         /// <summary>
         /// Фамилия
         /// </summary>
-        public string SecondName { get; set; }
+        public string Lastname { get; set; }
 
         /// <summary>
         /// Никнейм
@@ -225,7 +225,7 @@ namespace WebAddressbookTests.Model
                 else
                 {
                     return 
-                        (FirstName + " " + MiddleName + " " + SecondName + "\r\n"
+                        (FirstName + " " + MiddleName + " " + Lastname + "\r\n"
                         + Nickname + "\r\n"
                         + Title + "\r\n"
                         + Company + "\r\n"
@@ -280,7 +280,7 @@ namespace WebAddressbookTests.Model
         public ContactData(string firstName, string secondName)
         {
             FirstName = firstName;
-            SecondName = secondName;
+            Lastname = secondName;
         }
 
         /// <summary>
@@ -303,7 +303,7 @@ namespace WebAddressbookTests.Model
                 return true;
             }
             /// Проверка по смыслу. Сравниваем только имена. Для контактов имя+фамилия
-            return FirstName == other.FirstName && SecondName == other.SecondName;
+            return FirstName == other.FirstName && Lastname == other.Lastname;
         }
 
         /// <summary>
@@ -316,7 +316,7 @@ namespace WebAddressbookTests.Model
         public override int GetHashCode()
         {
             /// так как в сравнении участвует Name, то и хэш-коды вычисляются по именам
-            return (FirstName + SecondName).GetHashCode();
+            return (FirstName + Lastname).GetHashCode();
         }
 
         //TODO: Сделать более корректно описание имя-имя и тд
@@ -327,8 +327,7 @@ namespace WebAddressbookTests.Model
         /// <returns></returns>
         public override string ToString()
         {
-            /// Возвращает имя. Для контактов имя+фамилия
-            return (FirstName + " " + MiddleName + " " + SecondName + "\r\n"
+            return ("\r\n" + FirstName + " " + MiddleName + " " + Lastname + "\r\n"
                         + Nickname + "\r\n"
                         + Title + "\r\n"
                         + Company + "\r\n"
@@ -364,12 +363,12 @@ namespace WebAddressbookTests.Model
                 return 1;
             }
             /// 2. Сравнение по смыслу. Сравниваем Name и Surname
-            if (Equals(this.SecondName, other.SecondName))
+            if (Equals(this.Lastname, other.Lastname))
             {
                 return FirstName.CompareTo(other.FirstName);
             }
 
-            return SecondName.CompareTo(other.SecondName);
+            return Lastname.CompareTo(other.Lastname);
         }
     }
 }
