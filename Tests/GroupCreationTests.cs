@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using System.Linq;
 using System.Xml.Serialization;
 using Excel = Microsoft.Office.Interop.Excel;
 using WebAddressbookTests.Model;
@@ -115,6 +116,23 @@ namespace WebAddressbookTests.Tests
             newGroups.Sort();
             /// И сравнивается старыый список с добавленной группой и новый список из приложения
             Assert.AreEqual(oldGroups, newGroups);
+        }
+
+        /// <summary>
+        /// Читает информацию из БД и выводит на консоль
+        /// </summary>
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUi = app.Groups.GetGroupList(); //список групп через web
+            DateTime end = DateTime.Now;
+            Console.Out.WriteLine(end.Subtract(start)); //вычитаем время начала из времени окончания
+
+            start = DateTime.Now;
+            List<GroupData> fromDb = GroupData.GetAll();
+            end = DateTime.Now;
+            Console.Out.WriteLine(end.Subtract(start));
         }
     }
 }
