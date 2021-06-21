@@ -237,9 +237,9 @@ namespace WebAddressbookTests.Model
                         + Email1 + "\r\n"
                         + Email2 + "\r\n"
                         + Email3 + "\r\n"
-                        + "Homepage:" + "\r\n" + Homepage + "\r\n\r\n\r\n"
-                        //+ "Birthday " + Birthday + ". " + MonthOfBirth + " " + YearhOfBirth + "\r\n"
-                        //+ "Anniversary " + AnniversaryDay + ". " + MonthOfAnniversary + " " + YearOfAnniversary + "\r\n\r\n"
+                        + "Homepage:" + "\r\n" + Homepage + "\r\n\r\n"
+                        + "Birthday " + Birthday + ". " + MonthOfBirth + " " + YearhOfBirth + "\r\n"
+                        + "Anniversary " + AnniversaryDay + ". " + MonthOfAnniversary + " " + YearOfAnniversary + "\r\n\r\n"
                         + (SecondaryAddress) + "\r\n\r\n"
                         + "P: " + (SecondaryHomePhone) + "\r\n\r\n"
                         + Notes).Trim();

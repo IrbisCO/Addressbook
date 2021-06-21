@@ -1,9 +1,13 @@
 ﻿///Класс для описания полей при создании групп
 
+using LinqToDB.Mapping;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebAddressbookTests.Model
 {
+    [Table(Name = "group_list")] //для контактов Name = addressbook
     /// <summary>
     /// Указываем, что класс наследует IEquatable - функция сравнения. Этот класс можно сравнивать с дургими объектами типа GroupData
     /// Все это нужно для корректного сравнения списков. Состоит из 3 частей: 
@@ -104,22 +108,38 @@ namespace WebAddressbookTests.Model
 
         /// <summary>
         /// свойства (короткая запись). Поля создаются автоматически
+        /// + название колонки в бд
         /// </summary>
+        [Column(Name = "group_name")]
         public string Name { get; set; }
 
         /// <summary>
         /// если нужно поменять это дополнительное необязательное значние, испоьзуют свойства
+        /// + название колонки в бд
         /// </summary>
+        [Column(Name = "group_header")]
         public string Header { get; set; }
 
         /// <summary>
         /// если нужно поменять это дополнительное необязательное значние, испоьзуют свойства
+        /// + название колонки в бд
         /// </summary>
+        [Column(Name = "group_footer")]
         public string Footer { get; set; }
 
         /// <summary>
         /// Свойство ID. Для определения элемента не только по имени, но и по ID
+        /// + название колонки в бд, PK, Уник ID
         /// </summary>
+        [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
+
+        public static List<GroupData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Groups select g).ToList();
+            }
+        }
     }
 }
