@@ -2,6 +2,9 @@
 /// этот класс создан, чтобы одинаковый код из помощников переместить сюда
 
 using OpenQA.Selenium;
+using System;
+using System.Linq;
+using System.Text;
 
 namespace WebAddressbookTests.AppManager
 {
@@ -47,6 +50,7 @@ namespace WebAddressbookTests.AppManager
                 driver.FindElement(locator).SendKeys(text);
             }
         }
+
         /// <summary>
         /// Проверка наличия элемента
         /// </summary>
@@ -90,6 +94,59 @@ namespace WebAddressbookTests.AppManager
             {
                 acceptNextAlert = true;
             }
+        }
+
+        /// <summary>
+        /// Генератор случайных чисел
+        /// </summary>
+        public static Random rnd = new Random();
+
+        /// <summary>
+        /// Рандомайзер
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public static string GenerateRandomString(int max)
+        {
+            /*
+            /// Число от 0 до max
+            int l = Convert.ToInt32(rnd.NextDouble() * max);
+            /// Формирование строки
+            StringBuilder builder = new StringBuilder();
+            /// Генерация l различных символов
+            for (int i = 0; i < l; i++)
+            {
+                /// Добавление случайного числа в builder
+                builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 65)));
+            }
+            /// Возвращаем слцчайную строку
+            return builder.ToString();
+            */
+            
+            // Генератор, где можно указать свой набор данных
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-";
+            return new string(Enumerable.Repeat(chars, max)
+              .Select(s => s[rnd.Next(s.Length)]).ToArray());
+        }
+
+        //Генератор дат. Выглядит так, словно его надо переделать 
+        public static int GenerateRandomDay()
+        {
+            int day = rnd.Next(1, 31);
+            return day;
+        }
+
+        public static string GenerateRandomMonth()
+        {
+            string[] RM = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+            int MM = rnd.Next(RM.Length);
+            return RM[MM];
+        }
+
+        public static int GenerateRandomYear()
+        {
+            int year = rnd.Next(1900, 2021);
+            return year;
         }
     }
 }

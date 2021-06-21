@@ -4,6 +4,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using WebAddressbookTests.AppManager;
 using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
@@ -21,6 +22,12 @@ namespace WebAddressbookTests.Tests
             ContactData fromTable = app.Contacts.GetContactInformationFromTable(0);
             /// Получение информации из формы редактирования контакта
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
+
+            //временно для проверки генератора дат
+            //TODO: после проверки удалить
+            Console.Out.WriteLine(HelperBase.GenerateRandomDay());
+            Console.Out.WriteLine(HelperBase.GenerateRandomMonth());
+            Console.Out.WriteLine(HelperBase.GenerateRandomYear());
 
             /// Verification
             /// 

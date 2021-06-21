@@ -3,6 +3,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using WebAddressbookTests.AppManager;
 using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
@@ -18,8 +19,30 @@ namespace WebAddressbookTests.Tests
             {
                 ContactData contact = new ContactData
                 {
-                    FirstName = GenerateRandomString(10),
-                    SecondName = GenerateRandomString(10)
+                    FirstName = HelperBase.GenerateRandomString(10),
+                    MiddleName = HelperBase.GenerateRandomString(10),
+                    Lastname = HelperBase.GenerateRandomString(10),
+                    Nickname = HelperBase.GenerateRandomString(10),
+                    Company = HelperBase.GenerateRandomString(10),
+                    Title = HelperBase.GenerateRandomString(10),
+                    Address = HelperBase.GenerateRandomString(10),
+                    HomePhone = HelperBase.GenerateRandomString(10),
+                    MobilePhone = HelperBase.GenerateRandomString(10),
+                    WorkPhone = HelperBase.GenerateRandomString(10),
+                    Fax = HelperBase.GenerateRandomString(10),
+                    Email1 = HelperBase.GenerateRandomString(10),
+                    Email2 = HelperBase.GenerateRandomString(10),
+                    Email3 = HelperBase.GenerateRandomString(10),
+                    Homepage = HelperBase.GenerateRandomString(10),
+                    //Birthday = HelperBase.GenerateRandomString(10),
+                    //MonthOfBirth = HelperBase.GenerateRandomString(10),
+                    //YearhOfBirth = HelperBase.GenerateRandomString(10),
+                    //AnniversaryDay = HelperBase.GenerateRandomString(10),
+                    //MonthOfAnniversary = HelperBase.GenerateRandomString(10),
+                    //YearOfAnniversary = HelperBase.GenerateRandomString(10),
+                    SecondaryAddress = HelperBase.GenerateRandomString(10),
+                    SecondaryHomePhone = HelperBase.GenerateRandomString(10),
+                    Notes = HelperBase.GenerateRandomString(10)
                 };
                 app.Contacts.Create(contact);
             }
@@ -37,8 +60,30 @@ namespace WebAddressbookTests.Tests
             /// модификация нужного элемента + новые данные
             ContactData newData = new ContactData
             {
-                FirstName = GenerateRandomString(10),
-                SecondName = GenerateRandomString(10)
+                FirstName = HelperBase.GenerateRandomString(10),
+                MiddleName = HelperBase.GenerateRandomString(10),
+                Lastname = HelperBase.GenerateRandomString(10),
+                Nickname = HelperBase.GenerateRandomString(10),
+                Company = HelperBase.GenerateRandomString(10),
+                Title = HelperBase.GenerateRandomString(10),
+                Address = HelperBase.GenerateRandomString(10),
+                HomePhone = HelperBase.GenerateRandomString(10),
+                MobilePhone = HelperBase.GenerateRandomString(10),
+                WorkPhone = HelperBase.GenerateRandomString(10),
+                Fax = HelperBase.GenerateRandomString(10),
+                Email1 = HelperBase.GenerateRandomString(10),
+                Email2 = HelperBase.GenerateRandomString(10),
+                Email3 = HelperBase.GenerateRandomString(10),
+                Homepage = HelperBase.GenerateRandomString(10),
+                //Birthday = HelperBase.GenerateRandomString(10),
+                //MonthOfBirth = HelperBase.GenerateRandomString(10),
+                //YearhOfBirth = HelperBase.GenerateRandomString(10),
+                //AnniversaryDay = HelperBase.GenerateRandomString(10),
+                //MonthOfAnniversary = HelperBase.GenerateRandomString(10),
+                //YearOfAnniversary = HelperBase.GenerateRandomString(10),
+                SecondaryAddress = HelperBase.GenerateRandomString(10),
+                SecondaryHomePhone = HelperBase.GenerateRandomString(10),
+                Notes = HelperBase.GenerateRandomString(10)
             };
             app.Contacts.Modify(0, newData);
 
@@ -53,7 +98,7 @@ namespace WebAddressbookTests.Tests
 
             /// Берем контакт с нулевым индексом, который модифицировали, и меняем ему имя Name = newData.Name
             oldContacts[0].FirstName = newData.FirstName;
-            oldContacts[0].SecondName = newData.SecondName;
+            oldContacts[0].Lastname = newData.Lastname;
 
             /// Сортируем списки перед сравнением 
             oldContacts.Sort();

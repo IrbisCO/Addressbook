@@ -26,38 +26,5 @@ namespace WebAddressbookTests.Tests
             ///обращаемся к GetInstance, чтобы получить доступ к единственному экземпляру ApplicationManager
             app = ApplicationManager.GetInstance();
         }
-
-        /// <summary>
-        /// Генератор случайных чисел
-        /// </summary>
-        public static Random rnd = new Random();
-
-        /// <summary>
-        /// Рандомайзер
-        /// </summary>
-        /// <param name="v"></param>
-        /// <returns></returns>
-        public static string GenerateRandomString(int max)
-        {
-            /*
-            /// Число от 0 до max
-            int l = Convert.ToInt32(rnd.NextDouble() * max);
-            /// Формирование строки
-            StringBuilder builder = new StringBuilder();
-            /// Генерация l различных символов
-            for (int i = 0; i < l; i++)
-            {
-                /// Добавление случайного числа в builder
-                builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 223)));
-            }
-            /// Возвращаем слцчайную строку
-            return builder.ToString();
-            */
-            
-            // Генератор, где можно указать свой набор данных
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-";
-            return new string(Enumerable.Repeat(chars, max)
-              .Select(s => s[rnd.Next(s.Length)]).ToArray());
-        }
     }
 }

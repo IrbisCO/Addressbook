@@ -2,6 +2,7 @@
 
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -116,7 +117,36 @@ namespace WebAddressbookTests.AppManager
         public ContactHelper FillContactForm(ContactData contact)
         {
             Type(By.Name("firstname"), contact.FirstName);
-            Type(By.Name("lastname"), contact.SecondName);
+            Type(By.Name("middlename"), contact.MiddleName);
+            Type(By.Name("lastname"), contact.Lastname);
+            Type(By.Name("nickname"), contact.Nickname);
+            Type(By.Name("title"), contact.Title);
+            Type(By.Name("company"), contact.Company);
+            Type(By.Name("address"), contact.Address);
+            Type(By.Name("home"), contact.HomePhone);
+            Type(By.Name("mobile"), contact.MobilePhone);
+            Type(By.Name("work"), contact.WorkPhone);
+            Type(By.Name("fax"), contact.Fax);
+            Type(By.Name("email"), contact.Email1);
+            Type(By.Name("email2"), contact.Email2);
+            Type(By.Name("email3"), contact.Email3);
+            Type(By.Name("homepage"), contact.Homepage);
+
+            driver.FindElement(By.Name("bday")).Click();
+            new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText("2");
+            driver.FindElement(By.Name("bmonth")).Click();
+            new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText("February");
+            Type(By.Name("byear"), contact.YearhOfBirth);
+            driver.FindElement(By.Name("aday")).Click();
+            new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText("2");
+            driver.FindElement(By.Name("amonth")).Click();
+            new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText("August");
+            Type(By.Name("ayear"), contact.YearOfAnniversary);
+            
+            Type(By.Name("address2"), contact.SecondaryAddress);
+            Type(By.Name("phone2"), contact.SecondaryHomePhone);
+            Type(By.Name("notes"), contact.Notes);
+
             return this;
         }
 
@@ -253,7 +283,7 @@ namespace WebAddressbookTests.AppManager
             return new ContactData()
             {
                 /// Извлекаем из каждой ячейки нужный текст
-                SecondName = cells[1].Text,
+                Lastname = cells[1].Text,
                 FirstName = cells[2].Text,
                 Address = cells[3].Text,
                 /// Так как мэйлов много, сначала берем все поле с любым количеством (0-3) и извлекаем отдельно
@@ -277,7 +307,7 @@ namespace WebAddressbookTests.AppManager
             {
                 FirstName = driver.FindElement(By.Name("firstname")).GetAttribute("value"),
                 MiddleName = driver.FindElement(By.Name("middlename")).GetAttribute("value"),
-                SecondName = driver.FindElement(By.Name("lastname")).GetAttribute("value"),
+                Lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value"),
                 Nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value"),
                 Company = driver.FindElement(By.Name("company")).GetAttribute("value"),
                 Title = driver.FindElement(By.Name("title")).GetAttribute("value"),
