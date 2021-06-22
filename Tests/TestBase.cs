@@ -13,6 +13,7 @@ namespace WebAddressbookTests.Tests
     /// </summary>
     public class TestBase
     {
+        public static bool PERFORM_LONG_UI_CHECKS = true;
         /// <summary>
         /// так как все ссылки перенесены в ApplicationManager, то создаем ссылку на него
         /// </summary>

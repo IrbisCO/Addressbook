@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace WebAddressbookTests.Model
 {
-    [Table(Name = "group_list")] //для контактов Name = addressbook
+    [Table(Name = "group_list")]
     /// <summary>
     /// Указываем, что класс наследует IEquatable - функция сравнения. Этот класс можно сравнивать с дургими объектами типа GroupData
     /// Все это нужно для корректного сравнения списков. Состоит из 3 частей: 
@@ -134,6 +134,10 @@ namespace WebAddressbookTests.Model
         [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
+        /// <summary>
+        /// Получение данных из БД для групп
+        /// </summary>
+        /// <returns></returns>
         public static List<GroupData> GetAll()
         {
             using (AddressBookDB db = new AddressBookDB())

@@ -8,7 +8,7 @@ using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
 {
-    public class ContactModificationTests : AuthTestBase
+    public class ContactModificationTests : ContactTestBase
     {
         [Test]
         public void ContactModificationTest()
@@ -34,12 +34,12 @@ namespace WebAddressbookTests.Tests
                     Email2 = HelperBase.GenerateRandomString(10),
                     Email3 = HelperBase.GenerateRandomString(10),
                     Homepage = HelperBase.GenerateRandomString(10),
-                    //Birthday = HelperBase.GenerateRandomString(10),
-                    //MonthOfBirth = HelperBase.GenerateRandomString(10),
-                    //YearhOfBirth = HelperBase.GenerateRandomString(10),
-                    //AnniversaryDay = HelperBase.GenerateRandomString(10),
-                    //MonthOfAnniversary = HelperBase.GenerateRandomString(10),
-                    //YearOfAnniversary = HelperBase.GenerateRandomString(10),
+                    Birthday = HelperBase.GenerateRandomString(10),
+                    MonthOfBirth = HelperBase.GenerateRandomString(10),
+                    YearhOfBirth = HelperBase.GenerateRandomString(10),
+                    AnniversaryDay = HelperBase.GenerateRandomString(10),
+                    MonthOfAnniversary = HelperBase.GenerateRandomString(10),
+                    YearOfAnniversary = HelperBase.GenerateRandomString(10),
                     SecondaryAddress = HelperBase.GenerateRandomString(10),
                     SecondaryHomePhone = HelperBase.GenerateRandomString(10),
                     Notes = HelperBase.GenerateRandomString(10)
@@ -75,12 +75,12 @@ namespace WebAddressbookTests.Tests
                 Email2 = HelperBase.GenerateRandomString(10),
                 Email3 = HelperBase.GenerateRandomString(10),
                 Homepage = HelperBase.GenerateRandomString(10),
-                //Birthday = HelperBase.GenerateRandomString(10),
-                //MonthOfBirth = HelperBase.GenerateRandomString(10),
-                //YearhOfBirth = HelperBase.GenerateRandomString(10),
-                //AnniversaryDay = HelperBase.GenerateRandomString(10),
-                //MonthOfAnniversary = HelperBase.GenerateRandomString(10),
-                //YearOfAnniversary = HelperBase.GenerateRandomString(10),
+                Birthday = HelperBase.GenerateRandomString(10),
+                MonthOfBirth = HelperBase.GenerateRandomString(10),
+                YearhOfBirth = HelperBase.GenerateRandomString(10),
+                AnniversaryDay = HelperBase.GenerateRandomString(10),
+                MonthOfAnniversary = HelperBase.GenerateRandomString(10),
+                YearOfAnniversary = HelperBase.GenerateRandomString(10),
                 SecondaryAddress = HelperBase.GenerateRandomString(10),
                 SecondaryHomePhone = HelperBase.GenerateRandomString(10),
                 Notes = HelperBase.GenerateRandomString(10)
@@ -107,7 +107,6 @@ namespace WebAddressbookTests.Tests
             Assert.AreEqual(oldContacts, newContacts);
 
             /// Для каждого контакта в новом списке проверить, что Id этого элемента равен Id измененного
-            /// Можно заменить group на contact1, но выглядит не оч
             foreach (ContactData contact in newContacts)
             {
                 /// Найти нужный элемент и проверить, что его имя изменилось

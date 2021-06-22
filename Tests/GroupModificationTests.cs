@@ -9,7 +9,7 @@ using WebAddressbookTests.Model;
 namespace WebAddressbookTests.Tests
 {
     [TestFixture]
-    class GroupModificationTests : AuthTestBase
+    class GroupModificationTests : GroupTestBase
     {
         [Test]
         public void GroupModificationTest()
@@ -36,15 +36,15 @@ namespace WebAddressbookTests.Tests
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-
-            /// Запоминаем элемент с [0] ID
-            GroupData oldData = oldGroups[0];
+            /// GroupData.GetAll(); - получение списка групп из бд
+            List<GroupData> oldGroups = GroupData.GetAll();
+            //присваиваем объект с ID
+            GroupData toBeModified = oldGroups[0];
 
             /// логин и переход на главную сидят в TestBase
             /// оставшийся метод состоит из кучи методов и сидит в GroupHelper
             /// модификация нужного элемента + новые данные
-            app.Groups.Modify(0, newData);
+            app.Groups.Modify(toBeModified, newData);
 
             /// Операция сравнивает количесвто групп, не читая их названия
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
@@ -52,7 +52,8 @@ namespace WebAddressbookTests.Tests
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            /// GroupData.GetAll(); - получение списка групп из бд
+            List<GroupData> newGroups = GroupData.GetAll();
             Console.WriteLine(newData);
 
             /// Количество элементов в списке
@@ -70,7 +71,7 @@ namespace WebAddressbookTests.Tests
             foreach (GroupData group in newGroups)
             {
                 /// Найти нужный элемент и проверить, что его имя изменилось
-                if (group.Id == oldData.Id)
+                if (group.Id == toBeModified.Id)
                 {
                     Assert.AreEqual(newData.Name, group.Name);
                 }

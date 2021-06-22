@@ -12,7 +12,7 @@ using WebAddressbookTests.Model;
 namespace WebAddressbookTests.Tests
 {
     [TestFixture]
-    public class ContactCreationTests : AuthTestBase
+    public class ContactCreationTests : ContactTestBase
     {
         /// <summary>
         /// Чтение данных из CSV
@@ -128,13 +128,13 @@ namespace WebAddressbookTests.Tests
         public void ContactCreationTest(ContactData contact)
         {
 
-            /// Метод возвращает список групп, список объектов типа GroupData
+            /// Метод возвращает список групп, список объектов типа ContactData
             /// List - контейнер (коллекция), который хранит набор других объектов 
-            /// oldGroups - Старый список групп
+            /// oldContacts - Старый список групп
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
 
-            /// логин и переход на главную сидят в TestBase (там же их описание), а так как он от него наследуется, то сам значет что делать
+            /// логин и переход на главную в TestBase (там же их описание), а так как он от него наследуется, то сам значет что делать
             /// через ApplicationManager взываем к помощникам (app.Navigator, app.Auth, app.Contacts)
             /// Единсвенное действие:
             /// все одинаковые методы были пересены в ContactHelper и теперь вызывается один метод, в котором вызываются другие методы
@@ -157,6 +157,23 @@ namespace WebAddressbookTests.Tests
             newContacts.Sort();
             /// И сравнивается старыый список с добавленным контактом и новый список из приложения
             Assert.AreEqual(oldContacts, newContacts);
+        }
+
+        /// <summary>
+        /// Читает информацию из БД и выводит на консоль
+        /// </summary>
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<ContactData> fromUi = app.Contacts.GetContactList(); //список контактов через web
+            DateTime end = DateTime.Now;
+            Console.Out.WriteLine("From UI: " + end.Subtract(start)); //вычитаем время начала из времени окончания
+
+            start = DateTime.Now;
+            List<ContactData> fromDb = ContactData.GetAll();
+            end = DateTime.Now;
+            Console.Out.WriteLine("From DB: " + end.Subtract(start));
         }
     }
 }

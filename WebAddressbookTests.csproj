@@ -129,11 +129,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppManager\ContactHelper.cs" />
-    <Compile Include="Figure\TheoryCycles.cs" />
     <Compile Include="Model\AccountData.cs" />
     <Compile Include="AppManager\ApplicationManager.cs" />
-    <Compile Include="Figure\Circle.cs" />
-    <Compile Include="Figure\Figure.cs" />
     <Compile Include="Model\AddressBookDB.cs" />
     <Compile Include="Model\ContactData.cs" />
     <Compile Include="Model\GroupData.cs" />
@@ -143,6 +140,7 @@
     <Compile Include="Tests\ContactInformationTests.cs" />
     <Compile Include="Tests\ContactModificationTests.cs" />
     <Compile Include="Tests\ContactRemovalTests.cs" />
+    <Compile Include="Tests\ContactTestBase.cs" />
     <Compile Include="Tests\GroupModificationTests.cs" />
     <Compile Include="Tests\GroupRemovalTests.cs" />
     <Compile Include="AppManager\HelperBase.cs" />
@@ -150,8 +148,7 @@
     <Compile Include="AppManager\NavigationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\GroupCreationTests.cs" />
-    <Compile Include="Figure\Square.cs" />
-    <Compile Include="Figure\TestFigure.cs" />
+    <Compile Include="Tests\GroupTestBase.cs" />
     <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Tests\SearchTests.cs" />
     <Compile Include="Tests\TestBase.cs" />

@@ -5,8 +5,6 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml;
-using System.Linq;
 using System.Xml.Serialization;
 using Excel = Microsoft.Office.Interop.Excel;
 using WebAddressbookTests.Model;
@@ -14,7 +12,7 @@ using WebAddressbookTests.Model;
 namespace WebAddressbookTests.Tests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         /// <summary>
         /// Чтение данных из CSV
@@ -90,7 +88,8 @@ namespace WebAddressbookTests.Tests
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            /// GroupData.GetAll(); - получение списка групп из бд
+            List<GroupData> oldGroups = GroupData.GetAll();
 
             /// логин и переход на главную сидят в TestBase (там же их описание), а так как он от него наследуется, то сам значет что делать
             /// через ApplicationManager взываем к помощникам (app.Navigator, app.Auth, app.Groups)
@@ -104,7 +103,8 @@ namespace WebAddressbookTests.Tests
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            /// GroupData.GetAll(); - получение списка групп из бд
+            List<GroupData> newGroups = GroupData.GetAll();
             Console.WriteLine(group);
 
             /// Количество элементов в списке
@@ -127,12 +127,12 @@ namespace WebAddressbookTests.Tests
             DateTime start = DateTime.Now;
             List<GroupData> fromUi = app.Groups.GetGroupList(); //список групп через web
             DateTime end = DateTime.Now;
-            Console.Out.WriteLine(end.Subtract(start)); //вычитаем время начала из времени окончания
+            Console.Out.WriteLine("From UI: " + end.Subtract(start)); //вычитаем время начала из времени окончания
 
             start = DateTime.Now;
             List<GroupData> fromDb = GroupData.GetAll();
             end = DateTime.Now;
-            Console.Out.WriteLine(end.Subtract(start));
+            Console.Out.WriteLine("From DB: " + end.Subtract(start));
         }
     }
 }

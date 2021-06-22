@@ -1,39 +1,63 @@
 ﻿/// Удаление контакта
 
 using NUnit.Framework;
-using OpenQA.Selenium;
 using System.Collections.Generic;
+using WebAddressbookTests.AppManager;
 using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
 {
     [TestFixture]
-    public class ContactRemovalTests : AuthTestBase
+    public class ContactRemovalTests : ContactTestBase
     {
 
         [Test]
         public void ContactRemovalTest()
         {
-            /// Данные для заполнения группы при создании группы для удаления
-            ContactData contact = new ContactData()
-            {
-                FirstName = "Name",
-                Lastname = "Surname"
-            };
             ///проверяется есть ли контакт, который можно изменить
             ///если нет, то создается
             if (!app.Contacts.ContactIsHere())
             {
+                ContactData contact = new ContactData
+                {
+                    FirstName = HelperBase.GenerateRandomString(10),
+                    MiddleName = HelperBase.GenerateRandomString(10),
+                    Lastname = HelperBase.GenerateRandomString(10),
+                    Nickname = HelperBase.GenerateRandomString(10),
+                    Company = HelperBase.GenerateRandomString(10),
+                    Title = HelperBase.GenerateRandomString(10),
+                    Address = HelperBase.GenerateRandomString(10),
+                    HomePhone = HelperBase.GenerateRandomString(10),
+                    MobilePhone = HelperBase.GenerateRandomString(10),
+                    WorkPhone = HelperBase.GenerateRandomString(10),
+                    Fax = HelperBase.GenerateRandomString(10),
+                    Email1 = HelperBase.GenerateRandomString(10),
+                    Email2 = HelperBase.GenerateRandomString(10),
+                    Email3 = HelperBase.GenerateRandomString(10),
+                    Homepage = HelperBase.GenerateRandomString(10),
+                    Birthday = HelperBase.GenerateRandomString(10),
+                    MonthOfBirth = HelperBase.GenerateRandomString(10),
+                    YearhOfBirth = HelperBase.GenerateRandomString(10),
+                    AnniversaryDay = HelperBase.GenerateRandomString(10),
+                    MonthOfAnniversary = HelperBase.GenerateRandomString(10),
+                    YearOfAnniversary = HelperBase.GenerateRandomString(10),
+                    SecondaryAddress = HelperBase.GenerateRandomString(10),
+                    SecondaryHomePhone = HelperBase.GenerateRandomString(10),
+                    Notes = HelperBase.GenerateRandomString(10)
+                };
                 app.Contacts.Create(contact);
             }
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            /// ContactData.GetAll();  - получение списка групп из бд
+            List<ContactData> oldContacts = ContactData.GetAll();
+            //присваиваем объект с ID
+            ContactData toBeRemoved = oldContacts[0];
 
             /// логин и переход на главную сидят в TestBase
             /// оставшийся метод состоит из кучи методов и сидит в GroupHelper
-            app.Contacts.Remove(0);
+            app.Contacts.Remove(toBeRemoved);
 
             /// Операция возвращает количесвто контактов, не читая их названия
             Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
@@ -41,10 +65,8 @@ namespace WebAddressbookTests.Tests
             /// Метод возвращает список групп, список объектов типа ContactData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
-            List<ContactData> newContacts = app.Contacts.GetContactList();
-
-            /// Запоминаем элемент с [0] ID
-            ContactData oldData = oldContacts[0];
+            /// ContactData.GetAll();  - получение списка групп из бд
+            List<ContactData> newContacts = ContactData.GetAll();
 
             /// Берем элемент из старого списка и удаляем элемент при помощи метода RemoveAt
             /// Элемент с порядковым номером 1 имеет индекс 0
@@ -55,15 +77,10 @@ namespace WebAddressbookTests.Tests
             Assert.AreEqual(oldContacts, newContacts);
 
             /// Для каждого контакта в новом списке проверить, что Id этого элемента равен Id измененного
-            /// ДЛЯ ИСПРАВЛЕНИЯ ОШБИКИ НАДО УБРАТЬ ContactData contact = new ContactData("Name", "Surname");
-            /// НО УБИРАТЬ НЕЛЬЗЯ, ТАК КАК ЭТО ЮЗАЕТСЯ ДЛЯ СОЗДАНИЯ ГРУППЫ В СЛУЧАЕ ЧЕГО
-            /// ТАК ЧТО НАДО ДУМАТЬ
-            /// 
-            /// Можно заменить group на contact1, но выглядит не оч + все еще есть ошибка при отсутсвии контактов (ошибка Баранцева)
-            foreach (ContactData contact1 in newContacts)
+            foreach (ContactData contact in newContacts)
             {
                 /// Сравнивается с [0], так как удаляли элемент с нулевым индексом
-                Assert.AreNotEqual(contact1.Id, oldData.Id);
+                Assert.AreNotEqual(contact.Id, toBeRemoved.Id);
             }
         }
     }

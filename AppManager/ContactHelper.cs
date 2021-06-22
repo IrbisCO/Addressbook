@@ -69,6 +69,18 @@ namespace WebAddressbookTests.AppManager
         }
 
         /// <summary>
+        /// Удаление контакта по ID
+        /// </summary>
+        public ContactHelper Remove(ContactData contact)
+        {
+            manager.Navigator.GoToHome();
+            SelectContact(contact.Id);
+            DeleteContact();
+            manager.Navigator.GoToHome();
+            return this;
+        }
+
+        /// <summary>
         /// клик по "add new"
         /// Когда вызывается метод в результате возвращается ссылка на него самого
         /// поэтому после public идет не void, а сам GroupHelper
@@ -162,13 +174,23 @@ namespace WebAddressbookTests.AppManager
         }
 
         /// <summary>
-        /// Выбор контакта
+        /// Выбор контакта по номеру
         /// </summary>
         /// <param name="index">Номер выбранного контакта, задается в тесте</param>
-        private void SelectContact(int index)
+        public ContactHelper SelectContact(int index)
         {
             /// index + 1 чтобы в тесте указать удаление нулевого элемента, а он как бы удалит первый 
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+
+        /// <summary>
+        /// Выбор контакта по ID
+        /// </summary>
+        public ContactHelper SelectContact(string id)
+        {
+            driver.FindElement(By.Id(id)).Click();
+            return this;
         }
 
         /// <summary>
