@@ -34,7 +34,7 @@ namespace WebAddressbookTests.AppManager
         }
 
         /// <summary>
-        /// метод описыват действия для модификации групп
+        /// Модификация групп по порядковому номеру
         /// </summary>
         /// <param name="p">Номер группы, который надо модифицировать</param>
         /// <param name="newData">данные для изменения группы</param>
@@ -52,7 +52,23 @@ namespace WebAddressbookTests.AppManager
         }
 
         /// <summary>
-        /// этот метод описыват действия для удаления групп
+        /// Модификация по ID
+        /// </summary>
+        /// <param name="toBeModified"></param>
+        /// <param name="newData"></param>
+        public GroupHelper Modify(GroupData group, GroupData newData)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group.Id);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+        /// <summary>
+        /// Удаление групп по порядковому номеру
         /// </summary>
         /// <param name="p">Номер группы, который надо удалить</param>
         /// <returns></returns>
@@ -60,6 +76,18 @@ namespace WebAddressbookTests.AppManager
         {
             manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+        /// <summary>
+        /// Удаление групп по ID
+        /// </summary>
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group.Id);
             RemoveGroup();
             ReturnToGroupsPage();
             return this;
@@ -115,7 +143,7 @@ namespace WebAddressbookTests.AppManager
         }
 
         /// <summary>
-        /// Выбор группы для удаления\модификации (на странице групп). 
+        /// Выбор группы по номеру для удаления\модификации (на странице групп). 
         /// </summary>
         /// <param name="index">Добавили int index и указали в тесте какой именно номер надо брать</param>
         /// <returns></returns>
@@ -123,6 +151,15 @@ namespace WebAddressbookTests.AppManager
         {
             /// index + 1 чтобы в тесте указать удаление нулевого элемента, а он как бы удалит первый 
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+
+        /// <summary>
+        /// Выбор группы по ID для удаления\модификации (на странице групп). 
+        /// </summary>
+        public GroupHelper SelectGroup(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
             return this;
         }
 
