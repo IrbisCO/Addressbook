@@ -8,7 +8,7 @@ using WebAddressbookTests.Model;
 
 namespace WebAddressbookTests.Tests
 {
-    public class ContactModificationTests : AuthTestBase
+    public class ContactModificationTests : ContactTestBase
     {
         [Test]
         public void ContactModificationTest()
