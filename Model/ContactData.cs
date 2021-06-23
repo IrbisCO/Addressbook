@@ -387,6 +387,12 @@ namespace WebAddressbookTests.Model
         public string Id { get; set; }
 
         /// <summary>
+        /// Дата удаления
+        /// </summary>
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
+
+        /// <summary>
         /// Получение данных из БД для контактов 
         /// </summary>
         /// <returns></returns>
@@ -394,7 +400,7 @@ namespace WebAddressbookTests.Model
         {
             using (AddressBookDB db = new AddressBookDB())
             {
-                return (from g in db.Contacts select g).ToList();
+                return (from g in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select g).ToList();
             }
         }
     }

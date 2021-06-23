@@ -54,8 +54,7 @@ namespace WebAddressbookTests.AppManager
         /// <summary>
         /// Модификация по ID
         /// </summary>
-        /// <param name="toBeModified"></param>
-        /// <param name="newData"></param>
+        /// <param name="newData">новые данные для модификации</param>
         public GroupHelper Modify(GroupData group, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();

@@ -34,11 +34,11 @@ namespace WebAddressbookTests.Tests
                     Email2 = HelperBase.GenerateRandomString(10),
                     Email3 = HelperBase.GenerateRandomString(10),
                     Homepage = HelperBase.GenerateRandomString(10),
-                    Birthday = HelperBase.GenerateRandomString(10),
-                    MonthOfBirth = HelperBase.GenerateRandomString(10),
+                    Birthday = HelperBase.GenerateRandomDay(),
+                    MonthOfBirth = HelperBase.GenerateRandomMonth(),
                     YearhOfBirth = HelperBase.GenerateRandomString(10),
-                    AnniversaryDay = HelperBase.GenerateRandomString(10),
-                    MonthOfAnniversary = HelperBase.GenerateRandomString(10),
+                    AnniversaryDay = HelperBase.GenerateRandomDay(),
+                    MonthOfAnniversary = HelperBase.GenerateRandomMonth(),
                     YearOfAnniversary = HelperBase.GenerateRandomString(10),
                     SecondaryAddress = HelperBase.GenerateRandomString(10),
                     SecondaryHomePhone = HelperBase.GenerateRandomString(10),
@@ -50,10 +50,10 @@ namespace WebAddressbookTests.Tests
             /// Метод возвращает список контактов, список объектов типа ContactData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
 
             /// Запоминаем элемент с [0] ID
-            ContactData oldData = oldContacts[0];
+            ContactData toBeModified = oldContacts[0];
 
             /// логин и переход на главную в TestBase
             /// оставшийся метод состоит из кучи методов в GroupHelper
@@ -75,17 +75,17 @@ namespace WebAddressbookTests.Tests
                 Email2 = HelperBase.GenerateRandomString(10),
                 Email3 = HelperBase.GenerateRandomString(10),
                 Homepage = HelperBase.GenerateRandomString(10),
-                Birthday = HelperBase.GenerateRandomString(10),
-                MonthOfBirth = HelperBase.GenerateRandomString(10),
+                Birthday = HelperBase.GenerateRandomDay(),
+                MonthOfBirth = HelperBase.GenerateRandomMonth(),
                 YearhOfBirth = HelperBase.GenerateRandomString(10),
-                AnniversaryDay = HelperBase.GenerateRandomString(10),
-                MonthOfAnniversary = HelperBase.GenerateRandomString(10),
+                AnniversaryDay = HelperBase.GenerateRandomDay(),
+                MonthOfAnniversary = HelperBase.GenerateRandomMonth(),
                 YearOfAnniversary = HelperBase.GenerateRandomString(10),
                 SecondaryAddress = HelperBase.GenerateRandomString(10),
                 SecondaryHomePhone = HelperBase.GenerateRandomString(10),
                 Notes = HelperBase.GenerateRandomString(10)
             };
-            app.Contacts.Modify(0, newData);
+            app.Contacts.Modify(toBeModified, newData);
 
             /// Операция сравнивает количесвто контактов, не читая их названия
             Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
@@ -93,7 +93,7 @@ namespace WebAddressbookTests.Tests
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
             Console.WriteLine(newData);
 
             /// Берем контакт с нулевым индексом, который модифицировали, и меняем ему имя Name = newData.Name
@@ -110,7 +110,7 @@ namespace WebAddressbookTests.Tests
             foreach (ContactData contact in newContacts)
             {
                 /// Найти нужный элемент и проверить, что его имя изменилось
-                if (contact.Id == oldData.Id)
+                if (contact.Id == toBeModified.Id)
                 {
                     Assert.AreEqual(newData.FirstName, contact.FirstName);
                 }

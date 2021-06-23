@@ -43,16 +43,6 @@ namespace generator_data
             Console.WriteLine("Результат: Создан файл для " + type + " " + filename + " c " + count + " случайными наборами данных");
             Console.ReadKey();
 
-            /*
-            //args[0] - количество тествоых данных, которые надо сгенерировать
-            int count = Convert.ToInt32(args[0]);
-            //args[1] - название файла, в который передается значение
-            string filename = args[1];
-            //формат тестовых данных
-            string format = args[2];
-            //тип данных контакты или группы
-            string type = args[3];
-            */
             if (type == "groups")
             {
                 //Создание данных для групп
@@ -97,7 +87,8 @@ namespace generator_data
             }
 
             else if (type == "contacts")
-            {            //Создание данных для контактов
+            {   
+                //Создание данных для контактов
                 List<ContactData> contacts = new List<ContactData>();
                 //генерация тестовых данных
                 for (int i = 0; i < count; i++)
@@ -119,11 +110,11 @@ namespace generator_data
                         Email2 = HelperBase.GenerateRandomString(10),
                         Email3 = HelperBase.GenerateRandomString(10),
                         Homepage = HelperBase.GenerateRandomString(10),
-                        Birthday = HelperBase.GenerateRandomString(10),
-                        MonthOfBirth = HelperBase.GenerateRandomString(10),
+                        Birthday = HelperBase.GenerateRandomDay(),
+                        MonthOfBirth = HelperBase.GenerateRandomMonth(),
                         YearhOfBirth = HelperBase.GenerateRandomString(10),
-                        AnniversaryDay = HelperBase.GenerateRandomString(10),
-                        MonthOfAnniversary = HelperBase.GenerateRandomString(10),
+                        AnniversaryDay = HelperBase.GenerateRandomDay(),
+                        MonthOfAnniversary = HelperBase.GenerateRandomMonth(),
                         YearOfAnniversary = HelperBase.GenerateRandomString(10),
                         SecondaryAddress = HelperBase.GenerateRandomString(10),
                         SecondaryHomePhone = HelperBase.GenerateRandomString(10),

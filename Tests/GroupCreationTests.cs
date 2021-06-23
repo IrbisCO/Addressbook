@@ -22,7 +22,7 @@ namespace WebAddressbookTests.Tests
         {
             List<GroupData> groups = new List<GroupData>();
             // ReadAllLines - читаем все строчки из файла. Возвращаем массив строк string[] lines
-            string[] lines = File.ReadAllLines(@"C:\Users\User\source\repos\IrbisCO\Addressbook\groups.csv");
+            string[] lines = File.ReadAllLines(@"C:\Addressbook\generator-data\generator-data\bin\Debug\groups.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split(',');
@@ -43,7 +43,7 @@ namespace WebAddressbookTests.Tests
         {
             return (List<GroupData>) //приведение типа явно 
                 new XmlSerializer(typeof(List<GroupData>)) // читает данные типа List<GroupData>
-                .Deserialize(new StreamReader(@"C:\Users\User\source\repos\IrbisCO\Addressbook\groups.xml")); // из файла groups.xml
+                .Deserialize(new StreamReader(@"C:\Addressbook\generator-data\generator-data\bin\Debug\groups.xml")); // из файла groups.xml
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace WebAddressbookTests.Tests
         public static IEnumerable<GroupData> GroupDataFromJsonFile()
         {
             return JsonConvert.DeserializeObject<List<GroupData>>(
-                File.ReadAllText(@"C:\Users\User\source\repos\IrbisCO\Addressbook\groups.json"));
+                File.ReadAllText(@"C:\Addressbook\generator-data\generator-data\bin\Debug\groups.json"));
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace WebAddressbookTests.Tests
         {
             List<GroupData> groups = new List<GroupData>();
             Excel.Application app = new Excel.Application(); //создаем приложение
-            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"C:\Users\User\source\repos\IrbisCO\Addressbook\groups.xlsx")); //открываем документ
+            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"C:\Addressbook\generator-data\generator-data\bin\Debug\groups.xlsx")); //открываем документ
             Excel.Worksheet sheet = wb.ActiveSheet; //текущая страница
             Excel.Range range = sheet.UsedRange; //берем прямоугольник с данными
             for (int i = 1; i <= range.Rows.Count; i++)
@@ -82,7 +82,7 @@ namespace WebAddressbookTests.Tests
             return groups;
         }
 
-        [Test, TestCaseSource("GroupDataFromXmlFile")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
             /// Метод возвращает список групп, список объектов типа GroupData

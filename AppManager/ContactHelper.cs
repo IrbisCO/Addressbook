@@ -54,6 +54,16 @@ namespace WebAddressbookTests.AppManager
             return this;
         }
 
+        public ContactHelper Modify(ContactData contact, ContactData newData)
+        {
+            manager.Navigator.GoToHome();
+            InitContactModification(contact.Id);
+            FillContactForm(newData);
+            SubmitContactModification();
+            ReturnToHome();
+            return this;
+        }
+
         /// <summary>
         /// этот метод описыват действия для удаления контакта
         /// </summary>
@@ -103,8 +113,19 @@ namespace WebAddressbookTests.AppManager
             driver.FindElements(By.Name("entry"))[index]
                 .FindElements(By.TagName("td"))[7]
                 .FindElement(By.TagName("a")).Click();
+            return this;
+        }
 
-            //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click(); // Работает аналогично
+        /// <summary>
+        /// Клик по Edit для модификации контакта
+        /// </summary>
+        /// <param name="index">номер выбранного Edit</param>
+        /// <returns></returns>
+        public ContactHelper InitContactModification(string id)
+        {
+            driver.FindElement(By.XPath("//input[@id='" + id + "']/../.."))
+                .FindElements(By.TagName("td"))[7]
+                .FindElement(By.TagName("a")).Click();
             return this;
         }
 
@@ -145,14 +166,14 @@ namespace WebAddressbookTests.AppManager
             Type(By.Name("homepage"), contact.Homepage);
 
             driver.FindElement(By.Name("bday")).Click();
-            new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText("2");
+            new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(GenerateRandomDay());
             driver.FindElement(By.Name("bmonth")).Click();
-            new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText("February");
+            new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText(GenerateRandomMonth());
             Type(By.Name("byear"), contact.YearhOfBirth);
             driver.FindElement(By.Name("aday")).Click();
-            new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText("2");
+            new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(GenerateRandomDay());
             driver.FindElement(By.Name("amonth")).Click();
-            new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText("August");
+            new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(GenerateRandomMonth());
             Type(By.Name("ayear"), contact.YearOfAnniversary);
             
             Type(By.Name("address2"), contact.SecondaryAddress);

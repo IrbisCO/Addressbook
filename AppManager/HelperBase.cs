@@ -108,41 +108,42 @@ namespace WebAddressbookTests.AppManager
         /// <returns></returns>
         public static string GenerateRandomString(int max)
         {
-            /*
-            /// Число от 0 до max
-            int l = Convert.ToInt32(rnd.NextDouble() * max);
-            /// Формирование строки
-            StringBuilder builder = new StringBuilder();
-            /// Генерация l различных символов
-            for (int i = 0; i < l; i++)
-            {
-                /// Добавление случайного числа в builder
-                builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 65)));
-            }
-            /// Возвращаем слцчайную строку
-            return builder.ToString();
-            */
-            
             // Генератор, где можно указать свой набор данных
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-";
             return new string(Enumerable.Repeat(chars, max)
               .Select(s => s[rnd.Next(s.Length)]).ToArray());
         }
 
-        //Генератор дат. Выглядит так, словно его надо переделать 
-        public static int GenerateRandomDay()
+        /// <summary>
+        /// Генерация числа. Даже работает;)
+        /// Возможно есть более корректный вариант, чем перечисление
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateRandomDay()
         {
-            int day = rnd.Next(1, 31);
-            return day;
+            string[] RD = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", 
+                "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", 
+                "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
+            int DD = rnd.Next(RD.Length);
+            return RD[DD];
         }
 
+        /// <summary>
+        /// Генерация месяца. Даже работает;)
+        /// </summary>
+        /// <returns></returns>
         public static string GenerateRandomMonth()
         {
-            string[] RM = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+            string[] RM = { "January", "February", "March", "April", "May", "June", "July", 
+                            "August", "September", "October", "November", "December" };
             int MM = rnd.Next(RM.Length);
             return RM[MM];
         }
 
+        /// <summary>
+        /// Генерация года. Пока не рабтает :(
+        /// </summary>
+        /// <returns></returns>
         public static int GenerateRandomYear()
         {
             int year = rnd.Next(1900, 2021);

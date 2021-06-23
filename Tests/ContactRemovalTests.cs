@@ -35,11 +35,11 @@ namespace WebAddressbookTests.Tests
                     Email2 = HelperBase.GenerateRandomString(10),
                     Email3 = HelperBase.GenerateRandomString(10),
                     Homepage = HelperBase.GenerateRandomString(10),
-                    Birthday = HelperBase.GenerateRandomString(10),
-                    MonthOfBirth = HelperBase.GenerateRandomString(10),
+                    Birthday = HelperBase.GenerateRandomDay(),
+                    MonthOfBirth = HelperBase.GenerateRandomMonth(),
                     YearhOfBirth = HelperBase.GenerateRandomString(10),
-                    AnniversaryDay = HelperBase.GenerateRandomString(10),
-                    MonthOfAnniversary = HelperBase.GenerateRandomString(10),
+                    AnniversaryDay = HelperBase.GenerateRandomDay(),
+                    MonthOfAnniversary = HelperBase.GenerateRandomMonth(),
                     YearOfAnniversary = HelperBase.GenerateRandomString(10),
                     SecondaryAddress = HelperBase.GenerateRandomString(10),
                     SecondaryHomePhone = HelperBase.GenerateRandomString(10),
@@ -50,7 +50,6 @@ namespace WebAddressbookTests.Tests
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldGroups - Старый список групп
-            /// ContactData.GetAll();  - получение списка групп из бд
             List<ContactData> oldContacts = ContactData.GetAll();
             //присваиваем объект с ID
             ContactData toBeRemoved = oldContacts[0];
@@ -65,7 +64,6 @@ namespace WebAddressbookTests.Tests
             /// Метод возвращает список групп, список объектов типа ContactData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
-            /// ContactData.GetAll();  - получение списка групп из бд
             List<ContactData> newContacts = ContactData.GetAll();
 
             /// Берем элемент из старого списка и удаляем элемент при помощи метода RemoveAt

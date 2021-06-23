@@ -21,7 +21,7 @@ namespace WebAddressbookTests.Tests
         public static IEnumerable<ContactData> ContactDataFromFile()
         {
             List<ContactData> contacts = new List<ContactData>();
-            string[] lines = File.ReadAllLines(@"C:\Users\User\source\repos\IrbisCO\Addressbook\contacts.csv");
+            string[] lines = File.ReadAllLines(@"C:\Addressbook\generator-data\generator-data\bin\Debug\contacts.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split(',');
@@ -64,7 +64,7 @@ namespace WebAddressbookTests.Tests
         {
             return (List<ContactData>) //приведение типа явно 
                 new XmlSerializer(typeof(List<ContactData>)) // читает данные типа List<GroupData>
-                .Deserialize(new StreamReader(@"C:\Users\User\source\repos\IrbisCO\Addressbook\contacts.xml")); // из файла groups.xml
+                .Deserialize(new StreamReader(@"C:\Addressbook\generator-data\generator-data\bin\Debug\contacts.xml")); // из файла groups.xml
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace WebAddressbookTests.Tests
         public static IEnumerable<ContactData> ContactDataFromJsonFile()
         {
             return JsonConvert.DeserializeObject<List<ContactData>>(
-                File.ReadAllText(@"C:\Users\User\source\repos\IrbisCO\Addressbook\contacts.json"));
+                File.ReadAllText(@"C:\Addressbook\generator-data\generator-data\bin\Debug\contacts.json"));
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace WebAddressbookTests.Tests
         {
             List<ContactData> groups = new List<ContactData>();
             Excel.Application app = new Excel.Application(); //создаем приложение
-            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"C:\Users\User\source\repos\IrbisCO\Addressbook\contacts.xlsx")); //открываем документ
+            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"C:\Addressbook\generator-data\generator-data\bin\Debug\contacts.xlsx")); //открываем документ
             Excel.Worksheet sheet = wb.ActiveSheet; //текущая страница
             Excel.Range range = sheet.UsedRange; //берем прямоугольник с данными
             for (int i = 1; i <= range.Rows.Count; i++)
@@ -131,7 +131,7 @@ namespace WebAddressbookTests.Tests
             /// Метод возвращает список групп, список объектов типа ContactData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// oldContacts - Старый список групп
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
 
 
             /// логин и переход на главную в TestBase (там же их описание), а так как он от него наследуется, то сам значет что делать
@@ -146,7 +146,7 @@ namespace WebAddressbookTests.Tests
             /// Метод возвращает список групп, список объектов типа GroupData
             /// List - контейнер (коллекция), который хранит набор других объектов 
             /// newGroups - новый список групп
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
             Console.WriteLine(contact);
             /// Количество элементов в списке
             /// Сравнение не только длины, но и содержимого списков
