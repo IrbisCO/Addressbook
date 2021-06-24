@@ -112,10 +112,10 @@ namespace generator_data
                         Homepage = HelperBase.GenerateRandomString(10),
                         Birthday = HelperBase.GenerateRandomDay(),
                         MonthOfBirth = HelperBase.GenerateRandomMonth(),
-                        YearhOfBirth = HelperBase.GenerateRandomString(10),
+                        YearhOfBirth = HelperBase.GenerateRandomYear(),
                         AnniversaryDay = HelperBase.GenerateRandomDay(),
                         MonthOfAnniversary = HelperBase.GenerateRandomMonth(),
-                        YearOfAnniversary = HelperBase.GenerateRandomString(10),
+                        YearOfAnniversary = HelperBase.GenerateRandomYear(),
                         SecondaryAddress = HelperBase.GenerateRandomString(10),
                         SecondaryHomePhone = HelperBase.GenerateRandomString(10),
                         Notes = HelperBase.GenerateRandomString(10)

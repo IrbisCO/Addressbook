@@ -114,8 +114,8 @@ namespace WebAddressbookTests.Model
                         + Email2 + "\r\n"
                         + Email3 + "\r\n"
                         + "Homepage:" + "\r\n" + Homepage + "\r\n\r\n"
-                        + "Birthday " + Birthday + ". " + MonthOfBirth + " " + YearhOfBirth + "\r\n"
-                        + "Anniversary " + AnniversaryDay + ". " + MonthOfAnniversary + " " + YearOfAnniversary + "\r\n\r\n"
+                        + "Birthday " + Birthday + ". " + MonthOfBirth + " " + YearhOfBirth + " (" + CalculateAge() + ")" +"\r\n"
+                        + "Anniversary " + AnniversaryDay + ". " + MonthOfAnniversary + " " + YearOfAnniversary + " (" + CalculateAnniversary() + ")" + "\r\n\r\n"
                         + (SecondaryAddress) + "\r\n\r\n"
                         + "P: " + (SecondaryHomePhone) + "\r\n\r\n"
                         + Notes).Trim();
@@ -195,7 +195,6 @@ namespace WebAddressbookTests.Model
             return (FirstName + Lastname).GetHashCode();
         }
 
-        //TODO: Сделать более корректно описание имя-имя и тд
         /// <summary>
         /// Возвращает строковое представление объектов типа GroupData
         /// Так как метод переопределяет стандартный метод, определенный во всех классах, требуется override
@@ -235,6 +234,39 @@ namespace WebAddressbookTests.Model
 
             return Lastname.CompareTo(other.Lastname);
         }
+
+        public int CalculateAge()
+        {
+            //штука для конвертирования даты в числовой формат. Использовать для рассчета возраста 
+            string dateInput = Birthday + ". " + MonthOfBirth + " " + YearhOfBirth;
+            var parsedDate = DateTime.Parse(dateInput);
+
+            // get the difference in years
+            int years = DateTime.Now.Year - parsedDate.Year;
+            // subtract another year if we're before the
+            // birth day in the current year
+            if (DateTime.Now.Month < parsedDate.Month || (DateTime.Now.Month == parsedDate.Month && DateTime.Now.Day < parsedDate.Day))
+                years--;
+
+            return years;
+        }
+
+        public int CalculateAnniversary()
+        {
+            //штука для конвертирования даты в числовой формат. Использовать для рассчета возраста 
+            string dateInput = AnniversaryDay + ". " + MonthOfAnniversary + " " + YearOfAnniversary;
+            var parsedDate = DateTime.Parse(dateInput);
+
+            // get the difference in years
+            int years = DateTime.Now.Year - parsedDate.Year;
+            // subtract another year if we're before the
+            // birth day in the current year
+            if (DateTime.Now.Month < parsedDate.Month || (DateTime.Now.Month == parsedDate.Month && DateTime.Now.Day < parsedDate.Day))
+                years--;
+
+            return years;
+        }
+
 
         /// <summary>
         /// Имя

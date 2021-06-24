@@ -115,21 +115,18 @@ namespace WebAddressbookTests.AppManager
         }
 
         /// <summary>
-        /// Генерация числа. Даже работает;)
+        /// Генерация числа
         /// Возможно есть более корректный вариант, чем перечисление
         /// </summary>
         /// <returns></returns>
         public static string GenerateRandomDay()
         {
-            string[] RD = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", 
-                "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", 
-                "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
-            int DD = rnd.Next(RD.Length);
-            return RD[DD];
+            int day = rnd.Next(1, 32);
+            return day.ToString();
         }
 
         /// <summary>
-        /// Генерация месяца. Даже работает;)
+        /// Генерация месяца
         /// </summary>
         /// <returns></returns>
         public static string GenerateRandomMonth()
@@ -141,13 +138,13 @@ namespace WebAddressbookTests.AppManager
         }
 
         /// <summary>
-        /// Генерация года. Пока не рабтает :(
+        /// Генерация года
         /// </summary>
         /// <returns></returns>
-        public static int GenerateRandomYear()
+        public static string GenerateRandomYear()
         {
-            int year = rnd.Next(1900, 2021);
-            return year;
+            int year = rnd.Next(1900, 2022);
+            return year.ToString();
         }
     }
 }

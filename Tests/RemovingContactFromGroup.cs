@@ -27,7 +27,7 @@ namespace WebAddressbookTests.Tests
             oldList.Remove(contact);
             newList.Sort();
             oldList.Sort();
-            //сравенение 
+            //проверка 
             Assert.AreEqual(oldList, newList);
         }
     }
