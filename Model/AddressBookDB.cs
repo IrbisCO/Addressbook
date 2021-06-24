@@ -25,5 +25,10 @@ namespace WebAddressbookTests.Model
         /// get извлекает некие данные
         /// </summary>
         public ITable<ContactData> Contacts { get { return GetTable<ContactData>(); } }
+
+        /// <summary>
+        /// Извлекает данные из таблицы группы-контакты
+        /// </summary>
+        public ITable<GroupContactRelation> GCR { get { return GetTable<GroupContactRelation>(); } }
     }
 }

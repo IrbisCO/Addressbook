@@ -124,15 +124,10 @@ namespace WebAddressbookTests.Tests
         [Test]
         public void TestDBConnectivity()
         {
-            DateTime start = DateTime.Now;
-            List<GroupData> fromUi = app.Groups.GetGroupList(); //список групп через web
-            DateTime end = DateTime.Now;
-            Console.Out.WriteLine("From UI: " + end.Subtract(start)); //вычитаем время начала из времени окончания
-
-            start = DateTime.Now;
-            List<GroupData> fromDb = GroupData.GetAll();
-            end = DateTime.Now;
-            Console.Out.WriteLine("From DB: " + end.Subtract(start));
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                Console.Out.WriteLine(contact.Deprecated);
+            }
         }
     }
 }

@@ -383,7 +383,7 @@ namespace WebAddressbookTests.Model
         /// <summary>
         /// Свойство ID. Для определения элемента не только по имени, но и по ID
         /// </summary>
-        [Column(Name = "id"), PrimaryKey, Identity]
+        [Column(Name = "id"), PrimaryKey]
         public string Id { get; set; }
 
         /// <summary>
@@ -400,7 +400,7 @@ namespace WebAddressbookTests.Model
         {
             using (AddressBookDB db = new AddressBookDB())
             {
-                return (from g in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select g).ToList();
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
             }
         }
     }

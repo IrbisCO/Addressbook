@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using WebAddressbookTests.Model;
 
@@ -88,6 +89,68 @@ namespace WebAddressbookTests.AppManager
             DeleteContact();
             manager.Navigator.GoToHome();
             return this;
+        }
+
+        /// <summary>
+        /// Добавление контакта в группу
+        /// </summary>
+        /// <param name="contact"></param>
+        /// <param name="group"></param>
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+        }
+
+        /// <summary>
+        /// Удаление контакта из группы
+        /// </summary>
+        /// <param name="contact"></param>
+        /// <param name="group"></param>
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectGroupInFilter(group.Name);
+            SelectContact(contact.Id);
+            RemoveContactFromGroup();
+        }
+
+        private void SelectGroupInFilter(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+        }
+
+        private void RemoveContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        /// <summary>
+        /// Очистить список групп в разделе контакты
+        /// </summary>
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
+        /// <summary>
+        /// Выбор группу, в которую надо добавить контакт
+        /// </summary>
+        /// <param name="name"></param>
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        /// <summary>
+        /// Подтверждение добавления контакта в группу
+        /// </summary>
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
         }
 
         /// <summary>
@@ -409,6 +472,19 @@ namespace WebAddressbookTests.AppManager
             Match m = new Regex(@"\d+").Match(text);
             /// Берем значение и преобразуем его в число
             return Int32.Parse(m.Value);
+        }
+
+        /// <summary>
+        /// Проверка наличия контакта в группе
+        /// </summary>
+        /// <param name="group"></param>
+        public void ContactInGroup(GroupData group)
+        {
+            if (group.GetContacts().Count() == 0)
+            {
+                ContactData contact = ContactData.GetAll().First();
+                AddContactToGroup(contact, group);
+            }
         }
     }
 }
